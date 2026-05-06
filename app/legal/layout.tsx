@@ -1,0 +1,14 @@
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+
+export default function LegalLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <Navbar />
+      <main className="pt-32 pb-20 min-h-screen">
+        <div className="mx-auto max-w-3xl px-6 lg:px-10">{children}</div>
+      </main>
+      <Footer />
+    </>
+  );
+}
