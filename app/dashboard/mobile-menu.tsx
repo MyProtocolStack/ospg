@@ -72,7 +72,7 @@ export function MobileMenu({
 
   return (
     <>
-      {/* Top bar — only visible on < lg */}
+      {/* Top bar - only visible on < lg */}
       <div className="lg:hidden fixed top-0 inset-x-0 z-40 bg-[var(--color-navy-800)]/95 border-b border-white/5 backdrop-blur px-4 py-3 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center gap-2">
           <Shield className="h-5 w-5 text-[var(--color-gold-400)]" strokeWidth={1.5} />
@@ -161,7 +161,7 @@ export function MobileMenu({
           ))}
         </nav>
 
-        {/* Drawer footer — user + sign out */}
+        {/* Drawer footer - user + sign out */}
         <div className="px-3 py-4 border-t border-white/5">
           <div className="flex items-center gap-3 px-3 py-2 mb-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-gold-400)] to-[var(--color-gold-600)] flex items-center justify-center font-display text-sm text-[var(--color-navy-700)]">

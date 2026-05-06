@@ -12,7 +12,7 @@ export default function ScopeOfServicesPage() {
         Scope of Services
       </h1>
       <p className="text-[13px] text-[var(--color-silver-300)] mb-10">
-        What OSPG does — and what we do not do.
+        What OSPG does - and what we do not do.
       </p>
 
       <div className="space-y-6 text-[15px] text-[var(--color-silver-100)] leading-[1.8]">

@@ -196,7 +196,7 @@ export default async function CoursePage({
               </div>
             </div>
 
-            {/* Sticky sidebar — pricing/audience */}
+            {/* Sticky sidebar - pricing/audience */}
             <aside className="lg:sticky lg:top-32 self-start space-y-5">
               <div className="surface-card-elevated p-6">
                 <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-gold-400)] mb-2">

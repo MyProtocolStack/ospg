@@ -93,7 +93,7 @@ export function PilotChatClient() {
       setMessages((m) =>
         m.map((msg) =>
           msg.id === assistantId
-            ? { ...msg, content: `Sorry — ${errorText}. Please try again.` }
+            ? { ...msg, content: `Sorry - ${errorText}. Please try again.` }
             : msg
         )
       );

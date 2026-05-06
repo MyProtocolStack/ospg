@@ -28,7 +28,7 @@ export function SectionFounders() {
           <p className="mt-8 text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
             Every other firm in this space is staffed by retired law-enforcement
             professionals. We&apos;re currently wearing the uniform.
-            We see what&apos;s actually happening — not what was happening when
+            We see what&apos;s actually happening - not what was happening when
             we wore the badge.
           </p>
         </motion.div>

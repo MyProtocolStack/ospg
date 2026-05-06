@@ -28,7 +28,7 @@ const QUICK_ACTIONS = [
     href: "/dashboard/courses",
     icon: GraduationCap,
     title: "Browse Training Courses",
-    body: "Threat assessment, shelter-in-place, and lockdown scenarios — for staff, volunteers, and ushers.",
+    body: "Threat assessment, shelter-in-place, and lockdown scenarios - for staff, volunteers, and ushers.",
   },
   {
     href: "/dashboard/bookings/new",
@@ -53,7 +53,7 @@ export default function DashboardHome() {
           </h1>
           <p className="text-[var(--color-silver-200)] max-w-2xl">
             Run a SHIELD AI analysis, talk to PILOT about your FEMA grant
-            application, complete training courses, or book a security detail —
+            application, complete training courses, or book a security detail -
             everything in one place.
           </p>
         </div>
@@ -143,7 +143,7 @@ export default function DashboardHome() {
                 Run your first SHIELD AI analysis.
               </h3>
               <p className="text-[var(--color-silver-200)] leading-relaxed">
-                Pick the most concerning entrance on your property — side door,
+                Pick the most concerning entrance on your property - side door,
                 rear loading dock, sanctuary entrance. Snap a photo. Upload it.
                 You&apos;ll have a written assessment, annotated photo, and
                 downloadable PDF in under two minutes. First analysis is on us.

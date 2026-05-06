@@ -139,7 +139,7 @@ export default async function DashboardLayout({
         </div>
       </aside>
 
-      {/* Mobile menu (client component — drawer + top bar) */}
+      {/* Mobile menu (client component - drawer + top bar) */}
       <MobileMenu
         navItems={navItems}
         displayName={displayName}

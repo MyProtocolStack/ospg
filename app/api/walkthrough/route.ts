@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  // Lazy admin client — only run at request time
+  // Lazy admin client - only run at request time
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       auth: { autoRefreshToken: false, persistSession: false },
     });
 
-    // Insert into a leads table — create if needed.
+    // Insert into a leads table - create if needed.
     // Schema: id uuid, name text, email text, phone text, org text, type text, notes text, source text, created_at timestamptz
     await admin.from("leads").insert({
       name,

@@ -95,10 +95,10 @@ export function NewBookingForm() {
           value={form.threat_level}
           onChange={(v) => update("threat_level", v)}
           options={[
-            { value: "low", label: "Low — Standard event presence" },
-            { value: "medium", label: "Medium — Some specific concerns" },
-            { value: "high", label: "High — Active concerns" },
-            { value: "critical", label: "Critical — Specific credible threat" },
+            { value: "low", label: "Low - Standard event presence" },
+            { value: "medium", label: "Medium - Some specific concerns" },
+            { value: "high", label: "High - Active concerns" },
+            { value: "critical", label: "Critical - Specific credible threat" },
           ]}
         />
       </div>
@@ -115,7 +115,7 @@ export function NewBookingForm() {
         label="Event description"
         value={form.description}
         onChange={(v) => update("description", v)}
-        placeholder="Sunday vigil mass — typically 250 attendees. Sanctuary entrance and parking lot coverage requested."
+        placeholder="Sunday vigil mass - typically 250 attendees. Sanctuary entrance and parking lot coverage requested."
         required
       />
 
@@ -123,7 +123,7 @@ export function NewBookingForm() {
         label="Additional notes (optional)"
         value={form.notes}
         onChange={(v) => update("notes", v)}
-        placeholder="Anything we should know — recent incidents, sensitive context, special access needs."
+        placeholder="Anything we should know - recent incidents, sensitive context, special access needs."
       />
 
       {error && (

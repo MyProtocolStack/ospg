@@ -17,7 +17,7 @@ import {
 export const metadata = {
   title: "About",
   description:
-    "Ocean State Protection Group — active-duty law enforcement officers and military veterans building modern security for schools, parishes, and high-net-worth properties across New England.",
+    "Ocean State Protection Group - active-duty law enforcement officers and military veterans building modern security for schools, parishes, and high-net-worth properties across New England.",
 };
 
 const METHODOLOGY = [
@@ -25,7 +25,7 @@ const METHODOLOGY = [
     step: "1",
     icon: Users,
     title: "Initial Consultation",
-    body: "Identify client needs, concerns, and priorities. We listen first — every organization has its own threat profile, culture, and operational rhythm.",
+    body: "Identify client needs, concerns, and priorities. We listen first - every organization has its own threat profile, culture, and operational rhythm.",
   },
   {
     step: "2",
@@ -43,7 +43,7 @@ const METHODOLOGY = [
     step: "4",
     icon: AlertTriangle,
     title: "Risk Analysis",
-    body: "Identification and prioritization of vulnerabilities. We rank by genuine severity — not alarm — and tag NSGP-grant-eligible items.",
+    body: "Identification and prioritization of vulnerabilities. We rank by genuine severity - not alarm - and tag NSGP-grant-eligible items.",
   },
   {
     step: "5",
@@ -114,7 +114,7 @@ export default function AboutPage() {
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
               Ocean State Protection Group is a private security and threat-assessment
               firm built by active-duty Rhode Island law-enforcement officers and
-              military veterans — for the institutions and individuals that
+              military veterans - for the institutions and individuals that
               can&apos;t afford to be wrong.
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function AboutPage() {
               <p>
                 The August 2025 attack on a Catholic church in Minneapolis was the
                 inflection point. In the weeks that followed, faith-based institutions
-                across the country called every security firm they could find — and
+                across the country called every security firm they could find - and
                 every firm sent a retired officer to walk the building.
               </p>
               <p>
@@ -141,7 +141,7 @@ export default function AboutPage() {
                 anyone&apos;s ability to retire from law enforcement and report on
                 it. The school-shooting playbook of 2015 doesn&apos;t match what is
                 happening in 2026. Current best practices live in active-duty
-                briefing rooms — not in textbooks from a decade ago.
+                briefing rooms - not in textbooks from a decade ago.
               </p>
               <p>
                 OSPG exists to close that gap. Our co-founders are sworn
@@ -200,7 +200,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Methodology — 6 step process */}
+        {/* Methodology - 6 step process */}
         <section className="py-24">
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
             <div className="text-center mb-16">
@@ -213,7 +213,7 @@ export default function AboutPage() {
               </h2>
               <p className="text-[var(--color-silver-200)] max-w-2xl mx-auto">
                 Structured, professional, and tailored to each client. Same rigor
-                every engagement — so your insurer, your bishop, and your safety
+                every engagement - so your insurer, your bishop, and your safety
                 committee see the same evidence on every page.
               </p>
             </div>
@@ -289,7 +289,7 @@ export default function AboutPage() {
               Two ways to get started.
             </h2>
             <p className="text-[var(--color-silver-200)] mb-10">
-              Free consultation is the lowest-friction first step — no obligation.
+              Free consultation is the lowest-friction first step - no obligation.
               Or talk to one of our founders directly.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

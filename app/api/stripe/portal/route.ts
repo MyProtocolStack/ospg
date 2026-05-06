@@ -1,5 +1,5 @@
 /**
- * Stripe Customer Portal — let customers manage subscription, invoices, payment methods.
+ * Stripe Customer Portal - let customers manage subscription, invoices, payment methods.
  *
  * POST /api/stripe/portal
  * Returns: { url } - redirect URL to portal

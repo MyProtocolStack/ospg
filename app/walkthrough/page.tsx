@@ -18,7 +18,7 @@ const WHAT_HAPPENS = [
   {
     icon: Shield,
     title: "We arrive in plain clothes",
-    body: "Two active-duty Cranston PD officers. We don't bring uniforms or badges visible — your community doesn't know we're security.",
+    body: "Two active-duty Cranston PD officers. We don't bring uniforms or badges visible - your community doesn't know we're security.",
   },
   {
     icon: Clock,

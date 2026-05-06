@@ -220,7 +220,7 @@ export function ShieldAINewClient() {
                 <input
                   value={areaLabel}
                   onChange={(e) => setAreaLabel(e.target.value)}
-                  placeholder="Side entrance — east side of chapel"
+                  placeholder="Side entrance - east side of chapel"
                   className="w-full px-4 py-3 rounded-lg bg-[var(--color-navy-700)] border border-white/10 text-[var(--color-cream)] placeholder:text-[var(--color-silver-400)] focus:border-[var(--color-gold-400)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold-400)]/20 text-[14px]"
                 />
               </div>
@@ -232,7 +232,7 @@ export function ShieldAINewClient() {
                 <textarea
                   value={contextNote}
                   onChange={(e) => setContextNote(e.target.value)}
-                  placeholder="Anything you'd want me to know — recent incidents, sensitive concerns, recurring issues."
+                  placeholder="Anything you'd want me to know - recent incidents, sensitive concerns, recurring issues."
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg bg-[var(--color-navy-700)] border border-white/10 text-[var(--color-cream)] placeholder:text-[var(--color-silver-400)] focus:border-[var(--color-gold-400)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold-400)]/20 text-[14px] resize-none"
                 />
@@ -253,7 +253,7 @@ export function ShieldAINewClient() {
                 {analyzing ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    Analyzing — usually 30-60 seconds
+                    Analyzing - usually 30-60 seconds
                   </>
                 ) : (
                   <>

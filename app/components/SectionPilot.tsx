@@ -11,7 +11,7 @@ const SAMPLE_MESSAGES = [
   },
   {
     role: "pilot",
-    text: "Yes — your school qualifies as a 501(c)(3) faith-based educational institution. To apply, you'll need: (1) a vulnerability assessment (which OSPG provides), (2) IRS determination letter, (3) threat narrative, (4) investment justification. Want me to draft the threat narrative based on your documented incidents?",
+    text: "Yes - your school qualifies as a 501(c)(3) faith-based educational institution. To apply, you'll need: (1) a vulnerability assessment (which OSPG provides), (2) IRS determination letter, (3) threat narrative, (4) investment justification. Want me to draft the threat narrative based on your documented incidents?",
   },
   {
     role: "user",
@@ -24,7 +24,7 @@ export function SectionPilot() {
     <section className="relative py-32 bg-[var(--color-navy-800)]/40 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left — Mock chat */}
+          {/* Left - Mock chat */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -113,7 +113,7 @@ export function SectionPilot() {
             </div>
           </motion.div>
 
-          {/* Right — Copy */}
+          {/* Right - Copy */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -146,7 +146,7 @@ export function SectionPilot() {
               {[
                 "Knowledge base of every FEMA NSGP rule, deadline, and template",
                 "Generates threat narratives, investment justifications, and mission statements",
-                "Pre-fills standard FEMA forms — you just review and submit",
+                "Pre-fills standard FEMA forms - you just review and submit",
                 "Tracks state SAA submission requirements per state",
                 "Updates automatically when grant rules change",
               ].map((feat, i) => (

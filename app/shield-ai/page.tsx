@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 
 export const metadata = {
-  title: "SHIELD AI — Photo-Based Vulnerability Analysis",
+  title: "SHIELD AI - Photo-Based Vulnerability Analysis",
   description:
     "Upload a photo of any campus location. Get an expert-grade security vulnerability assessment in 90 seconds. Powered by Claude vision and built on 75+ years of active-duty law enforcement experience.",
 };
@@ -40,7 +40,7 @@ export default function ShieldAIPublicPage() {
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed mb-8">
               Three real example analyses below. Tap any photo to see the
-              full vulnerability report SHIELD AI produced — same output your
+              full vulnerability report SHIELD AI produced - same output your
               insurer and grant administrator receive.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -65,7 +65,7 @@ export default function ShieldAIPublicPage() {
                   icon: Camera,
                   step: "1",
                   title: "Upload",
-                  body: "Snap a photo with your phone. Side entrance, classroom door, fenceline, parking lot — anything.",
+                  body: "Snap a photo with your phone. Side entrance, classroom door, fenceline, parking lot - anything.",
                 },
                 {
                   icon: Layers3,

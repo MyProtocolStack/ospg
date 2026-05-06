@@ -27,7 +27,7 @@ const PILLARS = [
     letter: "I",
     title: "Incident Response Review",
     icon: ShieldAlert,
-    body: "Tabletop review of your existing lockdown, evacuation, and threat-response protocols. Pressure-tested against current threat patterns — not 1990s scenarios.",
+    body: "Tabletop review of your existing lockdown, evacuation, and threat-response protocols. Pressure-tested against current threat patterns - not 1990s scenarios.",
   },
   {
     letter: "E",
@@ -45,7 +45,7 @@ const PILLARS = [
     letter: "D",
     title: "Documentation Package",
     icon: FileText,
-    body: "Every finding, every recommendation, every action item — in a written report delivered within 7 days. Insurance-carrier compatible. Legally defensible.",
+    body: "Every finding, every recommendation, every action item - in a written report delivered within 7 days. Insurance-carrier compatible. Legally defensible.",
   },
 ];
 
@@ -72,7 +72,7 @@ export function SectionShield() {
           </h2>
           <div className="gold-rule mt-8" />
           <p className="mt-8 text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-            Every SHIELD™ Assessment is structured the same way — so your
+            Every SHIELD™ Assessment is structured the same way - so your
             insurer, your bishop, and your safety committee all see the same
             rigor on every page.
           </p>

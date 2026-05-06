@@ -17,7 +17,7 @@ export default function NotFound() {
           </h1>
           <p className="text-[var(--color-silver-200)] mb-10 max-w-lg mx-auto leading-relaxed">
             Either the link is stale or the page moved. No threats, no
-            casualties — just a missing route. Pick one of these instead.
+            casualties - just a missing route. Pick one of these instead.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/" className="btn-primary">

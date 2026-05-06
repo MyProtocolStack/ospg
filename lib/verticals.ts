@@ -26,7 +26,7 @@ export const VERTICALS: Vertical[] = [
     hookSub:
       "Catholic schools, prep schools, and private K-12 sit at the intersection of two threat trend lines. OSPG builds the security posture that lets your principal sleep at night.",
     threats: [
-      "Active assailant — both internal and external threat actors",
+      "Active assailant - both internal and external threat actors",
       "Bathroom and locker-room threat notes (the most-overlooked vector)",
       "Vehicle approach to drop-off and dismissal areas",
       "After-hours unauthorized access during sports / arts events",
@@ -35,7 +35,7 @@ export const VERTICALS: Vertical[] = [
     ],
     solutions: [
       "On-site SHIELD Assessment with finance-committee-ready report",
-      "FEMA NSGP grant application — schools qualify for up to $200K",
+      "FEMA NSGP grant application - schools qualify for up to $200K",
       "Tabletop drill scripts (basic / surprise / multi-event)",
       "Faculty and staff Threat Assessment Fundamentals course",
       "Direct introductions to your local PD school resource liaison",
@@ -62,7 +62,7 @@ export const VERTICALS: Vertical[] = [
     ],
     solutions: [
       "SHIELD Assessment timed for both Sunday and weekday operations",
-      "FEMA NSGP grant support — religious institutions are priority eligible",
+      "FEMA NSGP grant support - religious institutions are priority eligible",
       "Usher and greeter training (the people who see threats first)",
       "Direct line introduction to local PD and the diocesan safety office",
       "Mass-time security detail (off-duty active-duty officers)",
@@ -84,11 +84,11 @@ export const VERTICALS: Vertical[] = [
       "Staff-vector threats (housekeepers, contractors, vendors)",
       "Stalking and physical surveillance of family members",
       "Vehicle ambush during predictable routine departures",
-      "Cyber-physical convergence — IoT devices used as entry vectors",
+      "Cyber-physical convergence - IoT devices used as entry vectors",
       "Family-event security (birthdays, weddings, religious milestones)",
     ],
     solutions: [
-      "Residential SHIELD Assessment — discreet, single-day",
+      "Residential SHIELD Assessment - discreet, single-day",
       "Family travel route and routine de-patterning consultation",
       "Domestic staff security awareness training",
       "Event-day off-duty police detail",

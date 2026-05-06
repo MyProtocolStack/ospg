@@ -13,7 +13,7 @@ import { COURSES } from "@/lib/courses";
 export const metadata = {
   title: "Training Courses",
   description:
-    "Threat assessment, shelter in place, and lockdown training — taught by active-duty law enforcement.",
+    "Threat assessment, shelter in place, and lockdown training - taught by active-duty law enforcement.",
 };
 
 export default function CoursesPage() {
@@ -95,7 +95,7 @@ export default function CoursesPage() {
               })}
             </div>
 
-            {/* CTA — coming soon */}
+            {/* CTA - coming soon */}
             <div className="mt-16 surface-card p-10 text-center">
               <div className="inline-flex items-center gap-2 mb-3">
                 <Sparkles

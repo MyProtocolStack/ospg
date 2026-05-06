@@ -61,7 +61,7 @@ export default function DisclaimerPage() {
           PILOT and OSPG staff provide guidance on the FEMA Nonprofit
           Security Grant Program and related federal funding opportunities.
           Eligibility, deadlines, and requirements are determined by FEMA and
-          State Administrative Agencies (SAAs) — not OSPG. Final
+          State Administrative Agencies (SAAs) - not OSPG. Final
           applications must be submitted through your state&apos;s SAA. Grant
           rules change; verify current cycle requirements at fema.gov.
           OSPG does not guarantee award.

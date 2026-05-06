@@ -1,5 +1,5 @@
 /**
- * Course catalog — seed data.
+ * Course catalog - seed data.
  * Hand-edited until we wire courses CMS into Supabase.
  * Lessons are placeholder shells; video URLs and full markdown go in later.
  */
@@ -131,7 +131,7 @@ export const COURSES: Course[] = [
     title: "Shelter in Place: Protocols & Drills",
     subtitle: "Modern lockdown and shelter response for schools, parishes, and workplaces.",
     description:
-      "What 'lockdown' actually means in 2026 — and why old playbooks fail. Updated for current threat patterns including active assailant, hostile vehicle, civil unrest, and weather-related shelter events. Includes ready-to-run drill scripts, parent-communication templates, and post-incident debrief frameworks.",
+      "What 'lockdown' actually means in 2026 - and why old playbooks fail. Updated for current threat patterns including active assailant, hostile vehicle, civil unrest, and weather-related shelter events. Includes ready-to-run drill scripts, parent-communication templates, and post-incident debrief frameworks.",
     icon: "AlertTriangle",
     duration_minutes: 155,
     difficulty: "foundational",
@@ -150,7 +150,7 @@ export const COURSES: Course[] = [
       },
       {
         slug: "trigger-decisions",
-        title: "Who decides — and how fast",
+        title: "Who decides - and how fast",
         kind: "video",
         duration_minutes: 18,
         summary:
@@ -162,7 +162,7 @@ export const COURSES: Course[] = [
         kind: "written",
         duration_minutes: 22,
         summary:
-          "How to reach 700 students, 120 staff, 1,400 parents, the diocese, and the police — simultaneously, without the system collapsing.",
+          "How to reach 700 students, 120 staff, 1,400 parents, the diocese, and the police - simultaneously, without the system collapsing.",
       },
       {
         slug: "classroom-procedures",
@@ -174,7 +174,7 @@ export const COURSES: Course[] = [
       },
       {
         slug: "non-classroom-spaces",
-        title: "Non-classroom spaces — chapel, gym, cafeteria, hallways",
+        title: "Non-classroom spaces - chapel, gym, cafeteria, hallways",
         kind: "video",
         duration_minutes: 18,
         summary:

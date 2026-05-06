@@ -19,8 +19,8 @@ const baskerville = Libre_Baskerville({
 
 export const metadata: Metadata = {
   title: {
-    default: `${BRAND.name} — ${BRAND.tagline}`,
-    template: `%s — ${BRAND.name}`,
+    default: `${BRAND.name} - ${BRAND.tagline}`,
+    template: `%s - ${BRAND.name}`,
   },
   description: BRAND.description,
   metadataBase: new URL(BRAND.url),

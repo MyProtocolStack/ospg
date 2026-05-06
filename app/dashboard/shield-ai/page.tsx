@@ -44,7 +44,7 @@ export default function ShieldAIIndex() {
             </h2>
             <p className="text-[var(--color-silver-200)] mb-8 max-w-md mx-auto">
               Run your first analysis. Pick a location on your campus that
-              concerns you. Side entrance, sanctuary door, parking lot — anywhere
+              concerns you. Side entrance, sanctuary door, parking lot - anywhere
               your gut says &quot;maybe.&quot;
             </p>
             <Link href="/dashboard/shield-ai/new" className="btn-primary">

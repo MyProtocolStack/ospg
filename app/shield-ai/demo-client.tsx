@@ -36,19 +36,19 @@ const SEVERITY: Record<Severity, { color: string; bg: string; border: string; la
   critical: { color: "#B33A3A", bg: "rgba(179, 58, 58, 0.12)", border: "rgba(179, 58, 58, 0.4)", label: "CRITICAL" },
 };
 
-// Three pre-analyzed demo cases — these are the exact JSON SHIELD AI would return
+// Three pre-analyzed demo cases - these are the exact JSON SHIELD AI would return
 // for these scenes. Cached here so visitors see real output instantly without
 // burning Claude credits on the public demo.
 const DEMOS: DemoCase[] = [
   {
     slug: "side-entrance",
-    label: "Side Entrance — School",
+    label: "Side Entrance - School",
     scene: "side_entrance.jpg",
     thumbnail: "linear-gradient(135deg, #1a3a5c 0%, #0f2742 50%, #060e1b 100%)",
-    area_label: "Side entrance — east side of building, used for after-hours athletic events",
+    area_label: "Side entrance - east side of building, used for after-hours athletic events",
     overall_severity: "high",
     summary:
-      "This entrance has three significant vulnerabilities that compound during after-hours use. The most concerning is camera coverage — there is no visible coverage of the approach, meaning an unauthorized visitor can reach the door and attempt entry without any active surveillance. Address the camera gap within 90 days.",
+      "This entrance has three significant vulnerabilities that compound during after-hours use. The most concerning is camera coverage - there is no visible coverage of the approach, meaning an unauthorized visitor can reach the door and attempt entry without any active surveillance. Address the camera gap within 90 days.",
     findings: [
       {
         number: 1,
@@ -105,10 +105,10 @@ const DEMOS: DemoCase[] = [
   },
   {
     slug: "parking-lot",
-    label: "Parking Lot — Parish",
+    label: "Parking Lot - Parish",
     scene: "parking_lot_evening.jpg",
     thumbnail: "linear-gradient(135deg, #2a1f3a 0%, #1a1428 50%, #0a0810 100%)",
-    area_label: "Main parking lot during evening mass — approximately 300 vehicles weekly",
+    area_label: "Main parking lot during evening mass - approximately 300 vehicles weekly",
     overall_severity: "medium",
     summary:
       "The parking lot has acceptable basic infrastructure but two notable gaps that matter most during evening services. Lighting is adequate at the perimeter but degrades significantly toward the center, creating shadow corridors. Single-direction traffic flow during dispersal compounds vehicle-approach risk.",
@@ -155,10 +155,10 @@ const DEMOS: DemoCase[] = [
   },
   {
     slug: "main-doors",
-    label: "Main Entrance — Catholic School",
+    label: "Main Entrance - Catholic School",
     scene: "main_entrance_school.jpg",
     thumbnail: "linear-gradient(135deg, #2a3a4a 0%, #1a2a3a 50%, #0a1428 100%)",
-    area_label: "Main school entrance — primary daytime access point during school hours",
+    area_label: "Main school entrance - primary daytime access point during school hours",
     overall_severity: "low",
     summary:
       "Strong baseline. The vestibule design, visitor management workflow, and sight-line geometry are above average for a school of this size. Two minor enhancements would move this entry from good to excellent. Document this entrance as your reference standard for any new construction.",
@@ -226,7 +226,7 @@ export function ShieldAIDemoClient() {
               className="aspect-[4/3] rounded-lg relative overflow-hidden"
               style={{ background: selected.thumbnail }}
             >
-              {/* Simulated photo overlay — represents the scene */}
+              {/* Simulated photo overlay - represents the scene */}
               <div className="absolute inset-0 opacity-40 grain"></div>
               {selected.findings.map((f) =>
                 f.bbox ? (

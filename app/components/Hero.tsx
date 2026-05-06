@@ -47,7 +47,7 @@ export function Hero() {
           className="text-center text-lg md:text-xl text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed mb-12"
         >
           Federally-funded vulnerability assessments, AI-powered threat
-          intelligence, and grant-application support — for schools, parishes,
+          intelligence, and grant-application support - for schools, parishes,
           and properties that can&apos;t afford to be wrong.
         </motion.p>
 

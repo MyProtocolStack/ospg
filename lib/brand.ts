@@ -10,7 +10,7 @@ export const BRAND = {
   abbr: "OSPG",
   tagline: "Active-duty law enforcement. Built into your walls.",
   description:
-    "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties — delivered by active-duty police officers and military veterans.",
+    "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties - delivered by active-duty police officers and military veterans.",
 
   // Subsidiary block kept for forward-compat; same-as for now
   subsidiary: {
@@ -19,7 +19,7 @@ export const BRAND = {
     state: "Rhode Island",
   },
 
-  // Domain — registered + active
+  // Domain - registered + active
   domain: "oceanstateprotectiongroup.com",
   url: "https://oceanstateprotectiongroup.com",
 
@@ -28,7 +28,7 @@ export const BRAND = {
   phone: "(207) 974-9840",
   emergencyPhone: "(207) 974-9840",
 
-  // Founders — REAL credentials from OSPG Information Packet
+  // Founders - REAL credentials from OSPG Information Packet
   founders: [
     {
       name: "Ryan Moriarty",
@@ -36,10 +36,10 @@ export const BRAND = {
       role: "Active-Duty Officer • Cranston Police Department",
       bio: "13 years law enforcement at Cranston Police Department. 7 years SRT operator. 18-year military career with multiple overseas deployments. Currently serves as Security Forces Operations Officer with the Rhode Island Air National Guard.",
       credentials: [
-        "13 years — Cranston Police Department",
-        "7 years — Special Response Team (SRT)",
+        "13 years - Cranston Police Department",
+        "7 years - Special Response Team (SRT)",
         "18 years military, multiple overseas deployments",
-        "Security Forces Operations Officer — RI Air National Guard",
+        "Security Forces Operations Officer - RI Air National Guard",
         "FLETC Certified Active Shooter Instructor",
         "Multiple industry-recognized active threat response certifications",
         "Tactical Combat Casualty Care (TCCC) Instructor",
@@ -52,8 +52,8 @@ export const BRAND = {
       role: "Sergeant • Cranston Police Department",
       bio: "23-year veteran sergeant at Cranston Police Department. 20 years on the Special Response Team, including service as SRT Team Commander. Active threat and school safety training specialist with extensive experience working alongside schools and community organizations.",
       credentials: [
-        "23-year veteran — Cranston Police Department (Sergeant)",
-        "20 years — Special Response Team Commander",
+        "23-year veteran - Cranston Police Department (Sergeant)",
+        "20 years - Special Response Team Commander",
         "SRT Pistol & Rifle Instructor",
         "Less-Lethal Instructor",
         "Multiple industry-recognized active threat response certifications",
@@ -93,7 +93,7 @@ export const BRAND = {
     { label: "Active-Duty Founders", value: "2" },
   ],
 
-  // Verticals — drives nav + landing pages
+  // Verticals - drives nav + landing pages
   verticals: [
     { slug: "schools", title: "Catholic & Private Schools" },
     { slug: "parishes", title: "Parishes & Houses of Worship" },
@@ -118,7 +118,7 @@ export const BRAND = {
       name: "Threat & Vulnerability Assessment",
       price: "$1,500–$20,000+",
       period: "one-time",
-      blurb: "Full SHIELD Assessment — pricing scales with facility size. Small K-8 from $1,500. 9-12 from $3,000. Large/multi-site from $10,000.",
+      blurb: "Full SHIELD Assessment - pricing scales with facility size. Small K-8 from $1,500. 9-12 from $3,000. Large/multi-site from $10,000.",
       cta: "Request Quote",
       featured: true,
       features: [

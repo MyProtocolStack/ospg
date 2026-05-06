@@ -16,7 +16,7 @@ export function SectionAIDemo() {
     <section className="relative py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left — Copy */}
+          {/* Left - Copy */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -39,7 +39,7 @@ export function SectionAIDemo() {
             </h2>
             <p className="text-lg text-[var(--color-silver-100)] leading-relaxed mb-8 max-w-lg">
               Upload a photo of any door, hallway, parking lot, or gathering
-              area. Get an expert-grade vulnerability analysis in 90 seconds —
+              area. Get an expert-grade vulnerability analysis in 90 seconds -
               prioritized, actionable, and grant-application ready.
             </p>
 
@@ -48,7 +48,7 @@ export function SectionAIDemo() {
                 {
                   icon: Camera,
                   title: "Upload",
-                  body: "Snap a photo with your phone. Side entrance, classroom door, fenceline, parking lot — anything.",
+                  body: "Snap a photo with your phone. Side entrance, classroom door, fenceline, parking lot - anything.",
                 },
                 {
                   icon: Layers3,
@@ -96,7 +96,7 @@ export function SectionAIDemo() {
             </Link>
           </motion.div>
 
-          {/* Right — Visual demo */}
+          {/* Right - Visual demo */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
