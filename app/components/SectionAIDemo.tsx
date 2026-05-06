@@ -90,7 +90,7 @@ export function SectionAIDemo() {
               })}
             </div>
 
-            <Link href="/shield-ai" className="btn-primary group">
+            <Link href="/signup" className="btn-primary group">
               Try SHIELD AI Free
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>

@@ -20,7 +20,7 @@ export type Course = {
   title: string;
   subtitle: string;
   description: string;
-  cover_emoji: string;
+  icon: string; // Lucide icon name
   duration_minutes: number;
   difficulty: "foundational" | "intermediate" | "advanced";
   free: boolean;          // included in subscriber tier
@@ -36,7 +36,7 @@ export const COURSES: Course[] = [
     subtitle: "How to evaluate a property the way a law-enforcement officer does.",
     description:
       "A practical course on conducting your own preliminary threat assessment. Built for staff, volunteers, and safety committees who want to think clearly about risk before something happens. Active-duty law enforcement instructors. Real-world scenarios. Insurance-defensible documentation patterns.",
-    cover_emoji: "🛡️",
+    icon: "Shield",
     duration_minutes: 165,
     difficulty: "foundational",
     free: true,
@@ -132,7 +132,7 @@ export const COURSES: Course[] = [
     subtitle: "Modern lockdown and shelter response for schools, parishes, and workplaces.",
     description:
       "What 'lockdown' actually means in 2026 — and why old playbooks fail. Updated for current threat patterns including active assailant, hostile vehicle, civil unrest, and weather-related shelter events. Includes ready-to-run drill scripts, parent-communication templates, and post-incident debrief frameworks.",
-    cover_emoji: "🚨",
+    icon: "AlertTriangle",
     duration_minutes: 155,
     difficulty: "foundational",
     free: true,

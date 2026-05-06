@@ -108,7 +108,7 @@ export function SectionPricing() {
           className="mt-16 text-center"
         >
           <p className="text-[13px] text-[var(--color-silver-300)] mb-3">
-            Looking for hourly security details? <Link href="/security-detail" className="text-[var(--color-gold-400)] link-underline">View detail rates</Link>
+            Looking for hourly security details? <Link href="/walkthrough" className="text-[var(--color-gold-400)] link-underline">Request a quote</Link>
             {" • "}
             Multi-site or diocese-wide? <Link href="/contact" className="text-[var(--color-gold-400)] link-underline">Talk to a founder</Link>
           </p>

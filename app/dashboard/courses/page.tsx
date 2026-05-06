@@ -1,6 +1,12 @@
 import Link from "next/link";
-import { Clock, Layers3, ArrowRight } from "lucide-react";
+import { Clock, Layers3, ArrowRight, Shield, AlertTriangle, BookOpen } from "lucide-react";
 import { COURSES } from "@/lib/courses";
+
+const COURSE_ICON_MAP: Record<string, React.ElementType> = {
+  Shield,
+  AlertTriangle,
+  BookOpen,
+};
 
 export const metadata = { title: "My Courses" };
 
@@ -22,13 +28,17 @@ export default function DashboardCoursesPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {COURSES.map((c) => (
+          {COURSES.map((c) => {
+            const CourseIcon = COURSE_ICON_MAP[c.icon] ?? BookOpen;
+            return (
             <Link
               key={c.slug}
               href={`/dashboard/courses/${c.slug}`}
               className="surface-card p-6 hover:surface-card-elevated transition-all duration-300 group"
             >
-              <div className="text-4xl mb-4">{c.cover_emoji}</div>
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 mb-4">
+                <CourseIcon className="h-6 w-6 text-[var(--color-gold-400)]" strokeWidth={1.3} />
+              </div>
               <h2 className="font-display text-xl text-[var(--color-cream)] mb-2 group-hover:text-gradient-gold transition-all">
                 {c.title}
               </h2>
@@ -50,7 +60,8 @@ export default function DashboardCoursesPage() {
                 </span>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

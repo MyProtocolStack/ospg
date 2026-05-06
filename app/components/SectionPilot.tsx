@@ -166,7 +166,7 @@ export function SectionPilot() {
               ))}
             </ul>
 
-            <Link href="/grants" className="btn-primary group">
+            <Link href="/signup" className="btn-primary group">
               Talk to PILOT
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>

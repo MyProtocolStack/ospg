@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Award } from "lucide-react";
+import { Shield, Award, Check } from "lucide-react";
 import { BRAND } from "@/lib/brand";
 
 export function SectionFounders() {
@@ -27,13 +27,13 @@ export function SectionFounders() {
           <div className="gold-rule mt-8" />
           <p className="mt-8 text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
             Every other firm in this space is staffed by retired law-enforcement
-            professionals. We're the only one currently wearing the uniform.
-            We see what's actually happening — not what was happening when we
-            wore the badge.
+            professionals. We&apos;re currently wearing the uniform.
+            We see what&apos;s actually happening — not what was happening when
+            we wore the badge.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {BRAND.founders.map((f, i) => (
             <motion.div
               key={i}
@@ -43,7 +43,7 @@ export function SectionFounders() {
               transition={{ duration: 0.7, delay: i * 0.15 }}
               className="surface-card-elevated p-8 group"
             >
-              {/* Avatar placeholder */}
+              {/* Avatar with initials */}
               <div className="relative mb-6 inline-flex">
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[var(--color-navy-500)] via-[var(--color-navy-600)] to-[var(--color-navy-700)] border-2 border-[var(--color-gold-400)]/30 flex items-center justify-center text-3xl font-display text-gradient-gold">
                   {f.name
@@ -70,19 +70,30 @@ export function SectionFounders() {
               <p className="text-[12px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-5">
                 {f.role}
               </p>
-              <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-5">
+              <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-6">
                 {f.bio}
               </p>
 
-              <div className="flex items-center gap-3 pt-5 border-t border-white/5">
-                <Award
-                  className="h-4 w-4 text-[var(--color-gold-400)]"
-                  strokeWidth={1.5}
-                />
-                <span className="text-[12px] uppercase tracking-[0.15em] text-[var(--color-silver-200)]">
-                  FLETC Certified
-                </span>
-              </div>
+              {/* Credentials list */}
+              {"credentials" in f && Array.isArray(f.credentials) && (
+                <div className="pt-5 border-t border-white/5">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-gold-400)] font-medium mb-3 flex items-center gap-2">
+                    <Award className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    Credentials &amp; Certifications
+                  </p>
+                  <ul className="space-y-1.5">
+                    {(f.credentials as readonly string[]).map((c, j) => (
+                      <li key={j} className="flex gap-2 items-start text-[13px] text-[var(--color-silver-100)] leading-snug">
+                        <Check
+                          className="h-3.5 w-3.5 text-[var(--color-gold-400)] shrink-0 mt-1"
+                          strokeWidth={2}
+                        />
+                        <span>{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

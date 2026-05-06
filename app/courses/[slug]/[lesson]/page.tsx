@@ -261,7 +261,7 @@ function LockedPreview({ courseSlug }: { courseSlug: string }) {
         quarterly walkthroughs for $199/month.
       </p>
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
-        <Link href="/pricing" className="btn-primary">
+        <Link href="/#pricing" className="btn-primary">
           View Subscriber Plan
           <ArrowRight className="h-4 w-4" />
         </Link>

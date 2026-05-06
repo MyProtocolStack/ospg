@@ -52,7 +52,7 @@ export default function BillingPage() {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {BRAND.tiers
-            .filter((t) => t.slug === "subscriber" || t.slug === "shield")
+            .filter((t) => t.slug === "shield" || t.slug === "training")
             .map((tier) => (
               <div
                 key={tier.slug}

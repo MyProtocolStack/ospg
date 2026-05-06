@@ -5,7 +5,7 @@
 
 export type Vertical = {
   slug: string;
-  emoji: string;
+  icon: string;            // Lucide icon name
   shortLabel: string;
   fullName: string;
   hookHeadline: string;
@@ -19,7 +19,7 @@ export type Vertical = {
 export const VERTICALS: Vertical[] = [
   {
     slug: "schools",
-    emoji: "🎒",
+    icon: "GraduationCap",
     shortLabel: "Schools",
     fullName: "Catholic & Private Schools",
     hookHeadline: "Built for the schools that take this seriously.",
@@ -34,19 +34,19 @@ export const VERTICALS: Vertical[] = [
       "Inadequate communication tree to reach 1,000+ parents in a crisis",
     ],
     solutions: [
-      "On-site SHIELD™ Assessment with finance-committee-ready report",
+      "On-site SHIELD Assessment with finance-committee-ready report",
       "FEMA NSGP grant application — schools qualify for up to $200K",
       "Tabletop drill scripts (basic / surprise / multi-event)",
       "Faculty and staff Threat Assessment Fundamentals course",
       "Direct introductions to your local PD school resource liaison",
       "Diocese / school-board reporting in the format your insurer wants",
     ],
-    socialProof: "Built around real Rhode Island Catholic school engagements including documented bathroom-threat incidents and lockdown protocol reviews.",
+    socialProof: "Built on real engagements with Rhode Island private and Catholic schools. References available on request.",
     cta: "Book a Free Walkthrough",
   },
   {
     slug: "parishes",
-    emoji: "✝️",
+    icon: "Church",
     shortLabel: "Parishes",
     fullName: "Parishes & Houses of Worship",
     hookHeadline: "Sanctuary is sacred. Vigilance protects it.",
@@ -61,7 +61,7 @@ export const VERTICALS: Vertical[] = [
       "After-hours access to rectory and parish offices",
     ],
     solutions: [
-      "SHIELD™ Assessment timed for both Sunday and weekday operations",
+      "SHIELD Assessment timed for both Sunday and weekday operations",
       "FEMA NSGP grant support — religious institutions are priority eligible",
       "Usher and greeter training (the people who see threats first)",
       "Direct line introduction to local PD and the diocesan safety office",
@@ -73,7 +73,7 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "estates",
-    emoji: "🏛️",
+    icon: "Home",
     shortLabel: "Estates",
     fullName: "High-Net-Worth Estates",
     hookHeadline: "Private security, without the security theater.",
@@ -88,11 +88,11 @@ export const VERTICALS: Vertical[] = [
       "Family-event security (birthdays, weddings, religious milestones)",
     ],
     solutions: [
-      "Residential SHIELD™ Assessment — discreet, single-day",
+      "Residential SHIELD Assessment — discreet, single-day",
       "Family travel route and routine de-patterning consultation",
       "Domestic staff security awareness training",
       "Event-day off-duty police detail",
-      "Lifestyle-aware hardening recommendations (no &quot;security theater&quot;)",
+      "Lifestyle-aware hardening recommendations (no security theater)",
       "Communication tree for crisis response across primary and secondary residences",
     ],
     socialProof: "All engagements covered by NDA. References available from vetted family-office and private-counsel introductions only.",
@@ -100,7 +100,7 @@ export const VERTICALS: Vertical[] = [
   },
   {
     slug: "businesses",
-    emoji: "🏢",
+    icon: "Briefcase",
     shortLabel: "Businesses",
     fullName: "Businesses & Workplaces",
     hookHeadline: "Workplace security for the threat profile of 2026.",
@@ -115,22 +115,22 @@ export const VERTICALS: Vertical[] = [
       "Active attacks on retail, restaurant, and hospitality staff",
     ],
     solutions: [
-      "On-site SHIELD™ Assessment focused on operational flow",
+      "On-site SHIELD Assessment focused on operational flow",
       "HR-aware termination security protocol design",
       "Visitor management and badge-access audit",
       "Tabletop exercise for leadership team",
       "Threat-event training for receptionists, customer-facing staff, and managers",
       "Insurance carrier-compatible documentation (premium reduction common)",
     ],
-    socialProof: "Compliant with OSHA workplace-safety guidance. Recognized by major workers&apos; comp carriers as a premium-reduction-eligible engagement.",
+    socialProof: "Compliant with OSHA workplace-safety guidance. Recognized by major workers compensation carriers as a premium-reduction-eligible engagement.",
     cta: "Request Workplace Assessment",
   },
   {
     slug: "events",
-    emoji: "🎤",
+    icon: "Calendar",
     shortLabel: "Events",
     fullName: "Events & Public Gatherings",
-    hookHeadline: "When the crowd shows up, we&apos;re already there.",
+    hookHeadline: "When the crowd shows up, we are already there.",
     hookSub:
       "Galas, fundraisers, weddings, festivals, sports tournaments, religious processions. Lighthouse provides event security planning and live-event detail for organizations that take their gathering seriously.",
     threats: [

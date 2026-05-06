@@ -1,3 +1,5 @@
+import { Check, X } from "lucide-react";
+
 export const metadata = { title: "Scope of Services" };
 
 export default function ScopeOfServicesPage() {
@@ -17,7 +19,7 @@ export default function ScopeOfServicesPage() {
         <Section title="What we do">
           <ul className="list-none space-y-2 mt-3">
             {[
-              "Vulnerability assessments via on-site walkthrough (SHIELD™ Assessment)",
+              "Vulnerability assessments via on-site walkthrough (SHIELD Assessment)",
               "AI-assisted preliminary photo analysis (SHIELD AI)",
               "FEMA NSGP grant application support and document generation (PILOT)",
               "Off-duty active-duty law-enforcement security details under departmental authorization",
@@ -26,8 +28,8 @@ export default function ScopeOfServicesPage() {
               "Threat-trend briefings for subscribers",
               "Custom security curriculum for groups of 10+",
             ].map((item) => (
-              <li key={item} className="flex gap-3">
-                <span className="text-[var(--color-gold-400)] mt-1">✓</span>
+              <li key={item} className="flex gap-3 items-start">
+                <Check className="h-4 w-4 text-[var(--color-gold-400)] shrink-0 mt-1.5" strokeWidth={2} />
                 <span>{item}</span>
               </li>
             ))}
@@ -46,8 +48,8 @@ export default function ScopeOfServicesPage() {
               "Receive or pay vendor referral fees (we are vendor-agnostic)",
               "Provide weapon training or firearms instruction",
             ].map((item) => (
-              <li key={item} className="flex gap-3">
-                <span className="text-[var(--color-crimson-500)] mt-1">✗</span>
+              <li key={item} className="flex gap-3 items-start">
+                <X className="h-4 w-4 text-[var(--color-crimson-500)] shrink-0 mt-1.5" strokeWidth={2} />
                 <span>{item}</span>
               </li>
             ))}

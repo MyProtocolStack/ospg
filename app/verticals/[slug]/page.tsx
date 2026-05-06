@@ -1,9 +1,28 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Check, AlertTriangle } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  AlertTriangle,
+  GraduationCap,
+  Church,
+  Home,
+  Briefcase,
+  Calendar,
+  Building2,
+} from "lucide-react";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { getVertical, VERTICALS } from "@/lib/verticals";
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  GraduationCap,
+  Church,
+  Home,
+  Briefcase,
+  Calendar,
+  Building2,
+};
 
 export async function generateStaticParams() {
   return VERTICALS.map((v) => ({ slug: v.slug }));
@@ -31,6 +50,8 @@ export default async function VerticalPage({
   const v = getVertical(slug);
   if (!v) notFound();
 
+  const Icon = ICON_MAP[v.icon] ?? Building2;
+
   return (
     <>
       <Navbar />
@@ -39,7 +60,12 @@ export default async function VerticalPage({
         <section className="bg-hero-gradient grain pt-36 pb-20 relative overflow-hidden">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[var(--color-gold-400)]/10 blur-[120px] pointer-events-none" />
           <div className="relative mx-auto max-w-4xl px-6 lg:px-10 text-center">
-            <div className="text-7xl mb-6">{v.emoji}</div>
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 mb-6">
+              <Icon
+                className="h-10 w-10 text-[var(--color-gold-400)]"
+                strokeWidth={1.3}
+              />
+            </div>
             <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-4">
               {v.fullName}
             </p>
@@ -138,18 +164,24 @@ export default async function VerticalPage({
               We also work with
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-              {VERTICALS.filter((other) => other.slug !== v.slug).map((other) => (
-                <Link
-                  key={other.slug}
-                  href={`/verticals/${other.slug}`}
-                  className="surface-card p-4 text-center hover:surface-card-elevated transition-all duration-300 group"
-                >
-                  <div className="text-2xl mb-2">{other.emoji}</div>
-                  <p className="text-[13px] text-[var(--color-cream)] group-hover:text-gradient-gold transition-all">
-                    {other.shortLabel}
-                  </p>
-                </Link>
-              ))}
+              {VERTICALS.filter((other) => other.slug !== v.slug).map((other) => {
+                const OtherIcon = ICON_MAP[other.icon] ?? Building2;
+                return (
+                  <Link
+                    key={other.slug}
+                    href={`/verticals/${other.slug}`}
+                    className="surface-card p-4 text-center hover:surface-card-elevated transition-all duration-300 group"
+                  >
+                    <OtherIcon
+                      className="h-6 w-6 text-[var(--color-gold-400)] mx-auto mb-2"
+                      strokeWidth={1.3}
+                    />
+                    <p className="text-[13px] text-[var(--color-cream)] group-hover:text-gradient-gold transition-all">
+                      {other.shortLabel}
+                    </p>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>

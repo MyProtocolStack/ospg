@@ -75,7 +75,7 @@ export function OnboardingForm() {
           <input
             value={orgName}
             onChange={(e) => setOrgName(e.target.value)}
-            placeholder="Bishop Hendricken High School"
+            placeholder="Your school, parish, or business name"
             required
             className="w-full pl-11 pr-4 py-3 rounded-lg bg-[var(--color-navy-700)] border border-white/10 text-[var(--color-cream)] placeholder:text-[var(--color-silver-400)] focus:border-[var(--color-gold-400)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold-400)]/20 text-[14px]"
           />

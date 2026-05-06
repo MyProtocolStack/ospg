@@ -9,7 +9,16 @@ import {
   CheckCircle2,
   Lock,
   ArrowRight,
+  Shield,
+  AlertTriangle,
+  BookOpen,
 } from "lucide-react";
+
+const COURSE_ICON_MAP: Record<string, React.ElementType> = {
+  Shield,
+  AlertTriangle,
+  BookOpen,
+};
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { getCourse } from "@/lib/courses";
@@ -50,6 +59,7 @@ export default async function CoursePage({
   if (!course) notFound();
 
   const totalMin = course.lessons.reduce((s, l) => s + l.duration_minutes, 0);
+  const CourseIcon = COURSE_ICON_MAP[course.icon] ?? BookOpen;
 
   return (
     <>
@@ -66,7 +76,9 @@ export default async function CoursePage({
               ← All courses
             </Link>
 
-            <div className="text-6xl mb-6">{course.cover_emoji}</div>
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 mb-6">
+              <CourseIcon className="h-8 w-8 text-[var(--color-gold-400)]" strokeWidth={1.3} />
+            </div>
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <span className="text-[11px] uppercase tracking-[0.18em] font-medium text-[var(--color-gold-400)] px-3 py-1 rounded-full bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30">
                 {course.difficulty}
@@ -106,7 +118,7 @@ export default async function CoursePage({
                 Start Free Preview
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link href="/pricing" className="btn-secondary">
+              <Link href="/#pricing" className="btn-secondary">
                 View Subscriber Plan
               </Link>
             </div>

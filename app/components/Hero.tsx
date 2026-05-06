@@ -62,7 +62,7 @@ export function Hero() {
             Book Free Walkthrough
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
-          <Link href="/shield-ai" className="btn-secondary">
+          <Link href="/signup" className="btn-secondary">
             Try SHIELD AI
             <Sparkles className="h-4 w-4" />
           </Link>
@@ -76,10 +76,10 @@ export function Hero() {
           className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 surface-card overflow-hidden max-w-4xl mx-auto"
         >
           {[
-            { value: "Active-Duty", label: "Law-Enforcement Founders" },
+            { value: "75+", label: "Years Combined LE / Military" },
             { value: "$200K", label: "FEMA Grant Per Site" },
+            { value: "FLETC", label: "Active Shooter Instructors" },
             { value: "<24hr", label: "Response Time" },
-            { value: "FLETC", label: "Federally Trained" },
           ].map((stat, i) => (
             <div
               key={i}

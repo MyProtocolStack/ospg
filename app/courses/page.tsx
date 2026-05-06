@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, Clock, Layers3, Sparkles } from "lucide-react";
+import { ArrowRight, Clock, Layers3, Sparkles, Shield, AlertTriangle, BookOpen } from "lucide-react";
+
+const COURSE_ICON_MAP: Record<string, React.ElementType> = {
+  Shield,
+  AlertTriangle,
+  BookOpen,
+};
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { COURSES } from "@/lib/courses";
@@ -36,13 +42,17 @@ export default function CoursesPage() {
         <section className="py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {COURSES.map((c) => (
+              {COURSES.map((c) => {
+                const CourseIcon = COURSE_ICON_MAP[c.icon] ?? BookOpen;
+                return (
                 <Link
                   key={c.slug}
                   href={`/courses/${c.slug}`}
                   className="surface-card-elevated p-8 group hover:scale-[1.01] transition-all duration-300"
                 >
-                  <div className="text-5xl mb-5">{c.cover_emoji}</div>
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 mb-5">
+                    <CourseIcon className="h-7 w-7 text-[var(--color-gold-400)]" strokeWidth={1.3} />
+                  </div>
                   <div className="flex items-center gap-3 mb-3 flex-wrap">
                     <span className="text-[10px] uppercase tracking-[0.18em] font-medium text-[var(--color-gold-400)] px-2 py-0.5 rounded-full bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30">
                       {c.difficulty}
@@ -81,7 +91,8 @@ export default function CoursesPage() {
                     </span>
                   </div>
                 </Link>
-              ))}
+              );
+              })}
             </div>
 
             {/* CTA — coming soon */}

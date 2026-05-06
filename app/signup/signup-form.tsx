@@ -70,7 +70,7 @@ export function SignupForm() {
         type="text"
         value={orgName}
         onChange={setOrgName}
-        placeholder="Bishop Hendricken High School"
+        placeholder="Your school, parish, or business name"
         required
       />
       <Field

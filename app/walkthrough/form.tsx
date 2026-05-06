@@ -58,7 +58,7 @@ export function WalkthroughForm() {
         <Input label="Phone" value={phone} onChange={setPhone} placeholder="(401) 555-0123" type="tel" />
       </div>
       <Input label="Email" value={email} onChange={setEmail} placeholder="you@school.org" type="email" required />
-      <Input label="Organization" value={org} onChange={setOrg} placeholder="Bishop Hendricken High School" required />
+      <Input label="Organization" value={org} onChange={setOrg} placeholder="Your school, parish, or business name" required />
       <Select
         label="Organization type"
         value={type}

@@ -10,7 +10,7 @@ export const BRAND = {
   shortName: "Lighthouse",
   tagline: "Active-duty law enforcement. Built into your walls.",
   description:
-    "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties — delivered by active-duty police officers.",
+    "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties — delivered by active-duty police officers and military veterans.",
 
   // RI subsidiary (existing brand — Ryan Moriarty's operating entity)
   subsidiary: {
@@ -23,24 +23,46 @@ export const BRAND = {
   domain: "lighthouseprotection.group",
   url: "https://lighthouseprotection.group",
 
-  // Contact
-  email: "info@lighthouseprotection.group",
-  phone: "(401) 555-0100",
-  emergencyPhone: "(401) 555-0911",
+  // Contact (real OSPG contact info)
+  email: "Oceanstateprotectiongroup@gmail.com",
+  phone: "(207) 974-9840",
+  emergencyPhone: "(207) 974-9840",
 
-  // Founders
+  // Founders — REAL credentials
   founders: [
     {
       name: "Ryan Moriarty",
       title: "Co-Founder & Principal",
-      role: "Active-Duty Officer • Cranston Police Department, Rhode Island",
-      bio: "Frontline law-enforcement professional with deep operational experience responding to incidents at schools, churches, and public buildings across Rhode Island. FLETC-trained.",
+      role: "Active-Duty Officer • Cranston Police Department",
+      bio: "13 years law enforcement at Cranston Police Department. 7 years SRT operator. 18-year military career with multiple overseas deployments. Currently serves as Security Forces Operations Officer with the Rhode Island Air National Guard.",
+      credentials: [
+        "13 years — Cranston Police Department",
+        "7 years — Special Response Team (SRT)",
+        "18 years military, multiple overseas deployments",
+        "Security Forces Operations Officer — RI Air National Guard",
+        "FLETC Certified Active Shooter Instructor",
+        "ALICE Instructor",
+        "Run Hide Fight Instructor",
+        "Tactical Combat Casualty Care (TCCC) Instructor",
+        "RIEMA Student Reunification Plan Instructor",
+      ],
     },
     {
-      name: "Dennis [Last Name]",
+      name: "Dennis Trinh",
       title: "Co-Founder & Principal",
-      role: "Active-Duty Officer • Cranston Police Department, Rhode Island",
-      bio: "Tactical response and building security architecture specialist. Active member of regional law enforcement intelligence networks. FLETC-trained.",
+      role: "Sergeant • Cranston Police Department",
+      bio: "23-year veteran sergeant at Cranston Police Department. 20 years on the Special Response Team, including service as SRT Team Commander. Active threat and school safety training specialist with extensive experience working alongside schools and community organizations.",
+      credentials: [
+        "23-year veteran — Cranston Police Department (Sergeant)",
+        "20 years — Special Response Team Commander",
+        "SRT Pistol & Rifle Instructor",
+        "Less-Lethal Instructor",
+        "ALICE Instructor",
+        "FLETC Certified Active Shooter Instructor",
+        "Tactical Combat Casualty Care (TCCC) Instructor",
+        "Cranston Police Explorer Advisor",
+        "Active Threat & School Safety Training Specialist",
+      ],
     },
   ],
 
@@ -64,12 +86,12 @@ export const BRAND = {
     },
   ],
 
-  // Stats (used in hero + about — confirm actual numbers before launch)
+  // Stats (used in hero + about)
   stats: [
-    { label: "Active-Duty LE Founders", value: "2" },
-    { label: "Years Combined Experience", value: "30+" },
-    { label: "Federal Grant Pool Available", value: "$200K" },
-    { label: "States Targeted (Phase 1)", value: "6" },
+    { label: "Years Combined LE/Military", value: "75+" },
+    { label: "FLETC Active Shooter Instructors", value: "2" },
+    { label: "Federal Grant Pool", value: "$200K" },
+    { label: "Active-Duty Founders", value: "2" },
   ],
 
   // Verticals — drives nav + landing pages
@@ -81,50 +103,50 @@ export const BRAND = {
     { slug: "events", title: "Events & Public Gatherings" },
   ],
 
-  // Pricing tiers (working — adjustable)
+  // Pricing tiers (real OSPG ranges from Information Packet)
   tiers: [
     {
       slug: "walkthrough",
-      name: "Complimentary Walkthrough",
+      name: "Complimentary Consultation",
       price: "$0",
       period: "one-time",
-      blurb: "90-minute on-site review by both founders. Verbal top-3 priority list. No obligation.",
-      cta: "Book Walkthrough",
+      blurb: "Initial consultation to identify your needs, concerns, and priorities. No obligation.",
+      cta: "Book Consultation",
       featured: false,
     },
     {
       slug: "shield",
-      name: "SHIELD™ Assessment",
-      price: "$5,500",
+      name: "Threat & Vulnerability Assessment",
+      price: "$1,500–$20,000+",
       period: "one-time",
-      blurb: "Full S-H-I-E-L-D engagement. 7-day written report. FEMA NSGP grant application included.",
-      cta: "Book Assessment",
+      blurb: "Full SHIELD™ Assessment — pricing scales with facility size. Small K-8 from $1,500. 9-12 from $3,000. Large/multi-site from $10,000.",
+      cta: "Request Quote",
       featured: true,
       features: [
-        "Site walkthrough by 2 active-duty officers",
-        "Hardening recommendations with vendor options",
-        "Incident response review + tabletop exercise",
-        "Emergency communication audit",
-        "Liaison introductions (PD + diocese)",
-        "Documentation package (insurance-carrier compatible)",
-        "FEMA NSGP grant application support — no extra charge",
+        "Comprehensive on-site walkthrough by both founders",
+        "Stakeholder interviews (leadership + key personnel)",
+        "Access control + perimeter + environmental review",
+        "Risk prioritization matrix",
+        "Detailed written report + actionable recommendations",
+        "Follow-up consultation + implementation planning",
+        "FEMA NSGP grant application support included",
       ],
     },
     {
-      slug: "subscriber",
-      name: "Subscriber",
-      price: "$199",
-      period: "/ month",
-      blurb: "Quarterly walkthroughs, unlimited SHIELD AI photo analyses, full course library, threat-trend briefings.",
-      cta: "Start Subscription",
+      slug: "training",
+      name: "Active Threat Training",
+      price: "$2,800–$4,800",
+      period: "per session",
+      blurb: "Half-day ($2,800) or full-day ($4,800) staff training. 2-day advanced: $500/attendee. Emergency Operations Plan dev: $3,000.",
+      cta: "Schedule Training",
       featured: false,
     },
     {
       slug: "enterprise",
-      name: "Enterprise",
+      name: "Multi-Site / Enterprise",
       price: "Custom",
       period: "annual",
-      blurb: "Multi-site or diocese-wide. Named consultant, SLAs, on-call incident response, full course access.",
+      blurb: "Diocese-wide, multi-campus, or full security partnership. Drill design, EOP development, ongoing advisory.",
       cta: "Talk to a Founder",
       featured: false,
     },
@@ -133,9 +155,9 @@ export const BRAND = {
   // Disclaimers
   legal: {
     notMedicalOrLegalAdvice:
-      "Bastion Protection Group provides security consulting and vulnerability assessment services. Information on this site is for general guidance only and does not constitute legal, medical, or licensed engineering advice. On-site walkthrough is required for definitive recommendations.",
+      "Lighthouse Protection Group provides security consulting and vulnerability assessment services. Information on this site is for general guidance only and does not constitute legal, medical, or licensed engineering advice. On-site walkthrough is required for definitive recommendations.",
     notMonitoring:
-      "Bastion Protection Group is not a licensed security monitoring company, alarm company, or guard agency unless explicitly contracted for such services in a separate signed engagement.",
+      "Lighthouse Protection Group is not a licensed security monitoring company, alarm company, or guard agency unless explicitly contracted for such services in a separate signed engagement.",
   },
 } as const;
 
