@@ -77,7 +77,7 @@ export function MobileMenu({
         <Link href="/dashboard" className="flex items-center gap-2">
           <Shield className="h-5 w-5 text-[var(--color-gold-400)]" strokeWidth={1.5} />
           <span className="font-display text-sm text-[var(--color-cream)]">
-            Lighthouse
+            OSPG
           </span>
         </Link>
         <button
@@ -110,7 +110,7 @@ export function MobileMenu({
             <Shield className="h-6 w-6 text-[var(--color-gold-400)]" strokeWidth={1.5} />
             <div className="flex flex-col leading-none">
               <span className="font-display text-sm text-[var(--color-cream)]">
-                Lighthouse
+                OSPG
               </span>
               <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-silver-300)]">
                 Dashboard

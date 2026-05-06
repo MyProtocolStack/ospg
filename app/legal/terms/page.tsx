@@ -15,7 +15,7 @@ export default function TermsPage() {
 
       <div className="space-y-6 text-[15px] text-[var(--color-silver-100)] leading-[1.8]">
         <Section title="Acceptance">
-          By creating an account or using Lighthouse Protection Group services
+          By creating an account or using Ocean State Protection Group services
           (the &quot;Service&quot;), you agree to these Terms of Service. If
           you don&apos;t agree, don&apos;t use the Service.
         </Section>
@@ -58,7 +58,7 @@ export default function TermsPage() {
           We treat your organizational and security information as confidential
           and disclose it only as required to deliver the Service, comply with
           law, or with your written consent. You agree to treat any
-          Lighthouse-provided non-public methodology or training material as
+          OSPG-provided non-public methodology or training material as
           confidential.
         </Section>
 
@@ -104,8 +104,8 @@ export default function TermsPage() {
 
         <Section title="Contact">
           Questions:{" "}
-          <a href="mailto:legal@lighthouseprotection.group" className="text-[var(--color-gold-400)]">
-            legal@lighthouseprotection.group
+          <a href="mailto:legal@oceanstateprotectiongroup.com" className="text-[var(--color-gold-400)]">
+            legal@oceanstateprotectiongroup.com
           </a>
           .
         </Section>

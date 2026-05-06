@@ -50,7 +50,7 @@ export default function LoginPage() {
           </Suspense>
 
           <p className="mt-8 pt-6 border-t border-white/5 text-center text-sm text-[var(--color-silver-200)]">
-            New to Lighthouse?{" "}
+            New to OSPG?{" "}
             <Link
               href="/signup"
               className="text-[var(--color-gold-400)] link-underline"

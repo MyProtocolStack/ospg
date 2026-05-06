@@ -15,7 +15,7 @@ export default function DisclaimerPage() {
 
       <div className="space-y-6 text-[15px] text-[var(--color-silver-100)] leading-[1.8]">
         <Section title="No professional advice">
-          Information provided by Lighthouse Protection Group, including content
+          Information provided by Ocean State Protection Group, including content
           on this website, AI-generated analysis (SHIELD AI), grant-application
           assistance (PILOT), and training course material, is for general
           guidance and educational purposes only. It does not constitute legal
@@ -33,7 +33,7 @@ export default function DisclaimerPage() {
 
         <Section title="Not a licensed alarm or guard company">
           Unless explicitly contracted in a separate signed engagement,
-          Lighthouse Protection Group is not a licensed alarm-monitoring
+          Ocean State Protection Group is not a licensed alarm-monitoring
           company, central station, or guard agency. We provide consulting,
           assessment, training, and (where contracted) off-duty law-enforcement
           security details under appropriate departmental authorization. We do
@@ -41,30 +41,30 @@ export default function DisclaimerPage() {
         </Section>
 
         <Section title="Active-duty officer disclosure">
-          Lighthouse Protection Group founders are active-duty municipal police
-          officers. All Lighthouse work is conducted off-duty under approved
+          Ocean State Protection Group founders are active-duty municipal police
+          officers. All OSPG work is conducted off-duty under approved
           extra-duty / outside-employment authorization through their
           department, in accordance with applicable Rhode Island General Laws
-          and departmental policy. Lighthouse work is private-sector consulting
+          and departmental policy. OSPG work is private-sector consulting
           and is not affiliated with, endorsed by, or undertaken in the name
           of any law-enforcement agency.
         </Section>
 
         <Section title="No guarantee against incidents">
           Security is probabilistic. No assessment, training, technology, or
-          security detail can guarantee prevention of all incidents. Lighthouse
+          security detail can guarantee prevention of all incidents. OSPG
           Protection Group&apos;s services are intended to reduce risk and
           improve preparedness. They do not eliminate it.
         </Section>
 
         <Section title="Federal grant program guidance">
-          PILOT and Lighthouse staff provide guidance on the FEMA Nonprofit
+          PILOT and OSPG staff provide guidance on the FEMA Nonprofit
           Security Grant Program and related federal funding opportunities.
           Eligibility, deadlines, and requirements are determined by FEMA and
-          State Administrative Agencies (SAAs) — not Lighthouse. Final
+          State Administrative Agencies (SAAs) — not OSPG. Final
           applications must be submitted through your state&apos;s SAA. Grant
           rules change; verify current cycle requirements at fema.gov.
-          Lighthouse does not guarantee award.
+          OSPG does not guarantee award.
         </Section>
 
         <Section title="AI-generated content limitations">
@@ -78,17 +78,17 @@ export default function DisclaimerPage() {
           Our website and tools may reference third-party vendors, products,
           services, or articles. References are informational only and do not
           constitute endorsement. We do not receive vendor referral fees on any
-          product recommendations. Lighthouse is not responsible for third-party
+          product recommendations. OSPG is not responsible for third-party
           content, policies, or practices.
         </Section>
 
         <Section title="Limitation of liability">
-          To the maximum extent permitted by law, Lighthouse Protection Group,
+          To the maximum extent permitted by law, Ocean State Protection Group,
           its founders, employees, contractors, and affiliates shall not be
           liable for indirect, incidental, consequential, or punitive damages
           arising from your use of this website, our tools, or our services. In
           no event shall total liability exceed the fees paid by you to
-          Lighthouse for the specific engagement giving rise to the claim.
+          OSPG for the specific engagement giving rise to the claim.
         </Section>
 
         <Section title="Updates to this disclaimer">
@@ -99,8 +99,8 @@ export default function DisclaimerPage() {
 
         <p className="pt-6 border-t border-white/5 text-[13px] text-[var(--color-silver-300)]">
           Questions about this disclaimer? Contact{" "}
-          <a href="mailto:legal@lighthouseprotection.group" className="text-[var(--color-gold-400)]">
-            legal@lighthouseprotection.group
+          <a href="mailto:legal@oceanstateprotectiongroup.com" className="text-[var(--color-gold-400)]">
+            legal@oceanstateprotectiongroup.com
           </a>
           .
         </p>

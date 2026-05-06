@@ -24,7 +24,7 @@ export const VERTICALS: Vertical[] = [
     fullName: "Catholic & Private Schools",
     hookHeadline: "Built for the schools that take this seriously.",
     hookSub:
-      "Catholic schools, prep schools, and private K-12 sit at the intersection of two threat trend lines. Lighthouse builds the security posture that lets your principal sleep at night.",
+      "Catholic schools, prep schools, and private K-12 sit at the intersection of two threat trend lines. OSPG builds the security posture that lets your principal sleep at night.",
     threats: [
       "Active assailant — both internal and external threat actors",
       "Bathroom and locker-room threat notes (the most-overlooked vector)",
@@ -51,7 +51,7 @@ export const VERTICALS: Vertical[] = [
     fullName: "Parishes & Houses of Worship",
     hookHeadline: "Sanctuary is sacred. Vigilance protects it.",
     hookSub:
-      "Faith-based institutions saw a 100% surge in targeting since 2023. The August 2025 Minneapolis attack made it personal. Lighthouse helps your parish move from reactive to ready.",
+      "Faith-based institutions saw a 100% surge in targeting since 2023. The August 2025 Minneapolis attack made it personal. OSPG helps your parish move from reactive to ready.",
     threats: [
       "Mass-time assailant scenarios (sanctuary, narthex, parking)",
       "Hostile vehicle approach during outdoor processions",
@@ -78,7 +78,7 @@ export const VERTICALS: Vertical[] = [
     fullName: "High-Net-Worth Estates",
     hookHeadline: "Private security, without the security theater.",
     hookSub:
-      "High-net-worth families want safety without surveillance, presence without intrusion. Lighthouse delivers a residential security posture that respects how you actually live.",
+      "High-net-worth families want safety without surveillance, presence without intrusion. OSPG delivers a residential security posture that respects how you actually live.",
     threats: [
       "Targeted home invasion (often based on social-media reconnaissance)",
       "Staff-vector threats (housekeepers, contractors, vendors)",
@@ -105,7 +105,7 @@ export const VERTICALS: Vertical[] = [
     fullName: "Businesses & Workplaces",
     hookHeadline: "Workplace security for the threat profile of 2026.",
     hookSub:
-      "Workplace violence claims more victims than school shootings. Lighthouse builds threat-aware operations from the front desk to the parking lot.",
+      "Workplace violence claims more victims than school shootings. OSPG builds threat-aware operations from the front desk to the parking lot.",
     threats: [
       "Disgruntled former employee return-vector threats",
       "Customer-facing escalation incidents",
@@ -132,7 +132,7 @@ export const VERTICALS: Vertical[] = [
     fullName: "Events & Public Gatherings",
     hookHeadline: "When the crowd shows up, we are already there.",
     hookSub:
-      "Galas, fundraisers, weddings, festivals, sports tournaments, religious processions. Lighthouse provides event security planning and live-event detail for organizations that take their gathering seriously.",
+      "Galas, fundraisers, weddings, festivals, sports tournaments, religious processions. OSPG provides event security planning and live-event detail for organizations that take their gathering seriously.",
     threats: [
       "Crowd-flow chokepoints at entry / exit",
       "Hostile vehicle approach (HVA) for outdoor events",

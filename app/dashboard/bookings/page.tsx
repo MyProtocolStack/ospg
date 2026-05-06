@@ -92,7 +92,7 @@ export default function BookingsIndexPage() {
             </div>
           </div>
           <p className="mt-5 text-[12px] text-[var(--color-silver-400)] leading-relaxed">
-            Lighthouse detail officers are off-duty Cranston PD personnel
+            OSPG detail officers are off-duty Cranston PD personnel
             operating under their department&apos;s extra-duty authorization. All
             engagements include liability coverage.
           </p>

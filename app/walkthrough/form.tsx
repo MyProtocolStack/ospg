@@ -45,7 +45,7 @@ export function WalkthroughForm() {
         </h4>
         <p className="text-[14px] text-[var(--color-silver-200)] leading-relaxed">
           We&apos;ll reach out within 24 hours to confirm availability and a date.
-          Watch for an email from <span className="text-[var(--color-gold-400)]">info@lighthouseprotection.group</span>.
+          Watch for an email from <span className="text-[var(--color-gold-400)]">info@oceanstateprotectiongroup.com</span>.
         </p>
       </div>
     );
@@ -54,7 +54,7 @@ export function WalkthroughForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <Input label="Your name" value={name} onChange={setName} placeholder="Mark DeCiccio" required />
+        <Input label="Your name" value={name} onChange={setName} placeholder="Your full name" required />
         <Input label="Phone" value={phone} onChange={setPhone} placeholder="(401) 555-0123" type="tel" />
       </div>
       <Input label="Email" value={email} onChange={setEmail} placeholder="you@school.org" type="email" required />
@@ -103,7 +103,7 @@ export function WalkthroughForm() {
       </button>
 
       <p className="text-[11px] text-[var(--color-silver-400)] leading-relaxed text-center">
-        By submitting, you agree to be contacted by Lighthouse about this request only.
+        By submitting, you agree to be contacted by OSPG about this request only.
         We never share your information with third parties.
       </p>
     </form>

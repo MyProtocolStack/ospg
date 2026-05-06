@@ -122,7 +122,7 @@ export const COURSES: Course[] = [
         kind: "scenario",
         duration_minutes: 10,
         summary:
-          "10-question scenario-based knowledge check. Pass to receive your Lighthouse Threat Assessment Fundamentals certificate.",
+          "10-question scenario-based knowledge check. Pass to receive your OSPG Threat Assessment Fundamentals certificate.",
       },
     ],
   },
@@ -218,7 +218,7 @@ export const COURSES: Course[] = [
         kind: "scenario",
         duration_minutes: 10,
         summary:
-          "10-question knowledge check. Pass to receive your Lighthouse Shelter-in-Place certificate.",
+          "10-question knowledge check. Pass to receive your OSPG Shelter-in-Place certificate.",
       },
     ],
   },

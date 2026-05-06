@@ -6,7 +6,7 @@ import { BRAND } from "@/lib/brand";
 
 export const metadata = {
   title: "Contact",
-  description: "Talk to a Lighthouse Protection Group founder directly.",
+  description: "Talk to a Ocean State Protection Group founder directly.",
 };
 
 export default function ContactPage() {

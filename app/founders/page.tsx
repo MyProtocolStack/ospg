@@ -5,7 +5,7 @@ import { SectionCTA } from "../components/SectionCTA";
 
 export const metadata = {
   title: "Founders",
-  description: "Meet the Lighthouse Protection Group founders.",
+  description: "Meet the Ocean State Protection Group founders.",
 };
 
 export default function FoundersPage() {

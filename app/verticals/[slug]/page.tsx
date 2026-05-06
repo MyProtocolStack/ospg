@@ -108,7 +108,7 @@ export default async function VerticalPage({
 
             <div>
               <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-3">
-                The Lighthouse Approach
+                The OSPG Approach
               </p>
               <h2 className="font-display text-2xl md:text-3xl text-[var(--color-cream)] mb-6 leading-tight">
                 What we deliver.

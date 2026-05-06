@@ -15,7 +15,7 @@ export default function PrivacyPage() {
 
       <div className="space-y-6 text-[15px] text-[var(--color-silver-100)] leading-[1.8]">
         <Section title="What we collect">
-          When you create a Lighthouse account, we collect: name, work email,
+          When you create a OSPG account, we collect: name, work email,
           organization name, organization type, location (city, state),
           approximate population, and any photos or documents you upload for
           SHIELD AI analysis. When you contact us, we collect the information
@@ -65,12 +65,12 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="Children's privacy">
-          Lighthouse services are intended for organizations and adults. We do
+          OSPG services are intended for organizations and adults. We do
           not knowingly collect personal information from children under 13. If
           you believe we have inadvertently collected a child&apos;s
           information, contact{" "}
-          <a href="mailto:privacy@lighthouseprotection.group" className="text-[var(--color-gold-400)]">
-            privacy@lighthouseprotection.group
+          <a href="mailto:privacy@oceanstateprotectiongroup.com" className="text-[var(--color-gold-400)]">
+            privacy@oceanstateprotectiongroup.com
           </a>
           .
         </Section>
@@ -85,10 +85,10 @@ export default function PrivacyPage() {
 
         <Section title="Contact">
           Privacy questions:{" "}
-          <a href="mailto:privacy@lighthouseprotection.group" className="text-[var(--color-gold-400)]">
-            privacy@lighthouseprotection.group
+          <a href="mailto:privacy@oceanstateprotectiongroup.com" className="text-[var(--color-gold-400)]">
+            privacy@oceanstateprotectiongroup.com
           </a>
-          . Postal: Lighthouse Protection Group, c/o Ocean State Protection
+          . Postal: Ocean State Protection Group, c/o Ocean State Protection
           Group, Rhode Island.
         </Section>
       </div>

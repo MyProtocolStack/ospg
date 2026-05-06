@@ -215,7 +215,7 @@ export default async function CoursePage({
                   )}
                 </div>
                 <p className="text-[12px] text-[var(--color-silver-200)] leading-relaxed mb-5">
-                  Or get this course plus the entire Lighthouse training library, SHIELD AI, and
+                  Or get this course plus the entire OSPG training library, SHIELD AI, and
                   PILOT for{" "}
                   <strong className="text-[var(--color-gold-400)]">$199/month</strong> with the
                   Subscriber plan.

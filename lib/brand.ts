@@ -1,34 +1,34 @@
 /**
  * Brand constants. Single source of truth.
- * Holding company: Lighthouse Protection Group
- * RI subsidiary:    Ocean State Protection Group (OSPG)
+ * Operating brand: Ocean State Protection Group (OSPG)
  */
 
 export const BRAND = {
-  // Holding company (parent)
-  name: "Lighthouse Protection Group",
-  shortName: "Lighthouse",
+  // Operating brand
+  name: "Ocean State Protection Group",
+  shortName: "Ocean State",
+  abbr: "OSPG",
   tagline: "Active-duty law enforcement. Built into your walls.",
   description:
     "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties — delivered by active-duty police officers and military veterans.",
 
-  // RI subsidiary (existing brand — Ryan Moriarty's operating entity)
+  // Subsidiary block kept for forward-compat; same-as for now
   subsidiary: {
     name: "Ocean State Protection Group",
     abbr: "OSPG",
     state: "Rhode Island",
   },
 
-  // Domain — Ocean State Protection Group (RI operating brand) is the active domain
+  // Domain — registered + active
   domain: "oceanstateprotectiongroup.com",
   url: "https://oceanstateprotectiongroup.com",
 
-  // Contact (real OSPG contact info)
+  // Contact (real)
   email: "Oceanstateprotectiongroup@gmail.com",
   phone: "(207) 974-9840",
   emergencyPhone: "(207) 974-9840",
 
-  // Founders — REAL credentials
+  // Founders — REAL credentials from OSPG Information Packet
   founders: [
     {
       name: "Ryan Moriarty",
@@ -86,7 +86,7 @@ export const BRAND = {
     },
   ],
 
-  // Stats (used in hero + about)
+  // Stats
   stats: [
     { label: "Years Combined LE/Military", value: "75+" },
     { label: "FLETC Active Shooter Instructors", value: "2" },
@@ -119,7 +119,7 @@ export const BRAND = {
       name: "Threat & Vulnerability Assessment",
       price: "$1,500–$20,000+",
       period: "one-time",
-      blurb: "Full SHIELD™ Assessment — pricing scales with facility size. Small K-8 from $1,500. 9-12 from $3,000. Large/multi-site from $10,000.",
+      blurb: "Full SHIELD Assessment — pricing scales with facility size. Small K-8 from $1,500. 9-12 from $3,000. Large/multi-site from $10,000.",
       cta: "Request Quote",
       featured: true,
       features: [
@@ -155,9 +155,9 @@ export const BRAND = {
   // Disclaimers
   legal: {
     notMedicalOrLegalAdvice:
-      "Lighthouse Protection Group provides security consulting and vulnerability assessment services. Information on this site is for general guidance only and does not constitute legal, medical, or licensed engineering advice. On-site walkthrough is required for definitive recommendations.",
+      "Ocean State Protection Group provides security consulting and vulnerability assessment services. Information on this site is for general guidance only and does not constitute legal, medical, or licensed engineering advice. On-site walkthrough is required for definitive recommendations.",
     notMonitoring:
-      "Lighthouse Protection Group is not a licensed security monitoring company, alarm company, or guard agency unless explicitly contracted for such services in a separate signed engagement.",
+      "Ocean State Protection Group is not a licensed security monitoring company, alarm company, or guard agency unless explicitly contracted for such services in a separate signed engagement.",
   },
 } as const;
 

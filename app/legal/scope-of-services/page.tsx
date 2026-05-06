@@ -12,7 +12,7 @@ export default function ScopeOfServicesPage() {
         Scope of Services
       </h1>
       <p className="text-[13px] text-[var(--color-silver-300)] mb-10">
-        What Lighthouse does — and what we do not do.
+        What OSPG does — and what we do not do.
       </p>
 
       <div className="space-y-6 text-[15px] text-[var(--color-silver-100)] leading-[1.8]">
@@ -57,10 +57,10 @@ export default function ScopeOfServicesPage() {
         </Section>
 
         <Section title="Active-duty officer authorization">
-          All Lighthouse work performed by active-duty officers is conducted
+          All OSPG work performed by active-duty officers is conducted
           off-duty under approved extra-duty / outside-employment authorization
           through their police department, in accordance with applicable Rhode
-          Island General Laws and departmental policy. Lighthouse is private-
+          Island General Laws and departmental policy. OSPG is private-
           sector consulting; it is not affiliated with, endorsed by, or
           undertaken on behalf of any law-enforcement agency.
         </Section>
@@ -74,7 +74,7 @@ export default function ScopeOfServicesPage() {
         </Section>
 
         <Section title="Insurance and bonding">
-          Lighthouse maintains general liability insurance appropriate to its
+          OSPG maintains general liability insurance appropriate to its
           consulting scope. Off-duty police details are covered under the
           officer&apos;s departmental policies as authorized by their
           extra-duty authorization. Certificate of insurance available on
@@ -83,10 +83,10 @@ export default function ScopeOfServicesPage() {
 
         <Section title="Out of scope: vendor procurement">
           When SHIELD™ Assessment recommendations require physical hardware
-          (cameras, access control, glazing film, etc.), Lighthouse provides
+          (cameras, access control, glazing film, etc.), OSPG provides
           three competitive vendor options per recommendation. The client
-          contracts directly with chosen vendors. Lighthouse does not procure,
-          install, or warrant third-party hardware. Lighthouse does not
+          contracts directly with chosen vendors. OSPG does not procure,
+          install, or warrant third-party hardware. OSPG does not
           receive referral fees from any vendor.
         </Section>
       </div>

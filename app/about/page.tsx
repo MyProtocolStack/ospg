@@ -17,7 +17,7 @@ import {
 export const metadata = {
   title: "About",
   description:
-    "Lighthouse Protection Group — active-duty law enforcement officers and military veterans building modern security for schools, parishes, and high-net-worth properties across New England.",
+    "Ocean State Protection Group — active-duty law enforcement officers and military veterans building modern security for schools, parishes, and high-net-worth properties across New England.",
 };
 
 const METHODOLOGY = [
@@ -105,14 +105,14 @@ export default function AboutPage() {
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-[var(--color-gold-400)]/10 blur-[120px] pointer-events-none" />
           <div className="relative mx-auto max-w-4xl px-6 lg:px-10 text-center">
             <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-4">
-              About Lighthouse
+              About OSPG
             </p>
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-[var(--color-cream)] leading-[1.05] tracking-tight mb-6">
               Vigilance,{" "}
               <span className="italic text-gradient-gold">without compromise.</span>
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-              Lighthouse Protection Group is a private security and threat-assessment
+              Ocean State Protection Group is a private security and threat-assessment
               firm built by active-duty Rhode Island law-enforcement officers and
               military veterans — for the institutions and individuals that
               can&apos;t afford to be wrong.
@@ -144,7 +144,7 @@ export default function AboutPage() {
                 briefing rooms — not in textbooks from a decade ago.
               </p>
               <p>
-                Lighthouse exists to close that gap. Our co-founders are sworn
+                OSPG exists to close that gap. Our co-founders are sworn
                 officers with combined 75+ years of law enforcement and military
                 experience. We see what is actually happening because we
                 respond to it. We bring that current operational reality into

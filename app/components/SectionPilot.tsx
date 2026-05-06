@@ -11,7 +11,7 @@ const SAMPLE_MESSAGES = [
   },
   {
     role: "pilot",
-    text: "Yes — Bishop Hendricken qualifies as a 501(c)(3) faith-based educational institution. To apply, you'll need: (1) a vulnerability assessment (which OSPG provides), (2) IRS determination letter, (3) threat narrative, (4) investment justification. Want me to draft the threat narrative based on Hendricken's documented incidents?",
+    text: "Yes — your school qualifies as a 501(c)(3) faith-based educational institution. To apply, you'll need: (1) a vulnerability assessment (which OSPG provides), (2) IRS determination letter, (3) threat narrative, (4) investment justification. Want me to draft the threat narrative based on your documented incidents?",
   },
   {
     role: "user",
