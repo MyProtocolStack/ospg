@@ -2,33 +2,27 @@ import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request });
-
-  // Skip auth check on public routes
+  const response = NextResponse.next({ request });
   const url = request.nextUrl.pathname;
-  const isPublic =
-    url === "/" ||
-    url.startsWith("/_next") ||
-    url.startsWith("/api/public") ||
-    url === "/login" ||
-    url === "/signup" ||
-    url === "/auth" ||
-    url.startsWith("/auth/") ||
-    url.startsWith("/services") ||
-    url.startsWith("/courses") ||
-    url.startsWith("/pricing") ||
-    url.startsWith("/about") ||
-    url.startsWith("/founders") ||
-    url.startsWith("/contact") ||
-    url.startsWith("/legal") ||
-    url.startsWith("/blog") ||
-    url.startsWith("/walkthrough");
 
-  // Refresh session for ALL routes (so cookies stay current)
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  // If Supabase isn't configured (preview before env vars set), let everything through.
+  // Marketing pages still work, auth-required pages will fail at the page level
+  // instead of crashing the entire site at the middleware layer.
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !supabaseAnon) {
+    return response;
+  }
+
+  const isProtected =
+    url.startsWith("/dashboard") ||
+    url.startsWith("/onboarding") ||
+    url.startsWith("/admin");
+
+  // Build a Supabase client that mutates the response cookies for session refresh.
+  let mutableResponse = response;
+  try {
+    const supabase = createServerClient(supabaseUrl, supabaseAnon, {
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -37,34 +31,31 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
-          response = NextResponse.next({ request });
+          mutableResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
+            mutableResponse.cookies.set(name, value, options)
           );
         },
       },
+    });
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (isProtected && !user) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/login";
+      loginUrl.searchParams.set("next", url);
+      return NextResponse.redirect(loginUrl);
     }
-  );
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  // Gate /dashboard, /shield-ai, /pilot, /courses (paid), /admin
-  const isProtected =
-    url.startsWith("/dashboard") ||
-    url.startsWith("/shield-ai") ||
-    url.startsWith("/pilot") ||
-    url.startsWith("/admin");
-
-  if (isProtected && !user) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/login";
-    loginUrl.searchParams.set("next", url);
-    return NextResponse.redirect(loginUrl);
+  } catch (e) {
+    // Don't crash the site if Supabase is unreachable.
+    // Protected routes will fall through to their own error handling.
+    console.error("middleware supabase error:", e);
   }
 
-  return response;
+  return mutableResponse;
 }
 
 export const config = {
