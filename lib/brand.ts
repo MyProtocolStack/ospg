@@ -19,9 +19,9 @@ export const BRAND = {
     state: "Rhode Island",
   },
 
-  // Domain (placeholder — register based on final name)
-  domain: "lighthouseprotection.group",
-  url: "https://lighthouseprotection.group",
+  // Domain — Ocean State Protection Group (RI operating brand) is the active domain
+  domain: "oceanstateprotectiongroup.com",
+  url: "https://oceanstateprotectiongroup.com",
 
   // Contact (real OSPG contact info)
   email: "Oceanstateprotectiongroup@gmail.com",
