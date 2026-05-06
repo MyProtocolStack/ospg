@@ -22,7 +22,9 @@ type DemoCase = {
   slug: string;
   label: string;
   scene: string;
-  thumbnail: string;        // CSS gradient + overlay (stand-in for real photo)
+  photo: string;            // path to real photo in /public/demo-photos/
+  photoCredit: string;      // attribution shown subtly on hover
+  thumbnail: string;        // CSS gradient fallback / mood tint
   area_label: string;
   overall_severity: Severity;
   summary: string;
@@ -44,6 +46,8 @@ const DEMOS: DemoCase[] = [
     slug: "side-entrance",
     label: "Side Entrance - School",
     scene: "side_entrance.jpg",
+    photo: "/demo-photos/school-side-entrance.jpg",
+    photoCredit: "Mathias Reding / Unsplash",
     thumbnail: "linear-gradient(135deg, #1a3a5c 0%, #0f2742 50%, #060e1b 100%)",
     area_label: "Side entrance - east side of building, used for after-hours athletic events",
     overall_severity: "high",
@@ -107,6 +111,8 @@ const DEMOS: DemoCase[] = [
     slug: "parking-lot",
     label: "Parking Lot - Parish",
     scene: "parking_lot_evening.jpg",
+    photo: "/demo-photos/parish-parking-evening.jpg",
+    photoCredit: "Drew Walker / Unsplash",
     thumbnail: "linear-gradient(135deg, #2a1f3a 0%, #1a1428 50%, #0a0810 100%)",
     area_label: "Main parking lot during evening mass - approximately 300 vehicles weekly",
     overall_severity: "medium",
@@ -157,6 +163,8 @@ const DEMOS: DemoCase[] = [
     slug: "main-doors",
     label: "Main Entrance - Catholic School",
     scene: "main_entrance_school.jpg",
+    photo: "/demo-photos/school-main-vestibule.jpg",
+    photoCredit: "Neon Wang / Unsplash",
     thumbnail: "linear-gradient(135deg, #2a3a4a 0%, #1a2a3a 50%, #0a1428 100%)",
     area_label: "Main school entrance - primary daytime access point during school hours",
     overall_severity: "low",
@@ -226,8 +234,17 @@ export function ShieldAIDemoClient() {
               className="aspect-[4/3] rounded-lg relative overflow-hidden"
               style={{ background: selected.thumbnail }}
             >
-              {/* Simulated photo overlay - represents the scene */}
-              <div className="absolute inset-0 opacity-40 grain"></div>
+              {/* Real reference photo */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={selected.photo}
+                alt={selected.area_label}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+              {/* Dark tint to keep annotation overlays legible */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-navy-800)]/30 via-transparent to-[var(--color-navy-800)]/40 pointer-events-none"></div>
+              <div className="absolute inset-0 opacity-20 grain pointer-events-none"></div>
               {selected.findings.map((f) =>
                 f.bbox ? (
                   <div
@@ -258,6 +275,9 @@ export function ShieldAIDemoClient() {
               <div className="absolute bottom-3 left-3 flex items-center gap-2 text-[10px] uppercase tracking-wider text-[var(--color-silver-300)]">
                 <MapPin className="h-3 w-3" />
                 <span>photo: {selected.scene}</span>
+              </div>
+              <div className="absolute bottom-3 right-3 text-[9px] tracking-wider text-[var(--color-silver-300)]/70">
+                ref: {selected.photoCredit}
               </div>
               <div className="absolute top-3 right-3">
                 <span
