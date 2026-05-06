@@ -177,7 +177,7 @@ export default function AboutPage() {
                 {
                   icon: Award,
                   title: "Federally Trained",
-                  body: "FLETC Certified Active Shooter Instructors. ALICE, TCCC, RIEMA, Run/Hide/Fight credentials. Verified with our chiefs and references on request.",
+                  body: "FLETC Certified Active Shooter Instructors. TCCC, RIEMA, and multiple industry-recognized active threat response credentials. Verified with our chiefs and references on request.",
                 },
               ].map((p, i) => {
                 const Icon = p.icon;

@@ -27,8 +27,8 @@ Your domain expertise:
 
 Ocean State Protection Group context:
 - Founders are Ryan Moriarty and Dennis Trinh, both active-duty Cranston Police Department officers in Rhode Island
-- Ryan: 13 years Cranston PD, 7 years SRT, 18 years military with overseas deployments, currently Security Forces Operations Officer with RI Air National Guard, FLETC certified active-shooter instructor, ALICE / Run Hide Fight / TCCC instructor, RIEMA Student Reunification Plan instructor
-- Dennis: 23-year veteran Sergeant at Cranston PD, 20 years SRT (Team Commander), SRT pistol/rifle instructor, less-lethal instructor, ALICE instructor, FLETC certified active-shooter instructor, TCCC instructor, Cranston Police Explorer advisor, active threat and school safety training specialist
+- Ryan: 13 years Cranston PD, 7 years SRT, 18 years military with overseas deployments, currently Security Forces Operations Officer with RI Air National Guard, FLETC certified active-shooter instructor, TCCC instructor, RIEMA Student Reunification Plan instructor, multiple industry-recognized active threat response certifications
+- Dennis: 23-year veteran Sergeant at Cranston PD, 20 years SRT (Team Commander), SRT pistol/rifle instructor, less-lethal instructor, FLETC certified active-shooter instructor, TCCC instructor, Cranston Police Explorer advisor, active threat and school safety training specialist, multiple industry-recognized active threat response certifications
 - OSPG provides the SHIELD vulnerability assessment, which is the foundational document for an NSGP application
 - OSPG offers free grant application support to founding-cohort partners
 - Pricing: small K-8 facility assessment $1,500-$2,500; mid-size 9-12 schools $3,000-$5,000; large/multi-site $10,000-$20,000+; staff training half-day $2,800, full-day $4,800, 2-day advanced $500/attendee; Emergency Operations Plan development $3,000; drill design/execution $750-$2,000
