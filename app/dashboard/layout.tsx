@@ -10,11 +10,11 @@ import {
   Calendar,
   Settings,
   LogOut,
-  ChevronRight,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { BRAND } from "@/lib/brand";
 import { signOut } from "./actions";
+import { MobileMenu } from "./mobile-menu";
 
 export const metadata = { title: "Dashboard" };
 
@@ -50,7 +50,6 @@ export default async function DashboardLayout({
 
   if (!user) redirect("/login?next=/dashboard");
 
-  // Best-effort fetch of profile; safe if missing
   let displayName = user.email?.split("@")[0] ?? "Member";
   try {
     const { data: profile } = await supabase
@@ -63,9 +62,13 @@ export default async function DashboardLayout({
     // table may not exist yet pre-migration
   }
 
+  const navItems = NAV_GROUPS.flatMap((g) =>
+    g.items.map((i) => ({ ...i, group: g.label }))
+  );
+
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
+      {/* Desktop sidebar */}
       <aside className="hidden lg:flex w-64 flex-col bg-[var(--color-navy-800)] border-r border-white/5 sticky top-0 h-screen">
         <Link
           href="/"
@@ -136,20 +139,14 @@ export default async function DashboardLayout({
         </div>
       </aside>
 
-      {/* Mobile top bar */}
-      <div className="lg:hidden fixed top-0 inset-x-0 z-40 bg-[var(--color-navy-800)] border-b border-white/5 px-6 py-4 flex items-center justify-between">
-        <Link href="/dashboard" className="flex items-center gap-2.5">
-          <Shield className="h-6 w-6 text-[var(--color-gold-400)]" strokeWidth={1.5} />
-          <span className="font-display text-[var(--color-cream)]">Lighthouse</span>
-        </Link>
-        <form action={signOut}>
-          <button className="text-[12px] text-[var(--color-silver-200)] hover:text-[var(--color-cream)]">
-            Sign Out
-          </button>
-        </form>
-      </div>
+      {/* Mobile menu (client component — drawer + top bar) */}
+      <MobileMenu
+        navItems={navItems}
+        displayName={displayName}
+        userEmail={user.email ?? ""}
+      />
 
-      <main className="flex-1 lg:ml-0 mt-16 lg:mt-0">{children}</main>
+      <main className="flex-1 lg:ml-0 mt-14 lg:mt-0">{children}</main>
     </div>
   );
 }
