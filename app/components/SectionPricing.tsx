@@ -113,8 +113,9 @@ export function SectionPricing() {
             Multi-site or diocese-wide? <Link href="/contact" className="text-[var(--color-gold-400)] link-underline">Talk to a founder</Link>
           </p>
           <p className="text-[11px] text-[var(--color-silver-400)] max-w-xl mx-auto leading-relaxed">
-            Founding-cohort pricing locked through 2026. SHIELD Assessment is reimbursable
-            under FEMA NSGP in many cases. Diocese-of-Providence master vendor agreement available.
+            SHIELD Assessments may be eligible for FEMA Nonprofit Security
+            Grant (NSGP) funding for qualifying 501(c)(3) organizations. We
+            provide grant-application support to evaluate eligibility.
           </p>
         </motion.div>
       </div>
