@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/shield-ai", label: "SHIELD AI" },
   { href: "/grants", label: "Grants" },
   { href: "/courses", label: "Courses" },
+  { href: "/blog", label: "Insights" },
   { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ];
