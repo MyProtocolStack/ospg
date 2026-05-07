@@ -18,18 +18,25 @@ export function SectionFounders() {
           className="text-center mb-20"
         >
           <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-4">
-            The Operators
+            The Founders
           </p>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-cream)] leading-tight tracking-tight max-w-4xl mx-auto">
-            Active-duty.{" "}
-            <span className="italic text-gradient-gold">Not retired.</span>
+            Current operators.{" "}
+            <span className="italic text-gradient-gold">Built into the work.</span>
           </h2>
           <div className="gold-rule mt-8" />
           <p className="mt-8 text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-            Every other firm in this space is staffed by retired law-enforcement
-            professionals. We&apos;re currently wearing the uniform.
-            We see what&apos;s actually happening - not what was happening when
-            we wore the badge.
+            Most firms in this space are staffed by professionals who left
+            the field years ago. OSPG&apos;s founders are still in uniform -
+            and your assessments and training reflect what is actually
+            happening on patrol this week, not what was happening when our
+            generation wore the badge.
+          </p>
+          <p className="mt-5 text-[14px] text-[var(--color-silver-300)] max-w-2xl mx-auto leading-relaxed">
+            Physical security details, when contracted, are staffed
+            separately by our vetted network of retired law enforcement and
+            military veterans. Active-duty officers - including OSPG
+            founders - are never assigned to private detail work.
           </p>
         </motion.div>
 
