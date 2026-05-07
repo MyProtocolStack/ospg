@@ -27,7 +27,7 @@ const FOOTER_GROUPS = [
       { href: "/about", label: "About" },
       { href: "/founders", label: "Founders" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/blog", label: "Threat Intelligence" },
+      { href: "/blog", label: "Field Notes" },
       { href: "/contact", label: "Contact" },
     ],
   },

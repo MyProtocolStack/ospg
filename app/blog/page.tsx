@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Calendar, Clock, ArrowRight, FileText } from "lucide-react";
 
 export const metadata = {
-  title: "Threat Intelligence - Ocean State Protection Group",
+  title: "Field Notes - Ocean State Protection Group",
   description:
-    "Practical writing on physical security, FEMA NSGP grants, school safety, and diocesan operations from active-duty Cranston PD officers Ryan Moriarty and Dennis Trinh.",
+    "Operational writing from Ocean State Protection Group on FEMA NSGP funding, school lockdown design, parish dispersal coverage, insurance-grade security documentation, and the failure patterns we encounter on every walkthrough.",
 };
 
 function formatDate(iso: string): string {
@@ -39,17 +39,19 @@ export default function BlogIndexPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 surface-card border-glow-gold mb-6">
               <FileText className="h-3.5 w-3.5 text-[var(--color-gold-400)]" strokeWidth={1.5} />
               <span className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-100)] font-medium">
-                Threat Intelligence
+                Field Notes
               </span>
             </div>
             <h1 className="font-display text-4xl md:text-6xl text-[var(--color-cream)] leading-[1.05] tracking-tight mb-6">
-              Practical writing.{" "}
-              <span className="italic text-gradient-gold">No fluff.</span>
+              Notes from the{" "}
+              <span className="italic text-gradient-gold">walkthrough.</span>
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-              FEMA grants, school safety, parish dispersal, insurance carriers,
-              and what we have learned walking 24+ campuses across New England.
-              Written by the same officers who do the walkthroughs.
+              Operational writing on FEMA NSGP funding, school lockdown design,
+              parish dispersal coverage, insurance-grade documentation, and the
+              failure patterns that surface on nearly every campus we walk.
+              Drawn from the OSPG practice - over 75 years of combined law
+              enforcement and military experience across the founding team.
             </p>
           </div>
         </section>
@@ -80,7 +82,6 @@ export default function BlogIndexPage() {
                     <Clock className="h-3.5 w-3.5" />
                     {featured.readMins} min read
                   </span>
-                  <span>By {featured.author}</span>
                 </div>
                 <span className="inline-flex items-center gap-2 text-[14px] text-[var(--color-gold-400)] font-medium group-hover:gap-3 transition-all">
                   Read article

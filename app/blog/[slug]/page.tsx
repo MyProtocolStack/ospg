@@ -195,7 +195,9 @@ export default async function BlogPostPage({
 
   const ctaConfig = POST_CTA_CONFIG[post.ctaVariant];
 
-  // JSON-LD structured data for SEO
+  // JSON-LD structured data for SEO. Author is the firm itself, not an
+  // individual - articles reflect institutional voice and practice
+  // observations, not personal byline.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -203,7 +205,11 @@ export default async function BlogPostPage({
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.lastReviewedAt,
-    author: { "@type": "Person", name: post.author },
+    author: {
+      "@type": "Organization",
+      name: "Ocean State Protection Group",
+      url: "https://oceanstateprotectiongroup.com",
+    },
     publisher: {
       "@type": "Organization",
       name: "Ocean State Protection Group",
@@ -287,19 +293,17 @@ export default async function BlogPostPage({
 
               <div className="flex items-center gap-3 pb-2">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[var(--color-gold-400)]/20 to-[var(--color-gold-600)]/20 border border-[var(--color-gold-400)]/30 flex items-center justify-center">
-                  <span className="font-display text-sm text-[var(--color-gold-400)]">
-                    {post.author
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </span>
+                  <ShieldCheck
+                    className="h-5 w-5 text-[var(--color-gold-400)]"
+                    strokeWidth={1.7}
+                  />
                 </div>
                 <div>
                   <p className="text-[13px] text-[var(--color-cream)] font-medium leading-tight">
-                    {post.author}
+                    Ocean State Protection Group
                   </p>
                   <p className="text-[11px] text-[var(--color-silver-300)] leading-tight">
-                    Ocean State Protection Group, Co-Founder
+                    Security Consulting Practice
                   </p>
                 </div>
               </div>
@@ -325,17 +329,17 @@ export default async function BlogPostPage({
                 </div>
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-gold-400)] mb-2 font-medium">
-                    About the Authors
+                    About Ocean State Protection Group
                   </p>
                   <p className="text-[13px] text-[var(--color-silver-100)] leading-relaxed">
-                    Ocean State Protection Group is led by Ryan Moriarty
-                    (active-duty officer, Cranston Police Department) and
-                    Sergeant Dennis Trinh (Cranston Police Department). Together
-                    the team has over 75 years of combined law enforcement and
-                    military experience, including SRT operations, FLETC
-                    Active-Shooter Instructor certifications, and Tactical
-                    Combat Casualty Care instruction. Both founders attend every
-                    initial walkthrough.
+                    Ocean State Protection Group is a Rhode Island private
+                    security consultancy founded by active-duty law enforcement
+                    officers. The firm draws on over 75 years of combined law
+                    enforcement and military experience across the founding
+                    team, including SRT operations, FLETC Active-Shooter
+                    Instructor certifications, and Tactical Combat Casualty
+                    Care instruction. Both founders attend every initial
+                    walkthrough.
                   </p>
                 </div>
               </div>

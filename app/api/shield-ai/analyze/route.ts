@@ -7,14 +7,22 @@
  *   - area_label: string
  *   - context: string (optional)
  *
- * Returns: AnalysisResult JSON
+ * Returns: { assessment_id, summary, overall_severity, area_label, findings, photo_url }
  *
  * Flow:
  *   1. Validate auth + image
- *   2. Convert image to base64
- *   3. Call Claude Sonnet 4.5 with vision + structured-output prompt
- *   4. Parse JSON response, validate
- *   5. Return to client (DB persistence handled separately to keep this fast)
+ *   2. Look up user's primary org (must have completed onboarding)
+ *   3. Pre-generate assessment + photo IDs so storage path is deterministic
+ *   4. Upload photo to assessment-photos/{org_id}/{assessment_id}/{photo_id}.{ext}
+ *      (RLS on storage.objects validates the org_id segment matches caller)
+ *   5. Call Claude Sonnet 4.5 with vision + structured-output prompt
+ *   6. Parse JSON response, validate
+ *   7. Persist: assessments + assessment_photos + assessment_findings rows
+ *   8. Return result with assessment_id so client can navigate to detail view
+ *
+ * Failure modes are handled defensively - if storage upload or DB write
+ * fails after a successful analysis, we still return the analysis to the
+ * user so their work isn't lost. They can re-run if persistence matters.
  */
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
@@ -77,6 +85,46 @@ Generate 3-7 findings per analysis. Quality over quantity. If everything looks g
 
 Output ONLY the JSON object. No prose, no preamble, no markdown fences.`;
 
+type Severity = "low" | "medium" | "high" | "critical";
+
+type Finding = {
+  number: number;
+  severity: Severity;
+  title: string;
+  description: string;
+  recommendation: string;
+  bbox?: { x: number; y: number; w: number; h: number };
+  est_cost_low?: number;
+  est_cost_high?: number;
+  nsgp_eligible?: boolean;
+};
+
+type AnalysisResult = {
+  summary: string;
+  overall_severity: Severity;
+  area_label: string;
+  findings: Finding[];
+};
+
+function extFromMediaType(mt: string): string {
+  switch (mt) {
+    case "image/jpeg":
+    case "image/jpg":
+      return "jpg";
+    case "image/png":
+      return "png";
+    case "image/webp":
+      return "webp";
+    case "image/gif":
+      return "gif";
+    case "image/heic":
+    case "image/heif":
+      return "heic";
+    default:
+      return "jpg";
+  }
+}
+
 export async function POST(request: NextRequest) {
   // Auth
   const supabase = await createClient();
@@ -87,6 +135,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Look up the user's primary org. If they have not completed onboarding,
+  // they will not have a membership row.
+  const { data: membership } = await supabase
+    .from("memberships")
+    .select("org_id")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  if (!membership?.org_id) {
+    return NextResponse.json(
+      {
+        error:
+          "Please finish onboarding before running an analysis. Visit /onboarding to set up your organization.",
+      },
+      { status: 400 }
+    );
+  }
+  const orgId = membership.org_id as string;
+
   // Parse multipart form
   let form: FormData;
   try {
@@ -96,7 +165,8 @@ export async function POST(request: NextRequest) {
   }
 
   const photo = form.get("photo");
-  const areaLabel = (form.get("area_label") as string) || "Unspecified location";
+  const areaLabel =
+    (form.get("area_label") as string) || "Unspecified location";
   const context = (form.get("context") as string) || "";
 
   if (!(photo instanceof File)) {
@@ -106,7 +176,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Photo exceeds 20MB" }, { status: 400 });
   }
   if (!photo.type.startsWith("image/")) {
-    return NextResponse.json({ error: "File must be an image" }, { status: 400 });
+    return NextResponse.json(
+      { error: "File must be an image" },
+      { status: 400 }
+    );
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -116,20 +189,56 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Convert to base64
+  // Pre-generate IDs so the storage path is deterministic before we run
+  // the analysis (which can take 30-60s).
+  const assessmentId = crypto.randomUUID();
+  const photoId = crypto.randomUUID();
+  const ext = extFromMediaType(photo.type);
+  const storagePath = `${orgId}/${assessmentId}/${photoId}.${ext}`;
+
+  // Read the file once - we use the buffer for both storage upload and
+  // the Anthropic vision call.
   const buffer = Buffer.from(await photo.arrayBuffer());
+
+  // ---- Storage upload ----
+  // Uploaded with the user's RLS context. The policy on storage.objects
+  // requires (split_part(name, '/', 1))::uuid in (select current_user_org_ids()),
+  // which holds because we built storagePath with the user's own org_id.
+  const { error: uploadError } = await supabase.storage
+    .from("assessment-photos")
+    .upload(storagePath, buffer, {
+      contentType: photo.type,
+      upsert: false,
+    });
+
+  // If the upload failed, log it but continue. The analysis is the
+  // user-visible value; persistence is a nice-to-have we can recover.
+  let photoPersisted = !uploadError;
+  if (uploadError) {
+    console.error("Storage upload failed:", uploadError.message);
+  }
+
+  // ---- Vision analysis ----
   const base64 = buffer.toString("base64");
   const mediaType =
-    photo.type === "image/jpg" ? "image/jpeg" : (photo.type as "image/jpeg" | "image/png" | "image/webp" | "image/gif");
+    photo.type === "image/jpg"
+      ? "image/jpeg"
+      : (photo.type as
+          | "image/jpeg"
+          | "image/png"
+          | "image/webp"
+          | "image/gif");
 
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-  // Build user message
   let userText = `Analyze this photograph of: ${areaLabel}.`;
-  if (context) userText += `\n\nAdditional context from the property owner:\n${context}`;
+  if (context)
+    userText += `\n\nAdditional context from the property owner:\n${context}`;
   userText += `\n\nProvide a structured SHIELD AI analysis. Output JSON only.`;
 
   let analysisRaw: string;
+  let inputTokens = 0;
+  let outputTokens = 0;
   try {
     const resp = await anthropic.messages.create({
       model: "claude-sonnet-4-5",
@@ -157,8 +266,12 @@ export async function POST(request: NextRequest) {
       throw new Error("No text response from model");
     }
     analysisRaw = textBlock.text.trim();
+    inputTokens = resp.usage?.input_tokens ?? 0;
+    outputTokens = resp.usage?.output_tokens ?? 0;
   } catch (e) {
     console.error("Anthropic API error:", e);
+    // If we already uploaded the photo, leave it - the user might retry
+    // and we'll dedupe on the next attempt.
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "Analysis failed" },
       { status: 500 }
@@ -166,20 +279,130 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse JSON (be tolerant of code fences)
-  let parsed: unknown;
+  let parsed: AnalysisResult;
   try {
     let cleaned = analysisRaw;
     if (cleaned.startsWith("```")) {
-      cleaned = cleaned.replace(/^```(?:json)?/, "").replace(/```$/, "").trim();
+      cleaned = cleaned
+        .replace(/^```(?:json)?/, "")
+        .replace(/```$/, "")
+        .trim();
     }
-    parsed = JSON.parse(cleaned);
+    parsed = JSON.parse(cleaned) as AnalysisResult;
   } catch (e) {
     console.error("Failed to parse model output:", analysisRaw.slice(0, 500));
     return NextResponse.json(
-      { error: "Model returned malformed output. Try a clearer photo." },
+      {
+        error: "Model returned malformed output. Try a clearer photo.",
+        rawSample: analysisRaw.slice(0, 200),
+      },
       { status: 500 }
     );
   }
 
-  return NextResponse.json(parsed);
+  // Light sanity-check on the parsed shape - if it's missing required
+  // fields, return what we have and skip persistence.
+  if (
+    !parsed.findings ||
+    !Array.isArray(parsed.findings) ||
+    !parsed.summary ||
+    !parsed.overall_severity
+  ) {
+    return NextResponse.json({
+      ...parsed,
+      assessment_id: null,
+      _warning: "Analysis returned but did not match expected shape; not persisted.",
+    });
+  }
+
+  // ---- Persist to DB ----
+  // Wrapped in try/catch so a DB failure does not lose the user's analysis.
+  let persistedAssessmentId: string | null = null;
+  let signedPhotoUrl: string | null = null;
+
+  try {
+    // Cost estimate: rough Claude Sonnet 4.5 pricing (as of writing).
+    // Inputs ~$3/M, outputs ~$15/M. Approximate; refresh from billing as needed.
+    const costUsd =
+      (inputTokens * 3) / 1_000_000 + (outputTokens * 15) / 1_000_000;
+
+    const { error: assessErr } = await supabase.from("assessments").insert({
+      id: assessmentId,
+      org_id: orgId,
+      created_by: user.id,
+      title: parsed.area_label || areaLabel || "Untitled assessment",
+      status: "complete",
+      area_label: parsed.area_label || areaLabel,
+      model: "claude-sonnet-4-5",
+      analysis_text: analysisRaw,
+      summary: parsed.summary,
+      overall_severity: parsed.overall_severity,
+      input_tokens: inputTokens,
+      output_tokens: outputTokens,
+      cost_usd: costUsd.toFixed(4),
+      completed_at: new Date().toISOString(),
+    });
+
+    if (assessErr) {
+      console.error("Failed to insert assessment:", assessErr.message);
+    } else {
+      persistedAssessmentId = assessmentId;
+
+      // Photo row (only if upload actually succeeded above)
+      if (photoPersisted) {
+        const { error: photoErr } = await supabase
+          .from("assessment_photos")
+          .insert({
+            id: photoId,
+            assessment_id: assessmentId,
+            storage_path: storagePath,
+            filename: photo.name,
+            size_bytes: photo.size,
+          });
+        if (photoErr) {
+          console.error("Failed to insert photo row:", photoErr.message);
+          photoPersisted = false;
+        } else {
+          // Generate a 7-day signed URL for the client to render.
+          const { data: signed } = await supabase.storage
+            .from("assessment-photos")
+            .createSignedUrl(storagePath, 60 * 60 * 24 * 7);
+          signedPhotoUrl = signed?.signedUrl ?? null;
+        }
+      }
+
+      // Findings rows
+      if (parsed.findings.length > 0) {
+        const findingRows = parsed.findings.map((f) => ({
+          assessment_id: assessmentId,
+          finding_number: f.number,
+          severity: f.severity,
+          title: f.title,
+          description: f.description ?? "",
+          recommendation: f.recommendation ?? "",
+          photo_id: photoPersisted ? photoId : null,
+          bbox_x: f.bbox?.x ?? null,
+          bbox_y: f.bbox?.y ?? null,
+          bbox_w: f.bbox?.w ?? null,
+          bbox_h: f.bbox?.h ?? null,
+          est_cost_low: f.est_cost_low ?? null,
+          est_cost_high: f.est_cost_high ?? null,
+        }));
+        const { error: findErr } = await supabase
+          .from("assessment_findings")
+          .insert(findingRows);
+        if (findErr) {
+          console.error("Failed to insert findings:", findErr.message);
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Persistence error:", e);
+  }
+
+  return NextResponse.json({
+    ...parsed,
+    assessment_id: persistedAssessmentId,
+    photo_url: signedPhotoUrl,
+  });
 }
