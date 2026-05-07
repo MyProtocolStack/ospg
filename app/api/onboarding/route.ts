@@ -2,7 +2,7 @@
  * Org creation + membership for first-time users.
  * POST /api/onboarding
  *
- * Self-serve via RLS — no service-role key required.
+ * Self-serve via RLS - no service-role key required.
  *
  * Migration 0005_onboarding_self_serve.sql adds two narrow RLS policies:
  *   - orgs.INSERT: authenticated users can create orgs

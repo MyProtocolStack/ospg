@@ -8,6 +8,7 @@ import {
   Users,
   CheckCircle2,
   Lock,
+  ArrowLeft,
   ArrowRight,
   Shield,
   AlertTriangle,
@@ -73,7 +74,8 @@ export default async function CoursePage({
               href="/courses"
               className="inline-flex items-center gap-2 text-[13px] text-[var(--color-silver-300)] hover:text-[var(--color-cream)] mb-8 transition-colors"
             >
-              ← All courses
+              <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.7} />
+              All courses
             </Link>
 
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 mb-6">

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Shield, Sparkles } from "lucide-react";
+import { ArrowRight, Shield, Sparkles, Check } from "lucide-react";
 
 export function Hero() {
   return (
@@ -80,15 +80,15 @@ export function Hero() {
           {/* Microcopy under the button */}
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 mt-5 text-[12px] md:text-[13px] text-[var(--color-silver-100)]">
             <span className="flex items-center gap-1.5">
-              <span className="text-[var(--color-gold-400)]">✓</span>
+              <Check className="h-3 w-3 text-[var(--color-gold-400)]" strokeWidth={2.5} />
               No signup required
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="text-[var(--color-gold-400)]">✓</span>
+              <Check className="h-3 w-3 text-[var(--color-gold-400)]" strokeWidth={2.5} />
               See real findings in 90 seconds
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="text-[var(--color-gold-400)]">✓</span>
+              <Check className="h-3 w-3 text-[var(--color-gold-400)]" strokeWidth={2.5} />
               Built for schools, parishes, estates
             </span>
           </div>

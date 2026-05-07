@@ -114,8 +114,9 @@ export default async function LessonPage({
                 href={`/courses/${course.slug}/${prev.slug}`}
                 className="surface-card p-5 hover:surface-card-elevated transition-all group"
               >
-                <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-300)] mb-1.5">
-                  ← Previous
+                <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-300)] mb-1.5 flex items-center gap-1.5">
+                  <ArrowLeft className="h-3 w-3" strokeWidth={1.7} />
+                  Previous
                 </p>
                 <p className="text-[14px] text-[var(--color-cream)] font-medium leading-tight">
                   {prev.title}
@@ -129,8 +130,9 @@ export default async function LessonPage({
                 href={`/courses/${course.slug}/${next.slug}`}
                 className="surface-card p-5 hover:surface-card-elevated transition-all text-right group"
               >
-                <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-300)] mb-1.5">
-                  Next →
+                <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-300)] mb-1.5 flex items-center justify-end gap-1.5">
+                  Next
+                  <ArrowRight className="h-3 w-3" strokeWidth={1.7} />
                 </p>
                 <p className="text-[14px] text-[var(--color-cream)] font-medium leading-tight">
                   {next.title}
