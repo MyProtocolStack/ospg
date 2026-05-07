@@ -15,7 +15,7 @@ import Link from "next/link";
 export const metadata = {
   title: "PRAESIDIUM - Photo-Based Vulnerability Analysis",
   description:
-    "Upload a photo of any campus location. Get an expert-grade security vulnerability assessment in 90 seconds. Powered by Claude vision and built on 75+ years of active-duty law enforcement experience.",
+    "Upload a photo of any campus location. Get an expert-grade security vulnerability assessment in 90 seconds. Built on 75+ years of combined law enforcement and military experience.",
 };
 
 export default function PraesidiumPublicPage() {
@@ -30,7 +30,7 @@ export default function PraesidiumPublicPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 surface-card border-glow-gold mb-6">
               <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold-400)]" strokeWidth={1.5} />
               <span className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-100)] font-medium">
-                Powered by Claude Vision
+                Run PRAESIDIUM Now
               </span>
             </div>
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-[var(--color-cream)] leading-[1.05] tracking-tight mb-6">
