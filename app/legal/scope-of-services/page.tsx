@@ -22,7 +22,7 @@ export default function ScopeOfServicesPage() {
               "Vulnerability assessments via on-site walkthrough (SHIELD Assessment)",
               "AI-assisted preliminary photo analysis (SHIELD AI)",
               "FEMA NSGP grant application support and document generation (PILOT)",
-              "Off-duty active-duty law-enforcement security details under departmental authorization",
+              "Security details staffed by vetted retired law enforcement and military veterans (active-duty officers are never assigned to private detail work)",
               "Threat assessment and incident-response training for staff and volunteers",
               "Liaison facilitation between client organizations and local law enforcement",
               "Threat-trend briefings for subscribers",
@@ -40,7 +40,8 @@ export default function ScopeOfServicesPage() {
           <ul className="list-none space-y-2 mt-3">
             {[
               "Sell, install, monitor, or maintain alarm systems or central-station services",
-              "Provide armed protection beyond contracted off-duty police details",
+              "Provide armed protection beyond contracted veteran-staffed details",
+              "Use active-duty law enforcement officers to staff private security details (founders included)",
               "Provide cybersecurity penetration testing or IT security audits",
               "Provide background checks or pre-employment screening",
               "Conduct private investigations or surveillance of individuals",
@@ -56,13 +57,28 @@ export default function ScopeOfServicesPage() {
           </ul>
         </Section>
 
-        <Section title="Active-duty officer authorization">
-          All OSPG work performed by active-duty officers is conducted
-          off-duty under approved extra-duty / outside-employment authorization
-          through their police department, in accordance with applicable Rhode
-          Island General Laws and departmental policy. OSPG is private-
-          sector consulting; it is not affiliated with, endorsed by, or
-          undertaken on behalf of any law-enforcement agency.
+        <Section title="Founder role boundary">
+          OSPG is co-founded by two active-duty Cranston Police Department
+          officers. Their work for OSPG is limited to consulting activities
+          - vulnerability assessments, written reports, training delivery,
+          program design, and grant-application advisory - conducted
+          off-duty under approved extra-duty / outside-employment
+          authorization in accordance with applicable Rhode Island General
+          Laws and departmental policy. Active-duty officers, including
+          OSPG founders, are never assigned to private security detail or
+          guard work. OSPG is private-sector consulting; it is not
+          affiliated with, endorsed by, or undertaken on behalf of any
+          law-enforcement agency.
+        </Section>
+
+        <Section title="Detail staffing model">
+          Physical security details, on-site coverage, event protection,
+          and any uniformed presence are staffed exclusively by retired law
+          enforcement officers and military veterans contracted through
+          OSPG's vetted operator network. Each operator is screened for
+          credentials, prior conduct, and current insurability before
+          being eligible for assignment. The client contracts with OSPG;
+          OSPG dispatches and manages the operator.
         </Section>
 
         <Section title="Engagement structure">
@@ -75,10 +91,10 @@ export default function ScopeOfServicesPage() {
 
         <Section title="Insurance and bonding">
           OSPG maintains general liability insurance appropriate to its
-          consulting scope. Off-duty police details are covered under the
-          officer&apos;s departmental policies as authorized by their
-          extra-duty authorization. Certificate of insurance available on
-          request for active engagements.
+          consulting scope. Veteran-staffed security details are covered
+          under OSPG&apos;s commercial security-services policy for the
+          duration of each engagement. Certificate of insurance available
+          on request for active engagements.
         </Section>
 
         <Section title="Out of scope: vendor procurement">

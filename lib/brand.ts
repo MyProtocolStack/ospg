@@ -8,9 +8,9 @@ export const BRAND = {
   name: "Ocean State Protection Group",
   shortName: "Ocean State",
   abbr: "OSPG",
-  tagline: "Active-duty law enforcement. Built into your walls.",
+  tagline: "Active law enforcement leadership. Veteran-staffed delivery.",
   description:
-    "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties - delivered by active-duty police officers and military veterans.",
+    "Vulnerability assessments, threat intelligence, AI-powered security analysis, and federally-funded grant support for schools, parishes, and high-net-worth properties. Founders are active-duty law enforcement officers; physical security details and on-site staffing are delivered through a vetted network of retired law enforcement and military veterans.",
 
   // Subsidiary block kept for forward-compat; same-as for now
   subsidiary: {
@@ -68,8 +68,12 @@ export const BRAND = {
   // Differentiators
   pillars: [
     {
-      title: "Active-Duty Authority",
-      body: "Every other security firm is staffed by retired LE. We're current. We see what's actually happening.",
+      title: "Current Operator Leadership",
+      body: "Founders are active-duty law enforcement officers, not retired contractors. You get assessments informed by current threat intelligence and live operational experience.",
+    },
+    {
+      title: "Veteran-Staffed Delivery",
+      body: "Physical security details, on-site coverage, and event protection are delivered by a vetted network of retired law enforcement and military veterans - never active-duty officers.",
     },
     {
       title: "Federally-Funded Path",
@@ -78,10 +82,6 @@ export const BRAND = {
     {
       title: "AI-Powered Intelligence",
       body: "Upload property photos, get an expert-grade vulnerability assessment in minutes. Powered by SHIELD AI.",
-    },
-    {
-      title: "Locally Accountable",
-      body: "Headquartered in Rhode Island. Our reputation lives in the same towns we serve.",
     },
   ],
 

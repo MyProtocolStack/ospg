@@ -22,7 +22,7 @@ export function Hero() {
           <div className="px-4 py-1.5 surface-card border-glow-gold inline-flex items-center gap-2">
             <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold-400)]" strokeWidth={1.5} />
             <span className="text-[12px] uppercase tracking-[0.18em] text-[var(--color-silver-100)] font-medium">
-              Active-Duty Law Enforcement
+              Founder-Led • Veteran-Staffed
             </span>
           </div>
         </motion.div>

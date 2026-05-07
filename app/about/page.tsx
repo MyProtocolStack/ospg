@@ -134,26 +134,29 @@ export default function AboutPage() {
                 The August 2025 attack on a Catholic church in Minneapolis was the
                 inflection point. In the weeks that followed, faith-based institutions
                 across the country called every security firm they could find - and
-                every firm sent a retired officer to walk the building.
+                most got an assessment that read like a brochure from a decade ago.
               </p>
               <p>
                 We saw the gap immediately. The threat landscape moves faster than
-                anyone&apos;s ability to retire from law enforcement and report on
-                it. The school-shooting playbook of 2015 doesn&apos;t match what is
-                happening in 2026. Current best practices live in active-duty
-                briefing rooms - not in textbooks from a decade ago.
+                most security writing can keep up with. The school-shooting
+                playbook of 2015 doesn&apos;t match what is happening in 2026.
+                Current best practices live in active-duty briefing rooms - not
+                in textbooks from a decade ago.
               </p>
               <p>
                 OSPG exists to close that gap. Our co-founders are sworn
                 officers with combined 75+ years of law enforcement and military
-                experience. We see what is actually happening because we
-                respond to it. We bring that current operational reality into
-                walkthroughs at schools, parishes, businesses, and properties
-                that need it most.
+                experience between them. We see what is actually happening
+                because we respond to it. We bring that current operational
+                reality into the assessments and training we deliver to
+                schools, parishes, businesses, and properties that need it most.
               </p>
               <p>
-                We are not retired. We are not theoretical. We are the people you
-                actually want walking your building.
+                For physical security details, on-site coverage, and event
+                protection, OSPG dispatches operators from our vetted network
+                of retired law enforcement and military veterans - never
+                active-duty officers, including our founders. That separation
+                is how this work is supposed to be done.
               </p>
             </div>
           </div>
@@ -166,8 +169,8 @@ export default function AboutPage() {
               {[
                 {
                   icon: Shield,
-                  title: "Active-Duty Authority",
-                  body: "Both founders are sworn officers. Every other firm in this space is staffed by retired professionals. The difference is operational currency.",
+                  title: "Active Leadership, Veteran Delivery",
+                  body: "Founders are active-duty officers - your assessments and training reflect current threat intelligence. Physical security details are staffed by vetted retired LE and military veterans through our network. Active-duty officers are never assigned to private detail work.",
                 },
                 {
                   icon: MapPin,

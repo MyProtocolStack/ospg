@@ -35,19 +35,27 @@ export default function DisclaimerPage() {
           Unless explicitly contracted in a separate signed engagement,
           Ocean State Protection Group is not a licensed alarm-monitoring
           company, central station, or guard agency. We provide consulting,
-          assessment, training, and (where contracted) off-duty law-enforcement
-          security details under appropriate departmental authorization. We do
-          not install, monitor, or maintain alarm systems.
+          assessment, training, and (where contracted) security details
+          staffed by retired law enforcement and military veterans through
+          our vetted operator network. We do not install, monitor, or
+          maintain alarm systems.
         </Section>
 
-        <Section title="Active-duty officer disclosure">
-          Ocean State Protection Group founders are active-duty municipal police
-          officers. All OSPG work is conducted off-duty under approved
-          extra-duty / outside-employment authorization through their
-          department, in accordance with applicable Rhode Island General Laws
-          and departmental policy. OSPG work is private-sector consulting
-          and is not affiliated with, endorsed by, or undertaken in the name
-          of any law-enforcement agency.
+        <Section title="Founder role and detail-staffing disclosure">
+          Ocean State Protection Group is co-founded by two active-duty
+          municipal police officers. Founder work for OSPG is limited to
+          consulting activities - vulnerability assessments, written
+          reports, training, program design, and grant-application
+          advisory - conducted off-duty under approved extra-duty /
+          outside-employment authorization in accordance with applicable
+          Rhode Island General Laws and departmental policy. Active-duty
+          officers, including OSPG founders, are never assigned to private
+          security details. Physical detail and on-site protection
+          services, where contracted, are staffed exclusively by retired
+          law enforcement and military veterans through OSPG&apos;s vetted
+          operator network. OSPG work is private-sector and is not
+          affiliated with, endorsed by, or undertaken in the name of any
+          law-enforcement agency.
         </Section>
 
         <Section title="No guarantee against incidents">

@@ -78,7 +78,7 @@ const SERVICES = [
     icon: Users,
     name: "Security Detail",
     blurb:
-      "Active-duty officer presence for events, dispersal windows, and high-risk meetings. Off-duty rates apply through Cranston PD detail process.",
+      "Vetted retired law enforcement and military veterans for events, dispersal windows, and high-risk meetings. Coordinated through OSPG, never staffed by active-duty officers.",
     features: [
       "Mass dispersal coverage (post-service safety windows)",
       "Event-day uniformed presence",
@@ -88,7 +88,7 @@ const SERVICES = [
     ],
     cta: "Book Detail",
     ctaHref: "/dashboard/bookings/new",
-    price: "Off-duty officer rates apply",
+    price: "Quoted per engagement",
     nsgpEligible: false,
   },
   {

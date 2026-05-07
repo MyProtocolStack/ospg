@@ -9,12 +9,13 @@ import {
   ArrowRight,
   CheckCircle2,
   AlertCircle,
+  ShieldCheck,
 } from "lucide-react";
 
 export const metadata = {
   title: "Security Detail - Ocean State Protection Group",
   description:
-    "Active-duty Cranston PD officers booked for events, mass dispersal windows, VIP visits, and after-hours coverage. Off-duty detail rates apply through the official department detail process.",
+    "Vetted retired law enforcement and military veterans booked for events, mass dispersal windows, VIP visits, and after-hours coverage. Coordinated through OSPG's network. Active-duty officers are never used for private detail work.",
 };
 
 export default function SecurityDetailPage() {
@@ -33,14 +34,45 @@ export default function SecurityDetailPage() {
               </span>
             </div>
             <h1 className="font-display text-4xl md:text-6xl text-[var(--color-cream)] leading-[1.05] tracking-tight mb-6">
-              Active-duty officers,{" "}
-              <span className="italic text-gradient-gold">on your property.</span>
+              Retired law enforcement.{" "}
+              <span className="italic text-gradient-gold">Military veterans.</span>{" "}
+              On your property.
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-              When you need a uniformed presence and the legal authority that
-              comes with it - not a private guard. Booked through the official
-              Cranston PD off-duty detail process.
+              When you need a uniformed presence on site, OSPG dispatches
+              vetted operators from our network of retired law enforcement and
+              military veterans. Coordinated, insured, and accountable to
+              OSPG - not a third-party staffing agency.
             </p>
+          </div>
+        </section>
+
+        {/* Compliance / who staffs it */}
+        <section className="pt-12 pb-4">
+          <div className="mx-auto max-w-3xl px-6 lg:px-10">
+            <div className="surface-card p-6 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 flex items-center justify-center shrink-0">
+                <ShieldCheck className="h-5 w-5 text-[var(--color-gold-400)]" strokeWidth={1.5} />
+              </div>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-gold-400)] mb-2 font-medium">
+                  Who actually shows up
+                </p>
+                <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-2">
+                  Every operator on an OSPG security detail is a{" "}
+                  <strong className="text-[var(--color-cream)]">retired law enforcement officer or military veteran</strong>{" "}
+                  vetted, contracted, and insured through OSPG. Active-duty
+                  officers are never used for private security detail work,
+                  including our two co-founders. Founders lead assessments,
+                  training, and engagement design - they do not work the
+                  detail itself.
+                </p>
+                <p className="text-[12px] text-[var(--color-silver-300)] leading-relaxed">
+                  This is the legally and professionally correct model for
+                  Rhode Island and the surrounding states.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -61,7 +93,7 @@ export default function SecurityDetailPage() {
                 {
                   icon: Calendar,
                   title: "Mass dispersal coverage",
-                  body: "Sunday and weekday evening Mass have a 15-20 minute peak vulnerability window when 200+ congregants reach their cars. A uniformed presence in the lot during dispersal is the highest-leverage detail booking for parishes.",
+                  body: "Sunday and weekday evening Mass have a 15-20 minute peak vulnerability window when 200+ congregants reach their cars. A trained, uniformed presence in the lot during dispersal is the highest-leverage detail booking for parishes.",
                 },
                 {
                   icon: Users,
@@ -98,11 +130,13 @@ export default function SecurityDetailPage() {
         <section className="py-16 bg-[var(--color-navy-800)]/40">
           <div className="mx-auto max-w-4xl px-6 lg:px-10">
             <h2 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] mb-3 text-center leading-tight">
-              How a detail is booked.
+              How a detail is booked through OSPG.
             </h2>
             <p className="text-[var(--color-silver-200)] text-center mb-12 max-w-2xl mx-auto">
-              Off-duty officer details run through the official Cranston Police
-              Department detail process. Here is what that looks like.
+              You contract with OSPG. OSPG selects operators from our network,
+              briefs them on your event, and stands behind the engagement.
+              You never have to vet, schedule, or manage individual operators
+              yourself.
             </p>
 
             <div className="space-y-4">
@@ -110,27 +144,27 @@ export default function SecurityDetailPage() {
                 {
                   step: "1",
                   title: "Submit the request",
-                  body: "Use the dashboard booking form or call us. Include date, time window, location, and the nature of the event.",
+                  body: "Use the dashboard booking form or call us. Include date, time window, location, the nature of the event, and any special considerations.",
                 },
                 {
                   step: "2",
-                  title: "Department coordination",
-                  body: "Your request goes through the Cranston PD detail desk. The department assigns officers and confirms the rate.",
+                  title: "OSPG matches operators",
+                  body: "We select retired LE / military veterans from our network whose experience profile fits the engagement. You get a written confirmation with the assigned operator profile and the all-in rate.",
                 },
                 {
                   step: "3",
                   title: "Pre-event briefing",
-                  body: "We connect with you 24-48 hours before the event to confirm specifics: parking, contact person, access, expectations.",
+                  body: "We connect with you 24-48 hours before the event to confirm specifics: parking, contact person, access, expectations. Operators receive a written event brief.",
                 },
                 {
                   step: "4",
                   title: "On-site presence",
-                  body: "Officers arrive 15 minutes before the start window. Uniformed, visible, and authorized to act if needed.",
+                  body: "Operators arrive 15 minutes before the start window. Uniformed, trained, and prepared. OSPG owns operator conduct on site - if anything is off, you call us, not them.",
                 },
                 {
                   step: "5",
                   title: "Invoice and after-action",
-                  body: "Billed through the department detail process. Brief written after-action note delivered with the invoice.",
+                  body: "Single invoice from OSPG. Brief written after-action note delivered with the invoice covering anything notable from the engagement.",
                 },
               ].map((s) => (
                 <div key={s.step} className="surface-card p-6 flex items-start gap-5">
@@ -153,16 +187,16 @@ export default function SecurityDetailPage() {
             <div className="surface-card p-8">
               <h2 className="font-display text-2xl text-[var(--color-cream)] mb-4">Pricing</h2>
               <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-4">
-                Detail rates are set by Cranston PD and are non-negotiable. Most
-                clients budget the following ranges, with a 4-hour minimum for
-                most engagements:
+                Detail rates are quoted per engagement based on operator
+                experience required, hours, location, and complexity. Common
+                budget ranges:
               </p>
               <ul className="space-y-2.5 mb-6">
                 {[
-                  "Standard officer detail: ~$75-95 per hour, 4-hour minimum",
-                  "Supervisor (sergeant) detail: ~$95-115 per hour",
-                  "Holiday and overnight rates may apply",
-                  "Vehicle add-on (cruiser presence): supplemental charge",
+                  "Standard retired LE / military operator: ~$85-125 per hour, 4-hour minimum",
+                  "Senior operator (former supervisor / specialized experience): ~$125-175 per hour",
+                  "Multi-operator events priced as a coordinated engagement",
+                  "Recurring weekly engagements eligible for blocked-rate arrangements",
                 ].map((line, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="h-4 w-4 text-[var(--color-gold-400)] shrink-0 mt-0.5" strokeWidth={2} />
@@ -173,10 +207,10 @@ export default function SecurityDetailPage() {
               <div className="flex items-start gap-3 p-4 rounded-lg bg-[var(--color-gold-400)]/5 border border-[var(--color-gold-400)]/20">
                 <AlertCircle className="h-4 w-4 text-[var(--color-gold-400)] shrink-0 mt-0.5" strokeWidth={2} />
                 <p className="text-[12px] text-[var(--color-silver-100)] leading-relaxed">
-                  Final rate confirmed by the department detail desk after
-                  request review. Rates above are for budgeting only and may
-                  change. Recurring engagements may be eligible for blocked-rate
-                  arrangements.
+                  Quoted ranges are for budgeting only. Final rate confirmed
+                  by OSPG once we review your request and match operators.
+                  All operators are insured under OSPG's commercial policy
+                  for the duration of the engagement.
                 </p>
               </div>
             </div>
@@ -190,7 +224,8 @@ export default function SecurityDetailPage() {
               Need coverage soon?
             </h2>
             <p className="text-[var(--color-silver-200)] mb-10">
-              Most details require 5-10 business days lead time. For urgent
+              Most details require 5-10 business days lead time so we can
+              match the right operator to the engagement. For urgent
               requests, call us directly.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
