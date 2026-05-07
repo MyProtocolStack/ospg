@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/services", label: "Services" },
-  { href: "/shield-ai", label: "SHIELD AI" },
+  { href: "/vigil", label: "VIGIL" },
   { href: "/grants", label: "Grants" },
   { href: "/courses", label: "Courses" },
   { href: "/blog", label: "Insights" },

@@ -6,13 +6,13 @@ import {
   Calendar,
   AlertCircle,
 } from "lucide-react";
-import { ShieldAINewClient } from "./client";
-import { getQuotaForCurrentUser, FREE_ANALYSIS_LIMIT } from "@/lib/shield-ai-quota";
+import { VigilNewClient } from "./client";
+import { getQuotaForCurrentUser, FREE_ANALYSIS_LIMIT } from "@/lib/vigil-quota";
 
-export const metadata = { title: "New SHIELD AI Analysis" };
+export const metadata = { title: "New VIGIL Analysis" };
 export const dynamic = "force-dynamic";
 
-export default async function NewShieldAIPage() {
+export default async function NewVigilPage() {
   const quota = await getQuotaForCurrentUser();
 
   // If we have no quota info (user not authenticated yet, or no
@@ -20,11 +20,11 @@ export default async function NewShieldAIPage() {
   // also bounce them to /onboarding if they try to actually run an
   // analysis without a membership.
   if (!quota) {
-    return <ShieldAINewClient />;
+    return <VigilNewClient />;
   }
 
   // Quota exhausted - show the book-a-walkthrough gate instead of the
-  // upload form. This is the conversion point: SHIELD AI was the demo,
+  // upload form. This is the conversion point: VIGIL was the demo,
   // SHIELD Assessment (the in-person walkthrough) is the consulting
   // product we are actually selling.
   if (quota.exhausted) {
@@ -32,11 +32,11 @@ export default async function NewShieldAIPage() {
       <div className="min-h-screen p-6 lg:p-12">
         <div className="max-w-3xl mx-auto">
           <Link
-            href="/dashboard/shield-ai"
+            href="/dashboard/vigil"
             className="inline-flex items-center gap-2 text-[13px] text-[var(--color-silver-300)] hover:text-[var(--color-cream)] mb-8 transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            Back to SHIELD AI
+            Back to VIGIL
           </Link>
 
           <div className="surface-card-elevated p-8 lg:p-10 relative overflow-hidden">
@@ -56,14 +56,14 @@ export default async function NewShieldAIPage() {
               </p>
 
               <h1 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] mb-4 leading-tight">
-                You&apos;ve seen what SHIELD AI can do.{" "}
+                You&apos;ve seen what VIGIL can do.{" "}
                 <span className="italic text-gradient-gold">
                   Now let&apos;s walk your campus.
                 </span>
               </h1>
 
               <p className="text-[15px] text-[var(--color-silver-100)] leading-relaxed mb-6">
-                You used both of your free SHIELD AI analyses. The next step is
+                You used both of your free VIGIL analyses. The next step is
                 a real SHIELD Assessment - both founders walk your property
                 in person, identify what photos miss (procedure gaps,
                 operational drift, insider risk), and produce the document
@@ -94,7 +94,7 @@ export default async function NewShieldAIPage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/dashboard/shield-ai"
+                  href="/dashboard/vigil"
                   className="btn-secondary justify-center"
                 >
                   Review Past Analyses
@@ -124,5 +124,5 @@ export default async function NewShieldAIPage() {
 
   // Has quota remaining - render the upload form. Pass the remaining
   // count so the client can show "1 of 2 free analyses remaining" inline.
-  return <ShieldAINewClient remainingFree={quota.remaining} totalFree={quota.limit} />;
+  return <VigilNewClient remainingFree={quota.remaining} totalFree={quota.limit} />;
 }

@@ -64,8 +64,8 @@ export const POST_CTA_CONFIG: Record<
     body: "We walk schools, parishes, and high-net-worth properties. Both founders attend every initial walkthrough. No commitment.",
     primaryLabel: "Book Free Walkthrough",
     primaryHref: "/walkthrough",
-    secondaryLabel: "Try SHIELD AI",
-    secondaryHref: "/shield-ai",
+    secondaryLabel: "Try VIGIL",
+    secondaryHref: "/vigil",
   },
   "nsgp-call": {
     heading: "Free 15-minute NSGP eligibility call.",

@@ -36,7 +36,7 @@ const SEVERITY: Record<Severity, { color: string; bg: string; border: string; la
   critical: { color: "#B33A3A", bg: "rgba(179, 58, 58, 0.12)", border: "rgba(179, 58, 58, 0.4)", label: "CRITICAL" },
 };
 
-// Three pre-analyzed demo cases - these are the exact JSON SHIELD AI would return
+// Three pre-analyzed demo cases - these are the exact JSON VIGIL would return
 // for these scenes. Cached here so visitors see real output instantly without
 // burning Claude credits on the public demo.
 const DEMOS: DemoCase[] = [
@@ -192,7 +192,7 @@ const DEMOS: DemoCase[] = [
   },
 ];
 
-export function ShieldAIDemoClient() {
+export function VigilDemoClient() {
   const [selected, setSelected] = useState<DemoCase>(DEMOS[0]);
 
   return (

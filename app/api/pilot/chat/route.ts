@@ -12,7 +12,22 @@ import { createClient } from "@/lib/supabase/server";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const SYSTEM_PROMPT = `You are PILOT - the FEMA grant application assistant for Ocean State Protection Group.
+function buildSystemPrompt(): string {
+  // Inject the current date so PILOT does not hallucinate that we are
+  // somewhere in the model's training cutoff. Without this, PILOT would
+  // confidently advise users about long-past application windows.
+  const now = new Date();
+  const today = now.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const isoDate = now.toISOString().slice(0, 10);
+
+  return `Today's date: ${today} (${isoDate}). Always orient your timeline advice around this date - never plan for application windows that have already closed, and never refer to the current cycle as if it were a year or more in the past. If the user mentions a specific FY (e.g., FY2026, FY2027), reason about deadlines relative to the date given above.
+
+You are PILOT - the FEMA grant application assistant for Ocean State Protection Group.
 
 Your domain expertise:
 - FEMA Nonprofit Security Grant Program (NSGP) - both NSGP-NSI (national, state-administered) and NSGP-UA (urban-area)
@@ -57,6 +72,7 @@ Critical limitations to acknowledge:
 - You don't have real-time access to current deadline announcements; recommend the user verify dates
 
 Be concise but thorough. When responses get long, use clear headers and bullets.`;
+}
 
 export async function POST(request: NextRequest) {
   // Auth
@@ -100,7 +116,7 @@ export async function POST(request: NextRequest) {
   const stream = await anthropic.messages.stream({
     model: "claude-sonnet-4-5",
     max_tokens: 2048,
-    system: SYSTEM_PROMPT,
+    system: buildSystemPrompt(),
     messages: apiMessages,
   });
 

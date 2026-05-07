@@ -42,7 +42,7 @@ const SEVERITY_STYLES: Record<Severity, { color: string; bg: string; border: str
   critical: { color: "#B33A3A", bg: "rgba(179, 58, 58, 0.1)", border: "rgba(179, 58, 58, 0.4)", label: "CRITICAL" },
 };
 
-export function ShieldAINewClient({
+export function VigilNewClient({
   remainingFree,
   totalFree,
 }: {
@@ -89,7 +89,7 @@ export function ShieldAINewClient({
       fd.append("area_label", areaLabel || "Unspecified location");
       fd.append("context", contextNote);
 
-      const res = await fetch("/api/shield-ai/analyze", { method: "POST", body: fd });
+      const res = await fetch("/api/vigil/analyze", { method: "POST", body: fd });
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({}));
         throw new Error(errBody.error || `Analysis failed (${res.status})`);
@@ -118,11 +118,11 @@ export function ShieldAINewClient({
       <div className="max-w-5xl mx-auto">
         {/* Top bar */}
         <Link
-          href="/dashboard/shield-ai"
+          href="/dashboard/vigil"
           className="inline-flex items-center gap-2 text-[13px] text-[var(--color-silver-300)] hover:text-[var(--color-cream)] mb-6 transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Back to SHIELD AI
+          Back to VIGIL
         </Link>
 
         {/* Header */}
@@ -142,7 +142,7 @@ export function ShieldAINewClient({
           </h1>
           <p className="text-[var(--color-silver-200)]">
             Photos work best taken in daylight, with the entire entry/area in
-            frame. SHIELD AI evaluates 40+ markers per image.
+            frame. VIGIL evaluates 40+ markers per image.
           </p>
         </div>
 
@@ -271,13 +271,13 @@ export function ShieldAINewClient({
                 ) : (
                   <>
                     <Sparkles className="h-4 w-4" />
-                    Analyze with SHIELD AI
+                    Analyze with VIGIL
                   </>
                 )}
               </button>
 
               <p className="text-[11px] text-[var(--color-silver-400)] leading-relaxed">
-                SHIELD AI provides preliminary observations only. A licensed
+                VIGIL provides preliminary observations only. A licensed
                 security professional should validate findings before
                 implementation. On-site walkthrough always recommended for
                 comprehensive assessment.
@@ -457,7 +457,7 @@ function ResultView({
       </div>
 
       <p className="mt-8 text-[11px] text-[var(--color-silver-400)] leading-relaxed max-w-2xl">
-        SHIELD AI provides preliminary observations based on visual evidence
+        VIGIL provides preliminary observations based on visual evidence
         only. A full SHIELD Assessment by active-duty officers is required for
         definitive recommendations and FEMA NSGP grant submissions. This report
         is not a substitute for licensed engineering, legal, or insurance review.

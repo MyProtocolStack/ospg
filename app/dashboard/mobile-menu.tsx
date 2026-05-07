@@ -29,7 +29,7 @@ type NavItem = {
 
 const ICON_MAP: Record<string, React.ElementType> = {
   "/dashboard": LayoutDashboard,
-  "/dashboard/shield-ai": Camera,
+  "/dashboard/vigil": Camera,
   "/dashboard/pilot": Compass,
   "/dashboard/courses": GraduationCap,
   "/dashboard/bookings": Calendar,

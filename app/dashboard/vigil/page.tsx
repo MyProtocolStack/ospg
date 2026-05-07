@@ -9,9 +9,9 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { FREE_ANALYSIS_LIMIT } from "@/lib/shield-ai-quota";
+import { FREE_ANALYSIS_LIMIT } from "@/lib/vigil-quota";
 
-export const metadata = { title: "SHIELD AI" };
+export const metadata = { title: "VIGIL" };
 export const dynamic = "force-dynamic";
 
 type Severity = "low" | "medium" | "high" | "critical";
@@ -56,12 +56,12 @@ function formatDate(iso: string | null): string {
   });
 }
 
-export default async function ShieldAIIndex() {
+export default async function VigilIndex() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?next=/dashboard/shield-ai");
+  if (!user) redirect("/login?next=/dashboard/vigil");
 
   // Pull all assessments visible to this user (RLS scopes by org membership).
   const { data: assessments } = await supabase
@@ -85,7 +85,7 @@ export default async function ShieldAIIndex() {
           <div>
             <div className="flex items-center gap-3 mb-3 flex-wrap">
               <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)]">
-                SHIELD AI
+                VIGIL
               </p>
               <span
                 className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${
@@ -121,7 +121,7 @@ export default async function ShieldAIIndex() {
             </Link>
           ) : (
             <Link
-              href="/dashboard/shield-ai/new"
+              href="/dashboard/vigil/new"
               className="btn-primary shrink-0"
             >
               <Camera className="h-4 w-4" />
@@ -146,7 +146,7 @@ export default async function ShieldAIIndex() {
                   </span>
                 </div>
                 <h2 className="font-display text-xl md:text-2xl text-[var(--color-cream)] mb-2 leading-tight">
-                  You&apos;ve seen what SHIELD AI can do.
+                  You&apos;ve seen what VIGIL can do.
                 </h2>
                 <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed">
                   The next step is a real walkthrough by both founders -
@@ -184,7 +184,7 @@ export default async function ShieldAIIndex() {
                 anywhere your gut says &quot;maybe.&quot;
               </p>
               <Link
-                href="/dashboard/shield-ai/new"
+                href="/dashboard/vigil/new"
                 className="btn-primary"
               >
                 Start First Analysis
@@ -211,7 +211,7 @@ export default async function ShieldAIIndex() {
                 return (
                   <Link
                     key={a.id}
-                    href={`/dashboard/shield-ai/${a.id}`}
+                    href={`/dashboard/vigil/${a.id}`}
                     className="surface-card p-6 block hover:border-[var(--color-gold-400)]/30 transition-colors group"
                   >
                     <div className="flex items-start gap-5">

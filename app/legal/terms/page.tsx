@@ -32,7 +32,7 @@ export default function TermsPage() {
           You may not use the Service to: (a) violate any law; (b) upload
           content you don&apos;t have the right to share; (c) interfere with
           the Service&apos;s operation; (d) attempt to gain unauthorized access
-          to other accounts or systems; (e) use SHIELD AI or PILOT to plan,
+          to other accounts or systems; (e) use VIGIL or PILOT to plan,
           facilitate, or commit acts of violence; (f) misrepresent your
           identity or organizational affiliation.
         </Section>

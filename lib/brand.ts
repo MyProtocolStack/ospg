@@ -81,7 +81,7 @@ export const BRAND = {
     },
     {
       title: "AI-Powered Intelligence",
-      body: "Upload property photos, get an expert-grade vulnerability assessment in minutes. Powered by SHIELD AI.",
+      body: "Upload property photos, get an expert-grade vulnerability assessment in minutes. Powered by VIGIL.",
     },
   ],
 

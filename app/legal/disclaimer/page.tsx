@@ -16,7 +16,7 @@ export default function DisclaimerPage() {
       <div className="space-y-6 text-[15px] text-[var(--color-silver-100)] leading-[1.8]">
         <Section title="No professional advice">
           Information provided by Ocean State Protection Group, including content
-          on this website, AI-generated analysis (SHIELD AI), grant-application
+          on this website, AI-generated analysis (VIGIL), grant-application
           assistance (PILOT), and training course material, is for general
           guidance and educational purposes only. It does not constitute legal
           advice, licensed engineering opinion, medical advice, insurance
@@ -76,7 +76,7 @@ export default function DisclaimerPage() {
         </Section>
 
         <Section title="AI-generated content limitations">
-          SHIELD AI and PILOT use large language models that occasionally
+          VIGIL and PILOT use large language models that occasionally
           produce errors, omissions, or outdated information. AI output should
           be verified by a qualified human professional before reliance.
           AI-generated content is not a substitute for licensed expert review.

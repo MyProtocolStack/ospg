@@ -51,7 +51,7 @@ export function Hero() {
           and properties that can&apos;t afford to be wrong.
         </motion.p>
 
-        {/* Primary CTA - Try SHIELD AI Free (oversized, glowing, dominant) */}
+        {/* Primary CTA - Try VIGIL Free (oversized, glowing, dominant) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,14 +62,14 @@ export function Hero() {
             {/* Animated gold halo behind the button */}
             <div className="absolute -inset-1.5 bg-gradient-to-r from-[var(--color-gold-400)] via-[var(--color-gold-300)] to-[var(--color-gold-400)] rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse" />
             <Link
-              href="/shield-ai"
+              href="/vigil"
               className="relative inline-flex items-center justify-center gap-3 px-10 md:px-14 py-5 md:py-6 rounded-2xl bg-gradient-to-r from-[var(--color-gold-400)] to-[var(--color-gold-300)] text-[var(--color-navy-700)] font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight shadow-2xl shadow-[var(--color-gold-400)]/40 hover:shadow-[var(--color-gold-400)]/60 hover:scale-[1.02] transition-all duration-300"
             >
               <Sparkles
                 className="h-6 w-6 md:h-7 md:w-7"
                 strokeWidth={2}
               />
-              Try SHIELD AI Free
+              Try VIGIL Free
               <ArrowRight
                 className="h-6 w-6 md:h-7 md:w-7 transition-transform group-hover:translate-x-1.5"
                 strokeWidth={2}

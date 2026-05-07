@@ -1,9 +1,9 @@
 /**
- * SHIELD AI free-analysis quota.
+ * VIGIL free-analysis quota.
  *
  * Free orgs get FREE_ANALYSIS_LIMIT analyses. After that, the new-analysis
  * page surfaces a "book a walkthrough" CTA instead of the upload form,
- * and /api/shield-ai/analyze rejects further uploads server-side.
+ * and /api/vigil/analyze rejects further uploads server-side.
  *
  * Counted as: rows in `assessments` where org_id = user's org and
  * status = 'complete'. Failed/in-flight rows do not count.

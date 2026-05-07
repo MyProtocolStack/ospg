@@ -23,7 +23,7 @@ const NAV_GROUPS = [
     label: "Operations",
     items: [
       { href: "/dashboard", icon: LayoutDashboard, label: "Overview" },
-      { href: "/dashboard/shield-ai", icon: Camera, label: "SHIELD AI" },
+      { href: "/dashboard/vigil", icon: Camera, label: "VIGIL" },
       { href: "/dashboard/pilot", icon: Compass, label: "PILOT (Grants)" },
       { href: "/dashboard/courses", icon: GraduationCap, label: "Courses" },
       { href: "/dashboard/bookings", icon: Calendar, label: "Bookings" },
@@ -76,6 +76,40 @@ export default async function DashboardLayout({
     }
     console.error("dashboard layout auth error:", e);
     redirect("/login?next=/dashboard");
+  }
+
+  // Bounce users without a membership to /onboarding so they can create
+  // their org. Without this redirect, brand new accounts land on
+  // /dashboard with empty data and no obvious next step. The /onboarding
+  // page itself bounces back here once a membership exists, so this is
+  // a one-shot check on first arrival, not a loop.
+  if (userId) {
+    try {
+      const supabase = await createClient();
+      const { data: membership } = await supabase
+        .from("memberships")
+        .select("org_id")
+        .eq("user_id", userId)
+        .limit(1)
+        .maybeSingle();
+      if (!membership?.org_id) {
+        redirect("/onboarding");
+      }
+    } catch (e) {
+      // redirect() throws a special signal - re-throw it so Next handles it.
+      if (
+        e &&
+        typeof e === "object" &&
+        "digest" in e &&
+        typeof (e as { digest: unknown }).digest === "string" &&
+        (e as { digest: string }).digest.startsWith("NEXT_REDIRECT")
+      ) {
+        throw e;
+      }
+      console.error("dashboard layout membership check error:", e);
+      // If the membership check itself failed for a non-redirect reason,
+      // let the user proceed - onboarding is a UX nudge, not a hard gate.
+    }
   }
 
   let displayName = userEmail.split("@")[0] || "Member";

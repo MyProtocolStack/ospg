@@ -38,9 +38,9 @@ const SERVICES = [
     nsgpEligible: true,
   },
   {
-    slug: "shield-ai",
+    slug: "vigil",
     icon: Camera,
-    name: "SHIELD AI Photo Analysis",
+    name: "VIGIL Photo Analysis",
     blurb:
       "Upload a photo of any property location. Get an expert-grade preliminary assessment in 90 seconds. Powered by Claude vision and tuned by 75+ years of law enforcement and military experience.",
     features: [
@@ -50,8 +50,8 @@ const SERVICES = [
       "Downloadable PDF report",
       "First analysis free with every account",
     ],
-    cta: "Try SHIELD AI",
-    ctaHref: "/shield-ai",
+    cta: "Try VIGIL",
+    ctaHref: "/vigil",
     price: "Free with account",
     nsgpEligible: false,
   },
@@ -131,7 +131,7 @@ export default function ServicesPage() {
               <span className="italic text-gradient-gold">One operating model.</span>
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-              Whether you need a 30-minute SHIELD AI screen, a full SHIELD
+              Whether you need a 30-minute VIGIL screen, a full SHIELD
               walkthrough, training for staff, or ongoing diocesan advisory -
               you work with the same two active-duty officers every time.
             </p>

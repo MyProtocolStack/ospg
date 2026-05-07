@@ -1,8 +1,8 @@
 /**
- * Pre-built SHIELD AI sample analyses for the public demo page.
+ * Pre-built VIGIL sample analyses for the public demo page.
  *
  * These are real-world example findings authored by hand, presented as if
- * SHIELD AI generated them. Visitors see immediate value without burning
+ * VIGIL generated them. Visitors see immediate value without burning
  * Claude credits. Drives conversion to signup for actual photo analysis.
  */
 

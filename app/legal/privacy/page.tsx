@@ -18,7 +18,7 @@ export default function PrivacyPage() {
           When you create a OSPG account, we collect: name, work email,
           organization name, organization type, location (city, state),
           approximate population, and any photos or documents you upload for
-          SHIELD AI analysis. When you contact us, we collect the information
+          VIGIL analysis. When you contact us, we collect the information
           you provide (name, email, phone, message). We log standard server
           information (IP address, user agent, request timing) for security and
           performance.
@@ -40,8 +40,8 @@ export default function PrivacyPage() {
           of the engagement.
         </Section>
 
-        <Section title="Photos and SHIELD AI">
-          Photos uploaded to SHIELD AI are processed by Anthropic&apos;s Claude
+        <Section title="Photos and VIGIL">
+          Photos uploaded to VIGIL are processed by Anthropic&apos;s Claude
           API for vulnerability analysis. Anthropic does not retain customer
           API content for model training (per their no-retention business
           terms). Photos are stored in your private Supabase Storage bucket
