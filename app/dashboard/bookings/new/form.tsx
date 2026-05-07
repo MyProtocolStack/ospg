@@ -134,8 +134,10 @@ export function NewBookingForm() {
 
       <div className="pt-4 border-t border-white/5">
         <p className="text-[12px] text-[var(--color-silver-300)] mb-4 leading-relaxed">
-          Standard rate: $200/hour per officer. Elevated rate: $250/hour. Quote
-          confirmed before billing. Payment via card or NET30 invoicing.
+          Weekday rate: $75/hour. Weekend rate: $90/hour. 4-hour minimum on
+          both. Detail officers are former law enforcement, vetted and
+          insured through OSPG. Quote confirmed before billing. Payment via
+          card or NET30 invoicing.
         </p>
         <button
           type="submit"

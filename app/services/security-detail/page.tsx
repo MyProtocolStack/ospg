@@ -187,15 +187,14 @@ export default function SecurityDetailPage() {
             <div className="surface-card p-8">
               <h2 className="font-display text-2xl text-[var(--color-cream)] mb-4">Pricing</h2>
               <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-4">
-                Detail rates are quoted per engagement based on operator
-                experience required, hours, location, and complexity. Common
-                budget ranges:
+                Transparent flat rates. No hidden fees, no per-engagement
+                negotiation. 4-hour minimum on every detail.
               </p>
               <ul className="space-y-2.5 mb-6">
                 {[
-                  "Standard retired LE / military operator: ~$85-125 per hour, 4-hour minimum",
-                  "Senior operator (former supervisor / specialized experience): ~$125-175 per hour",
-                  "Multi-operator events priced as a coordinated engagement",
+                  "Weekday rate (Monday-Friday): $75 per hour, 4-hour minimum",
+                  "Weekend rate (Saturday-Sunday): $90 per hour, 4-hour minimum",
+                  "Detail officers are former law enforcement, vetted and insured through OSPG",
                   "Recurring weekly engagements eligible for blocked-rate arrangements",
                 ].map((line, i) => (
                   <li key={i} className="flex items-start gap-3">
@@ -207,10 +206,10 @@ export default function SecurityDetailPage() {
               <div className="flex items-start gap-3 p-4 rounded-lg bg-[var(--color-gold-400)]/5 border border-[var(--color-gold-400)]/20">
                 <AlertCircle className="h-4 w-4 text-[var(--color-gold-400)] shrink-0 mt-0.5" strokeWidth={2} />
                 <p className="text-[12px] text-[var(--color-silver-100)] leading-relaxed">
-                  Quoted ranges are for budgeting only. Final rate confirmed
-                  by OSPG once we review your request and match operators.
-                  All operators are insured under OSPG's commercial policy
-                  for the duration of the engagement.
+                  Holiday rates and overnight engagements may carry a
+                  supplemental rate. All operators are insured under OSPG&apos;s
+                  commercial security-services policy for the duration of the
+                  engagement.
                 </p>
               </div>
             </div>

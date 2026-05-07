@@ -51,37 +51,22 @@ export default function BookingsIndexPage() {
         {/* Rate card */}
         <div className="mt-10 surface-card p-7">
           <h3 className="font-display text-xl text-[var(--color-cream)] mb-4">
-            Detail rate ranges
+            Detail rates
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <Clock
                 className="h-5 w-5 text-[var(--color-gold-400)] mb-2"
                 strokeWidth={1.5}
               />
               <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-1">
-                Standard operator
+                Weekday rate
               </p>
               <p className="text-[var(--color-cream)] font-display text-xl">
-                $85-125<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
+                $75<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
               </p>
               <p className="text-[12px] text-[var(--color-silver-300)] mt-1">
-                Retired LE / military veteran, 4-hr minimum
-              </p>
-            </div>
-            <div>
-              <MapPin
-                className="h-5 w-5 text-[var(--color-gold-400)] mb-2"
-                strokeWidth={1.5}
-              />
-              <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-1">
-                Senior operator
-              </p>
-              <p className="text-[var(--color-cream)] font-display text-xl">
-                $125-175<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
-              </p>
-              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">
-                Former supervisor / specialized experience
+                Monday-Friday, 4-hour minimum
               </p>
             </div>
             <div>
@@ -90,21 +75,22 @@ export default function BookingsIndexPage() {
                 strokeWidth={1.5}
               />
               <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-1">
-                Recurring / multi-operator
+                Weekend rate
               </p>
-              <p className="text-[var(--color-cream)] font-display text-xl">Custom</p>
+              <p className="text-[var(--color-cream)] font-display text-xl">
+                $90<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
+              </p>
               <p className="text-[12px] text-[var(--color-silver-300)] mt-1">
-                Blocked-rate arrangements available
+                Saturday-Sunday, 4-hour minimum
               </p>
             </div>
           </div>
           <p className="mt-5 text-[12px] text-[var(--color-silver-400)] leading-relaxed">
-            OSPG details are staffed exclusively by vetted retired law
-            enforcement officers and military veterans through our operator
-            network - never active-duty officers, including OSPG founders.
-            All operators are insured under OSPG&apos;s commercial
+            OSPG details are staffed by former law enforcement officers,
+            vetted and insured through OSPG. Active-duty officers are never
+            assigned to private detail work, including OSPG founders. All
+            operators are insured under OSPG&apos;s commercial
             security-services policy for the duration of the engagement.
-            Final rate confirmed per engagement after operator match.
           </p>
         </div>
       </div>
