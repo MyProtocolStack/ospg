@@ -2,96 +2,53 @@
  * Org creation + membership for first-time users.
  * POST /api/onboarding
  *
- * Why service role: the orgs table has no public INSERT policy (which is
- * correct - we don't want any authenticated user to be able to create
- * arbitrary orgs). The first-org bootstrap is a privileged operation
- * that we run server-side after verifying the requesting user is
- * authenticated and does not already belong to an org.
+ * Self-serve via RLS — no service-role key required.
+ *
+ * Migration 0005_onboarding_self_serve.sql adds two narrow RLS policies:
+ *   - orgs.INSERT: authenticated users can create orgs
+ *   - memberships.INSERT: a user can claim ownership of an org IFF they
+ *     are inserting their own user_id, role='owner', and that org has
+ *     no existing memberships
+ *
+ * Together those policies let an authenticated caller bootstrap a fresh
+ * org + owner membership using only the anon key + their session JWT.
+ * If 0005 has not been applied, the org INSERT will hit the original
+ * RLS deny and we surface a clear error.
  *
  * Flow:
- *   1. Verify caller is authenticated via the user-context client
- *   2. Verify caller does not already have a membership
- *   3. Validate that SUPABASE_SERVICE_ROLE_KEY is present, well-formed,
- *      and actually carries the service_role role claim
- *   4. Switch to service-role client to insert the org + membership row
- *      atomically (using user_id = caller's verified id, role = owner)
- *   5. Translate Supabase's generic 'Invalid API key' error into a
- *      diagnostic message so it's clear what to fix on Vercel
+ *   1. Verify caller is authenticated
+ *   2. If they already have a membership, return its org_id (no-op)
+ *   3. Insert orgs row (RLS: auth user)
+ *   4. Insert memberships row as owner (RLS: bootstrap policy)
+ *   5. If membership insert fails, roll back the org so the user can retry
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { createClient as createServiceClient } from "@supabase/supabase-js";
 
 export const runtime = "nodejs";
 
-type KeyValidation =
-  | { valid: true; role: "service_role" }
-  | { valid: false; reason: string };
-
-/**
- * Decode the JWT payload and verify the role claim. Supabase service-role
- * keys are JWTs with `"role":"service_role"` in the payload; anon keys
- * have `"role":"anon"`. If someone pastes the wrong one into Vercel, we
- * catch it here BEFORE we ever hit Supabase with it.
- */
-function validateServiceRoleKey(key: string | undefined): KeyValidation {
-  if (!key) {
-    return { valid: false, reason: "SUPABASE_SERVICE_ROLE_KEY is not set" };
-  }
-  if (key.length < 40) {
-    return {
-      valid: false,
-      reason: "SUPABASE_SERVICE_ROLE_KEY is too short to be a real JWT",
-    };
-  }
-  const trimmed = key.trim();
-  if (trimmed !== key) {
-    return {
-      valid: false,
-      reason:
-        "SUPABASE_SERVICE_ROLE_KEY has leading or trailing whitespace - re-paste it without surrounding spaces",
-    };
-  }
-  const parts = trimmed.split(".");
-  if (parts.length !== 3) {
-    return {
-      valid: false,
-      reason:
-        "SUPABASE_SERVICE_ROLE_KEY is not in JWT format (expected 3 dot-separated segments)",
-    };
-  }
-  let payload: { role?: string; iss?: string };
-  try {
-    // base64url decode the middle segment
-    const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-    const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
-    const json = Buffer.from(padded, "base64").toString("utf-8");
-    payload = JSON.parse(json);
-  } catch {
-    return {
-      valid: false,
-      reason: "SUPABASE_SERVICE_ROLE_KEY payload could not be decoded",
-    };
-  }
-  if (payload.role !== "service_role") {
-    return {
-      valid: false,
-      reason: `SUPABASE_SERVICE_ROLE_KEY has role '${payload.role ?? "<missing>"}' - this looks like the anon key, not the service role key. Copy the service_role key from Supabase Dashboard -> Project Settings -> API.`,
-    };
-  }
-  return { valid: true, role: "service_role" };
-}
+const ALLOWED_ORG_TYPES = new Set([
+  "school",
+  "parish",
+  "business",
+  "estate",
+  "event",
+  "gym",
+  "other",
+]);
 
 export async function POST(request: NextRequest) {
-  // 1) Verify caller is authenticated
-  const userClient = await createClient();
+  const supabase = await createClient();
+
+  // 1) Auth
   const {
     data: { user },
-  } = await userClient.auth.getUser();
+  } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // 2) Parse + validate input
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -107,8 +64,25 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 2) Check if user already has an org
-  const { data: existing } = await userClient
+  const incomingType =
+    typeof body.type === "string" ? body.type.toLowerCase() : "other";
+  const orgType = ALLOWED_ORG_TYPES.has(incomingType) ? incomingType : "other";
+
+  const city =
+    typeof body.city === "string" && body.city.trim()
+      ? body.city.trim()
+      : null;
+  const state =
+    typeof body.state === "string" && body.state.trim()
+      ? body.state.trim()
+      : null;
+  const estPopulation =
+    typeof body.est_population === "number" && Number.isFinite(body.est_population)
+      ? Math.max(0, Math.floor(body.est_population))
+      : null;
+
+  // 3) Idempotency: if user already has a membership, return it.
+  const { data: existing } = await supabase
     .from("memberships")
     .select("org_id")
     .eq("user_id", user.id)
@@ -122,65 +96,16 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // 3) Validate service role key BEFORE constructing the admin client
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl) {
-    console.error("onboarding: NEXT_PUBLIC_SUPABASE_URL is not set");
-    return NextResponse.json(
-      {
-        error:
-          "Server is missing NEXT_PUBLIC_SUPABASE_URL. The team has been notified.",
-      },
-      { status: 500 }
-    );
-  }
-
-  const keyCheck = validateServiceRoleKey(serviceKey);
-  if (!keyCheck.valid) {
-    // Log the specific reason so it shows up in Vercel logs for the team.
-    console.error("onboarding: service-role key validation failed:", keyCheck.reason);
-    return NextResponse.json(
-      {
-        error:
-          "Onboarding is temporarily unavailable due to a server-side configuration issue. The team has been notified. Please email Oceanstateprotectiongroup@gmail.com and we will set up your organization manually.",
-        // Include the diagnostic in dev so we can see it in browser network tab
-        // in production this is still useful for triage
-        diagnostic: keyCheck.reason,
-      },
-      { status: 500 }
-    );
-  }
-
-  const admin = createServiceClient(supabaseUrl, serviceKey!, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
-
-  // Validate org type against the enum allowlist (defense in depth).
-  const allowedTypes = new Set([
-    "school",
-    "parish",
-    "business",
-    "estate",
-    "event",
-    "gym",
-    "other",
-  ]);
-  const incomingType =
-    typeof body.type === "string" ? body.type.toLowerCase() : "other";
-  const orgType = allowedTypes.has(incomingType) ? incomingType : "other";
-
-  // Insert org
-  const { data: org, error: orgErr } = await admin
+  // 4) Insert org via the user-context client. Migration 0005 adds the
+  //    INSERT policy that lets authenticated users do this.
+  const { data: org, error: orgErr } = await supabase
     .from("orgs")
     .insert({
       name: orgName,
       type: orgType,
-      city: typeof body.city === "string" ? body.city || null : null,
-      state: typeof body.state === "string" ? body.state || null : null,
-      est_population:
-        typeof body.est_population === "number" ? body.est_population : null,
+      city,
+      state,
+      est_population: estPopulation,
       primary_contact_email: user.email,
     })
     .select("id")
@@ -190,22 +115,19 @@ export async function POST(request: NextRequest) {
     const rawMsg = orgErr?.message || "Failed to create org";
     console.error("onboarding: org insert failed:", rawMsg);
 
-    // Translate the most common Supabase failure modes into actionable
-    // messages instead of leaking internal error text to end users.
     let userMessage = "We could not set up your organization right now.";
+    const lower = rawMsg.toLowerCase();
     if (
-      rawMsg.toLowerCase().includes("invalid api key") ||
-      rawMsg.toLowerCase().includes("jwt")
+      lower.includes("row-level security") ||
+      lower.includes("policy") ||
+      lower.includes("permission denied")
     ) {
       userMessage =
-        "Onboarding is temporarily unavailable due to a server-side configuration issue. The team has been notified. Please email Oceanstateprotectiongroup@gmail.com and we will set up your organization manually.";
-    } else if (
-      rawMsg.toLowerCase().includes("duplicate key") ||
-      rawMsg.toLowerCase().includes("unique")
-    ) {
+        "Database policy is not set up for self-serve onboarding yet. The migration 0005_onboarding_self_serve.sql needs to be applied to Supabase.";
+    } else if (lower.includes("duplicate") || lower.includes("unique")) {
       userMessage =
         "An organization with that name already exists. Try a different name.";
-    } else if (rawMsg.toLowerCase().includes("violates")) {
+    } else if (lower.includes("violates")) {
       userMessage =
         "We could not validate one of the form fields. Double-check your inputs and try again.";
     }
@@ -216,8 +138,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Insert membership as owner
-  const { error: memErr } = await admin.from("memberships").insert({
+  // 5) Insert membership as owner via the user-context client. The
+  //    bootstrap policy from migration 0005 allows this when the row's
+  //    user_id matches auth.uid(), role='owner', and the org has no
+  //    existing memberships.
+  const { error: memErr } = await supabase.from("memberships").insert({
     user_id: user.id,
     org_id: org.id,
     role: "owner",
@@ -225,13 +150,22 @@ export async function POST(request: NextRequest) {
 
   if (memErr) {
     console.error("onboarding: membership insert failed:", memErr.message);
-    // Roll back the org so the user can retry cleanly.
-    await admin.from("orgs").delete().eq("id", org.id);
+
+    // Try to roll back the org so the user can retry. If the rollback
+    // fails (RLS deny on delete, etc.), the user is left with an org
+    // they cannot see - support can clean up via service role later.
+    await supabase.from("orgs").delete().eq("id", org.id);
+
+    const lower = memErr.message.toLowerCase();
+    let userMessage =
+      "We created your organization but could not finish linking your account. Please try again.";
+    if (lower.includes("row-level security") || lower.includes("policy")) {
+      userMessage =
+        "Database policy is not set up for self-serve onboarding yet. The migration 0005_onboarding_self_serve.sql needs to be applied to Supabase.";
+    }
+
     return NextResponse.json(
-      {
-        error: "We created your organization but could not finish linking your account. Please try again.",
-        diagnostic: memErr.message,
-      },
+      { error: userMessage, diagnostic: memErr.message },
       { status: 500 }
     );
   }
