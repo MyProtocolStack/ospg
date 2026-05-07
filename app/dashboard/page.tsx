@@ -34,7 +34,7 @@ const QUICK_ACTIONS = [
     href: "/dashboard/bookings/new",
     icon: Calendar,
     title: "Book Security Detail",
-    body: "Active-duty officers for events, weekend masses, school dismissals, or one-off engagements.",
+    body: "Vetted retired LE and military veterans for events, weekend masses, school dismissals, and one-off engagements. Coordinated through OSPG.",
   },
 ];
 

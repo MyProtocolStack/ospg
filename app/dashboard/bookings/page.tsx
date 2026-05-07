@@ -16,8 +16,9 @@ export default function BookingsIndexPage() {
               Security Detail
             </h1>
             <p className="text-[var(--color-silver-200)]">
-              Active-duty officers for events, weekend services, school
-              dismissals, and one-off engagements.
+              Vetted retired LE and military veterans for events, weekend
+              services, school dismissals, and one-off engagements.
+              Coordinated through OSPG.
             </p>
           </div>
           <Link href="/dashboard/bookings/new" className="btn-primary shrink-0">
@@ -50,7 +51,7 @@ export default function BookingsIndexPage() {
         {/* Rate card */}
         <div className="mt-10 surface-card p-7">
           <h3 className="font-display text-xl text-[var(--color-cream)] mb-4">
-            Detail rates
+            Detail rate ranges
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div>
@@ -59,12 +60,14 @@ export default function BookingsIndexPage() {
                 strokeWidth={1.5}
               />
               <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-1">
-                Standard rate
+                Standard operator
               </p>
               <p className="text-[var(--color-cream)] font-display text-xl">
-                $200<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
+                $85-125<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
               </p>
-              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">4-hour minimum</p>
+              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">
+                Retired LE / military veteran, 4-hr minimum
+              </p>
             </div>
             <div>
               <MapPin
@@ -72,12 +75,14 @@ export default function BookingsIndexPage() {
                 strokeWidth={1.5}
               />
               <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-1">
-                Elevated threat
+                Senior operator
               </p>
               <p className="text-[var(--color-cream)] font-display text-xl">
-                $250<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
+                $125-175<span className="text-[14px] text-[var(--color-silver-300)]">/hr</span>
               </p>
-              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">Specific threat indicators</p>
+              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">
+                Former supervisor / specialized experience
+              </p>
             </div>
             <div>
               <Calendar
@@ -85,16 +90,21 @@ export default function BookingsIndexPage() {
                 strokeWidth={1.5}
               />
               <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-silver-300)] mb-1">
-                Full-time / contract
+                Recurring / multi-operator
               </p>
               <p className="text-[var(--color-cream)] font-display text-xl">Custom</p>
-              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">Multi-shift / ongoing</p>
+              <p className="text-[12px] text-[var(--color-silver-300)] mt-1">
+                Blocked-rate arrangements available
+              </p>
             </div>
           </div>
           <p className="mt-5 text-[12px] text-[var(--color-silver-400)] leading-relaxed">
-            OSPG detail officers are off-duty Cranston PD personnel
-            operating under their department&apos;s extra-duty authorization. All
-            engagements include liability coverage.
+            OSPG details are staffed exclusively by vetted retired law
+            enforcement officers and military veterans through our operator
+            network - never active-duty officers, including OSPG founders.
+            All operators are insured under OSPG&apos;s commercial
+            security-services policy for the duration of the engagement.
+            Final rate confirmed per engagement after operator match.
           </p>
         </div>
       </div>
