@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { FREE_ANALYSIS_LIMIT } from "@/lib/shield-ai-quota";
 
 export const metadata = { title: "SHIELD AI" };
 export const dynamic = "force-dynamic";
@@ -72,6 +73,9 @@ export default async function ShieldAIIndex() {
     .limit(50);
 
   const list = assessments ?? [];
+  const completedCount = list.filter((a) => a.status === "complete").length;
+  const remainingFree = Math.max(FREE_ANALYSIS_LIMIT - completedCount, 0);
+  const quotaExhausted = completedCount >= FREE_ANALYSIS_LIMIT;
 
   return (
     <div className="min-h-screen p-6 lg:p-12">
@@ -79,9 +83,22 @@ export default async function ShieldAIIndex() {
         {/* Header */}
         <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-3">
-              SHIELD AI
-            </p>
+            <div className="flex items-center gap-3 mb-3 flex-wrap">
+              <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)]">
+                SHIELD AI
+              </p>
+              <span
+                className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${
+                  quotaExhausted
+                    ? "text-[var(--color-silver-300)] bg-white/5 border-white/10"
+                    : "text-[var(--color-gold-400)] bg-[var(--color-gold-400)]/10 border-[var(--color-gold-400)]/30"
+                }`}
+              >
+                {quotaExhausted
+                  ? `Free quota used (${completedCount}/${FREE_ANALYSIS_LIMIT})`
+                  : `${remainingFree} of ${FREE_ANALYSIS_LIMIT} free analyses remaining`}
+              </span>
+            </div>
             <h1 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] mb-2">
               Photo-based{" "}
               <span className="italic text-gradient-gold">
@@ -94,14 +111,58 @@ export default async function ShieldAIIndex() {
               and a downloadable PDF report.
             </p>
           </div>
-          <Link
-            href="/dashboard/shield-ai/new"
-            className="btn-primary shrink-0"
-          >
-            <Camera className="h-4 w-4" />
-            New Analysis
-          </Link>
+          {quotaExhausted ? (
+            <Link
+              href="/walkthrough"
+              className="btn-primary shrink-0"
+            >
+              <Calendar className="h-4 w-4" />
+              Book Walkthrough
+            </Link>
+          ) : (
+            <Link
+              href="/dashboard/shield-ai/new"
+              className="btn-primary shrink-0"
+            >
+              <Camera className="h-4 w-4" />
+              New Analysis
+            </Link>
+          )}
         </div>
+
+        {/* Quota-exhausted banner */}
+        {quotaExhausted && (
+          <div className="surface-card-elevated p-6 lg:p-7 mb-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full bg-[var(--color-gold-400)]/8 blur-[80px] pointer-events-none" />
+            <div className="relative grid md:grid-cols-3 gap-6 items-center">
+              <div className="md:col-span-2">
+                <div className="inline-flex items-center gap-2 mb-3">
+                  <Sparkles
+                    className="h-4 w-4 text-[var(--color-gold-400)]"
+                    strokeWidth={1.5}
+                  />
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-gold-400)] font-medium">
+                    Ready for the next step
+                  </span>
+                </div>
+                <h2 className="font-display text-xl md:text-2xl text-[var(--color-cream)] mb-2 leading-tight">
+                  You&apos;ve seen what SHIELD AI can do.
+                </h2>
+                <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed">
+                  The next step is a real walkthrough by both founders -
+                  free for first-time clients, written report within 7 days,
+                  insurance- and grant-ready format.
+                </p>
+              </div>
+              <div className="flex md:justify-end">
+                <Link href="/walkthrough" className="btn-primary">
+                  Book Free Walkthrough
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
         {list.length === 0 ? (
           /* Empty state */

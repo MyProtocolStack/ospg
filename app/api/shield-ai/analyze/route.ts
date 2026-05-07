@@ -27,6 +27,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
+import { FREE_ANALYSIS_LIMIT } from "@/lib/shield-ai-quota";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -155,6 +156,31 @@ export async function POST(request: NextRequest) {
     );
   }
   const orgId = membership.org_id as string;
+
+  // Free-tier quota: count completed assessments for this org and reject
+  // additional uploads once the limit is reached. UX gates before users
+  // ever hit this, but we enforce server-side as defense in depth.
+  const { count: completedCount } = await supabase
+    .from("assessments")
+    .select("id", { count: "exact", head: true })
+    .eq("org_id", orgId)
+    .eq("status", "complete");
+
+  if (
+    completedCount !== null &&
+    completedCount >= FREE_ANALYSIS_LIMIT
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Free analysis limit reached. Book a SHIELD walkthrough to continue, or contact us to extend access.",
+        quota_exhausted: true,
+        used: completedCount,
+        limit: FREE_ANALYSIS_LIMIT,
+      },
+      { status: 402 }
+    );
+  }
 
   // Parse multipart form
   let form: FormData;

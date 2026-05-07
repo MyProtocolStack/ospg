@@ -42,7 +42,13 @@ const SEVERITY_STYLES: Record<Severity, { color: string; bg: string; border: str
   critical: { color: "#B33A3A", bg: "rgba(179, 58, 58, 0.1)", border: "rgba(179, 58, 58, 0.4)", label: "CRITICAL" },
 };
 
-export function ShieldAINewClient() {
+export function ShieldAINewClient({
+  remainingFree,
+  totalFree,
+}: {
+  remainingFree?: number;
+  totalFree?: number;
+} = {}) {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [areaLabel, setAreaLabel] = useState("");
@@ -121,9 +127,16 @@ export function ShieldAINewClient() {
 
         {/* Header */}
         <div className="mb-10">
-          <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-3">
-            New Analysis
-          </p>
+          <div className="flex items-center gap-3 mb-3 flex-wrap">
+            <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)]">
+              New Analysis
+            </p>
+            {typeof remainingFree === "number" && typeof totalFree === "number" && (
+              <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--color-gold-400)] px-2 py-0.5 rounded-full bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30">
+                {remainingFree} of {totalFree} free analyses remaining
+              </span>
+            )}
+          </div>
           <h1 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] mb-2">
             Upload &amp; analyze
           </h1>
