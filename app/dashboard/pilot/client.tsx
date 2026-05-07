@@ -20,7 +20,7 @@ const STARTER_PROMPTS = [
     icon: Sparkles,
     label: "Draft my threat narrative",
     prompt:
-      "Help me draft a threat narrative for our FEMA NSGP application. Our school has had two documented incidents (bathroom threats in 2021, school closure over a threat note in 2018).",
+      "Help me draft a threat narrative for our FEMA NSGP application. I will share any specific incidents we have on record - if we have none, draw on documented incidents at peer institutions in our region and current intelligence-assessment trends.",
   },
   {
     icon: FileText,

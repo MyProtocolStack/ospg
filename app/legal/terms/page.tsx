@@ -47,11 +47,24 @@ export default function TermsPage() {
         </Section>
 
         <Section title="Intellectual property">
-          We retain all rights to the Service, the SHIELD™ framework
-          methodology, course content, and software. You retain rights to your
-          photos, organizational data, and assessment outputs. We grant you a
-          limited license to use the Service for your organization&apos;s
-          internal security purposes for the duration of your subscription.
+          We retain all rights to the Service, course content, and software
+          we develop. You retain rights to your photos, organizational data,
+          and assessment outputs. We grant you a limited license to use the
+          Service for your organization&apos;s internal security purposes
+          for the duration of your subscription.
+        </Section>
+
+        <Section title="Service names and trademarks">
+          &quot;SHIELD&quot; is used by Ocean State Protection Group as a
+          descriptive acronym for our assessment methodology - Site
+          walkthrough, Hardening recommendations, Incident-response review,
+          Emergency communication, Liaison building, and Documentation
+          package. We do not currently hold a registered United States
+          trademark on the SHIELD name; no trademark, registered or
+          otherwise, is claimed in this term as it appears on this site.
+          Third-party marks referenced on our site (vendor names, equipment
+          brands, software products) belong to their respective owners and
+          are referenced for descriptive purposes only.
         </Section>
 
         <Section title="Confidentiality">

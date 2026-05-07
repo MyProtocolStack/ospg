@@ -458,7 +458,7 @@ function ResultView({
 
       <p className="mt-8 text-[11px] text-[var(--color-silver-400)] leading-relaxed max-w-2xl">
         SHIELD AI provides preliminary observations based on visual evidence
-        only. A full SHIELD™ Assessment by active-duty officers is required for
+        only. A full SHIELD Assessment by active-duty officers is required for
         definitive recommendations and FEMA NSGP grant submissions. This report
         is not a substitute for licensed engineering, legal, or insurance review.
       </p>

@@ -98,7 +98,7 @@ export default function ScopeOfServicesPage() {
         </Section>
 
         <Section title="Out of scope: vendor procurement">
-          When SHIELD™ Assessment recommendations require physical hardware
+          When SHIELD Assessment recommendations require physical hardware
           (cameras, access control, glazing film, etc.), OSPG provides
           three competitive vendor options per recommendation. The client
           contracts directly with chosen vendors. OSPG does not procure,

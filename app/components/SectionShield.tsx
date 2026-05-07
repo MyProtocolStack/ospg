@@ -64,7 +64,7 @@ export function SectionShield() {
           className="text-center mb-20"
         >
           <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-4">
-            The SHIELD™ Framework
+            The SHIELD Framework
           </p>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-cream)] leading-tight tracking-tight max-w-4xl mx-auto">
             Six pillars.{" "}
@@ -72,7 +72,7 @@ export function SectionShield() {
           </h2>
           <div className="gold-rule mt-8" />
           <p className="mt-8 text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">
-            Every SHIELD™ Assessment is structured the same way - so your
+            Every SHIELD Assessment is structured the same way - so your
             insurer, your bishop, and your safety committee all see the same
             rigor on every page.
           </p>

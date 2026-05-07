@@ -33,7 +33,7 @@ const WHAT_HAPPENS = [
   {
     icon: CheckCircle2,
     title: "What's next is your call",
-    body: "If we're a fit, we propose the full SHIELD™ Assessment. If not, no harm done. You got a free outside set of eyes.",
+    body: "If we're a fit, we propose the full SHIELD Assessment. If not, no harm done. You got a free outside set of eyes.",
   },
 ];
 

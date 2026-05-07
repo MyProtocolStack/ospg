@@ -7,7 +7,7 @@ const FOOTER_GROUPS = [
     label: "Services",
     links: [
       { href: "/services", label: "All Services" },
-      { href: "/walkthrough", label: "SHIELD™ Assessment" },
+      { href: "/walkthrough", label: "SHIELD Assessment" },
       { href: "/services/security-detail", label: "Security Detail" },
       { href: "/shield-ai", label: "SHIELD AI Photo Analysis" },
       { href: "/grants", label: "FEMA NSGP Grant Help" },
