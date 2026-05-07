@@ -4,6 +4,7 @@ import {
   BLOG_POSTS,
   getPost,
   getAllPostSlugs,
+  POST_CTA_CONFIG,
   type ContentBlock,
 } from "@/lib/blog-posts";
 import Link from "next/link";
@@ -14,6 +15,8 @@ import {
   ArrowLeft,
   ArrowRight,
   AlertCircle,
+  ShieldCheck,
+  RefreshCw,
 } from "lucide-react";
 
 export function generateStaticParams() {
@@ -36,6 +39,7 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       publishedTime: post.publishedAt,
+      modifiedTime: post.lastReviewedAt,
       authors: [post.author],
       tags: post.tags,
     },
@@ -99,7 +103,7 @@ function ContentRenderer({ blocks }: { blocks: ContentBlock[] }) {
             );
           case "ol":
             return (
-              <ol key={i} className="space-y-2.5 mb-6 ml-1 counter-reset">
+              <ol key={i} className="space-y-2.5 mb-6 ml-1">
                 {b.items.map((item, j) => (
                   <li
                     key={j}
@@ -137,6 +141,41 @@ function ContentRenderer({ blocks }: { blocks: ContentBlock[] }) {
                 {b.text}
               </blockquote>
             );
+          case "vignette":
+            return (
+              <div
+                key={i}
+                className="my-7 p-6 rounded-xl bg-[var(--color-navy-800)]/60 border border-white/5 relative"
+              >
+                <p className="absolute -top-2.5 left-5 px-2 text-[10px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] bg-[var(--color-navy-700)]">
+                  From the field
+                </p>
+                <p className="text-[15px] text-[var(--color-silver-100)] leading-[1.75] italic">
+                  {b.text}
+                </p>
+              </div>
+            );
+          case "cta":
+            return (
+              <div
+                key={i}
+                className="my-9 p-7 rounded-2xl bg-gradient-to-br from-[var(--color-gold-400)]/10 to-[var(--color-gold-400)]/5 border border-[var(--color-gold-400)]/30"
+              >
+                <h4 className="font-display text-xl text-[var(--color-cream)] mb-2 leading-tight">
+                  {b.title}
+                </h4>
+                <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-4">
+                  {b.body}
+                </p>
+                <Link
+                  href={b.ctaHref}
+                  className="btn-primary !py-2.5 !px-5 !text-sm group"
+                >
+                  {b.ctaLabel}
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            );
           default:
             return null;
         }
@@ -154,6 +193,8 @@ export default async function BlogPostPage({
   const post = getPost(slug);
   if (!post) notFound();
 
+  const ctaConfig = POST_CTA_CONFIG[post.ctaVariant];
+
   // JSON-LD structured data for SEO
   const jsonLd = {
     "@context": "https://schema.org",
@@ -161,6 +202,7 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
+    dateModified: post.lastReviewedAt,
     author: { "@type": "Person", name: post.author },
     publisher: {
       "@type": "Organization",
@@ -174,6 +216,21 @@ export default async function BlogPostPage({
   const related = BLOG_POSTS.filter(
     (p) => p.slug !== post.slug && p.category === post.category
   ).slice(0, 2);
+
+  // If no same-category related, fall back to most recent other posts
+  const moreReading =
+    related.length > 0
+      ? related
+      : BLOG_POSTS.filter((p) => p.slug !== post.slug)
+          .sort(
+            (a, b) =>
+              new Date(b.publishedAt).getTime() -
+              new Date(a.publishedAt).getTime()
+          )
+          .slice(0, 2);
+
+  const reviewedRecently =
+    post.lastReviewedAt && post.lastReviewedAt !== post.publishedAt;
 
   return (
     <>
@@ -200,7 +257,7 @@ export default async function BlogPostPage({
         <article>
           <header className="pb-10">
             <div className="mx-auto max-w-3xl px-6 lg:px-10">
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-5 flex-wrap">
                 <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--color-gold-400)] px-2 py-0.5 rounded-full bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30">
                   {post.category}
                 </span>
@@ -212,6 +269,12 @@ export default async function BlogPostPage({
                   <Clock className="h-3 w-3" />
                   {post.readMins} min read
                 </span>
+                {reviewedRecently && (
+                  <span className="flex items-center gap-1.5 text-[12px] text-[var(--color-silver-300)]">
+                    <RefreshCw className="h-3 w-3" />
+                    Reviewed {formatDate(post.lastReviewedAt)}
+                  </span>
+                )}
               </div>
 
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-cream)] mb-6 leading-[1.08] tracking-tight">
@@ -244,9 +307,67 @@ export default async function BlogPostPage({
           </header>
 
           {/* Body */}
-          <div className="pb-20">
+          <div className="pb-16">
             <div className="mx-auto max-w-3xl px-6 lg:px-10">
               <ContentRenderer blocks={post.content} />
+            </div>
+          </div>
+
+          {/* Universal author/credentials credit + disclaimer footer */}
+          <div className="pb-10">
+            <div className="mx-auto max-w-3xl px-6 lg:px-10">
+              <div className="surface-card p-6 mb-5 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[var(--color-gold-400)]/10 border border-[var(--color-gold-400)]/30 flex items-center justify-center shrink-0">
+                  <ShieldCheck
+                    className="h-5 w-5 text-[var(--color-gold-400)]"
+                    strokeWidth={1.5}
+                  />
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-gold-400)] mb-2 font-medium">
+                    About the Authors
+                  </p>
+                  <p className="text-[13px] text-[var(--color-silver-100)] leading-relaxed">
+                    Ocean State Protection Group is led by Ryan Moriarty
+                    (active-duty officer, Cranston Police Department) and
+                    Sergeant Dennis Trinh (Cranston Police Department). Together
+                    the team has over 75 years of combined law enforcement and
+                    military experience, including SRT operations, FLETC
+                    Active-Shooter Instructor certifications, and Tactical
+                    Combat Casualty Care instruction. Both founders attend every
+                    initial walkthrough.
+                  </p>
+                </div>
+              </div>
+
+              <div className="surface-card p-6 border-l-2 border-[var(--color-gold-400)]/40">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-300)] mb-3 font-medium">
+                  Important Notice
+                </p>
+                <p className="text-[12px] text-[var(--color-silver-200)] leading-relaxed mb-3">
+                  Articles on this site reflect operational observations from
+                  active-duty law enforcement officers in private security
+                  consulting practice. They are general guidance for
+                  educational purposes. They are not legal, engineering,
+                  insurance, financial, or licensed professional advice.
+                  On-site assessment by qualified professionals is required for
+                  site-specific recommendations.
+                </p>
+                <p className="text-[12px] text-[var(--color-silver-200)] leading-relaxed mb-3">
+                  Cost ranges, vendor names, regulatory references, and grant
+                  cycle details are provided as practical context and may
+                  change without notice. Always verify current details with the
+                  relevant authority (FEMA, RIEMA, your insurance broker, your
+                  legal counsel) before relying on any specific number or
+                  procedure for your organization.
+                </p>
+                <p className="text-[12px] text-[var(--color-silver-200)] leading-relaxed">
+                  Ocean State Protection Group is not a licensed alarm or
+                  monitoring company, a guard agency, a licensed engineering
+                  firm, or a licensed insurance brokerage unless explicitly
+                  contracted in a separate signed engagement.
+                </p>
+              </div>
             </div>
           </div>
         </article>
@@ -271,19 +392,22 @@ export default async function BlogPostPage({
         </section>
 
         {/* Related */}
-        {related.length > 0 && (
+        {moreReading.length > 0 && (
           <section className="py-12 bg-[var(--color-navy-800)]/40">
             <div className="mx-auto max-w-5xl px-6 lg:px-10">
               <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-6">
-                More from {post.category}
+                More from the practice
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {related.map((p) => (
+                {moreReading.map((p) => (
                   <Link
                     key={p.slug}
                     href={`/blog/${p.slug}`}
                     className="surface-card p-6 block group hover:border-[var(--color-gold-400)]/30 transition-colors"
                   >
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--color-gold-400)] mb-3 inline-block">
+                      {p.category}
+                    </span>
                     <h3 className="font-display text-lg text-[var(--color-cream)] mb-2 leading-tight group-hover:text-gradient-gold transition-colors">
                       {p.title}
                     </h3>
@@ -301,24 +425,28 @@ export default async function BlogPostPage({
           </section>
         )}
 
-        {/* CTA */}
+        {/* CTA - variant-specific */}
         <section className="py-20">
           <div className="mx-auto max-w-3xl px-6 lg:px-10 text-center">
-            <h2 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] mb-4">
-              Want this kind of analysis on your campus?
+            <h2 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] mb-4 leading-tight">
+              {ctaConfig.heading}
             </h2>
-            <p className="text-[var(--color-silver-200)] mb-10">
-              We walk schools, parishes, and high-net-worth properties. Both
-              founders attend every initial walkthrough. No commitment.
+            <p className="text-[var(--color-silver-200)] mb-10 max-w-2xl mx-auto leading-relaxed">
+              {ctaConfig.body}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/walkthrough" className="btn-primary">
-                Book Free Walkthrough
+              <Link href={ctaConfig.primaryHref} className="btn-primary">
+                {ctaConfig.primaryLabel}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href="/shield-ai" className="btn-secondary">
-                Try SHIELD AI
-              </Link>
+              {ctaConfig.secondaryLabel && ctaConfig.secondaryHref && (
+                <Link
+                  href={ctaConfig.secondaryHref}
+                  className="btn-secondary"
+                >
+                  {ctaConfig.secondaryLabel}
+                </Link>
+              )}
             </div>
           </div>
         </section>
