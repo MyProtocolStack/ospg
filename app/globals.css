@@ -24,3 +24,49 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Print styles - used when a user prints an assessment to PDF via the
+   browser's native print dialog. Hides the dashboard chrome (sidebar,
+   topbar, footer actions tagged with print:hidden) and inverts colors
+   for paper. */
+@media print {
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0a1628 !important;
+  }
+
+  aside,
+  header,
+  footer,
+  .print\:hidden,
+  [class*="lg:hidden"][class*="fixed"] {
+    display: none !important;
+  }
+
+  .surface-card,
+  .surface-card-elevated {
+    background: #f5f5f5 !important;
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  *,
+  *::before,
+  *::after {
+    color: #0a1628 !important;
+    background-image: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  img,
+  .grain {
+    page-break-inside: avoid;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+}

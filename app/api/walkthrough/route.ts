@@ -8,10 +8,23 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  // Anti-abuse: 5 walkthrough requests per IP per 10 minutes.
+  const limit = rateLimit(request, "walkthrough", { windowMs: 600_000, max: 5 });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: limit.error },
+      {
+        status: 429,
+        headers: { "Retry-After": String(limit.retryAfter) },
+      }
+    );
+  }
+
   const body = await request.json();
   const { name, email, phone, org, type, notes } = body;
 

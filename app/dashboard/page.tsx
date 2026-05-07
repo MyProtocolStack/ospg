@@ -8,6 +8,9 @@ import {
   Sparkles,
   TrendingUp,
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+
+export const dynamic = "force-dynamic";
 
 const QUICK_ACTIONS = [
   {
@@ -38,7 +41,50 @@ const QUICK_ACTIONS = [
   },
 ];
 
-export default function DashboardHome() {
+async function loadCounts() {
+  // Fetch live counts for the dashboard stat row. RLS scopes everything
+  // to the user's own org, and the dashboard layout already redirected
+  // unauthenticated users away, so no extra auth check needed here.
+  // Defensive: any query failure falls back to "—" rather than crashing.
+  try {
+    const supabase = await createClient();
+    const [assessments, grants, courseProgress, bookings] = await Promise.all([
+      supabase
+        .from("assessments")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "complete"),
+      supabase
+        .from("grant_applications")
+        .select("id", { count: "exact", head: true })
+        .in("status", ["researching", "preparing", "submitted"]),
+      supabase
+        .from("course_progress")
+        .select("course_slug", { count: "exact", head: true })
+        .eq("completed", false),
+      supabase
+        .from("detail_bookings")
+        .select("id", { count: "exact", head: true })
+        .gte("starts_at", new Date().toISOString()),
+    ]);
+    return {
+      assessments: assessments.count ?? 0,
+      grants: grants.count ?? 0,
+      courses: courseProgress.count ?? 0,
+      bookings: bookings.count ?? 0,
+    };
+  } catch (e) {
+    console.error("dashboard counts error:", e);
+    return { assessments: null, grants: null, courses: null, bookings: null };
+  }
+}
+
+function formatCount(n: number | null): string {
+  if (n === null) return "—";
+  return String(n);
+}
+
+export default async function DashboardHome() {
+  const counts = await loadCounts();
   return (
     <div className="min-h-screen p-6 lg:p-12">
       <div className="max-w-6xl mx-auto">
@@ -61,10 +107,10 @@ export default function DashboardHome() {
         {/* Stat row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {[
-            { label: "Assessments Run", value: "0", icon: Camera },
-            { label: "Active Grants", value: "0", icon: Compass },
-            { label: "Courses In Progress", value: "0", icon: GraduationCap },
-            { label: "Upcoming Details", value: "0", icon: Calendar },
+            { label: "Assessments Run", value: formatCount(counts.assessments), icon: Camera },
+            { label: "Active Grants", value: formatCount(counts.grants), icon: Compass },
+            { label: "Courses In Progress", value: formatCount(counts.courses), icon: GraduationCap },
+            { label: "Upcoming Details", value: formatCount(counts.bookings), icon: Calendar },
           ].map((s) => {
             const Icon = s.icon;
             return (

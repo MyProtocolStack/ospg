@@ -10,10 +10,25 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  // Anti-abuse: 3 lead-magnet submissions per IP per 10 minutes.
+  // This endpoint is the most likely bot target since it accepts an
+  // email and we tag any submission as a captured lead.
+  const limit = rateLimit(request, "lead-magnet", { windowMs: 600_000, max: 3 });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: limit.error },
+      {
+        status: 429,
+        headers: { "Retry-After": String(limit.retryAfter) },
+      }
+    );
+  }
+
   let body: { email?: string; source?: string; lead_magnet?: string; notes?: string };
   try {
     body = await request.json();

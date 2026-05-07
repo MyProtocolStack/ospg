@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/services/security-detail",
     "/pricing",
+    "/upgrade",
     "/courses",
     "/praesidium",
     "/blog",

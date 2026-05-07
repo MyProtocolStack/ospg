@@ -8,6 +8,7 @@ import {
   ImageOff,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { PrintReportButton } from "./print-button";
 
 export const metadata = { title: "Assessment Detail" };
 export const dynamic = "force-dynamic";
@@ -315,7 +316,8 @@ export default async function AssessmentDetailPage({
         )}
 
         {/* Footer actions */}
-        <div className="flex flex-col sm:flex-row gap-3 mt-8 mb-12">
+        <div className="flex flex-col sm:flex-row gap-3 mt-8 mb-12 print:hidden">
+          <PrintReportButton />
           <Link
             href="/dashboard/praesidium/new"
             className="btn-secondary justify-center"
@@ -325,7 +327,7 @@ export default async function AssessmentDetailPage({
           </Link>
           <Link
             href="/dashboard/pilot"
-            className="btn-primary justify-center"
+            className="btn-secondary justify-center"
           >
             Use This for FEMA Grant
           </Link>

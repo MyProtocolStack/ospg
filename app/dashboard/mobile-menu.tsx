@@ -230,6 +230,31 @@ export function MobileMenu({
               Sign Out
             </button>
           </form>
+
+          {/* Quick public-site links - so the mobile drawer is not a
+              dead-end. Lets users navigate back to marketing pages
+              without typing the URL. */}
+          <div className="mt-4 pt-3 border-t border-white/5">
+            <p className="px-3 mb-2 text-[10px] uppercase tracking-[0.2em] text-[var(--color-silver-400)]">
+              Public Site
+            </p>
+            <div className="grid grid-cols-2 gap-1">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/services", label: "Services" },
+                { href: "/blog", label: "Insights" },
+                { href: "/contact", label: "Contact" },
+              ].map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="px-3 py-2 rounded-lg text-[12px] text-[var(--color-silver-300)] hover:bg-white/5 hover:text-[var(--color-cream)] transition-colors"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>

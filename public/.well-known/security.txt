@@ -1,0 +1,18 @@
+Contact: mailto:Oceanstateprotectiongroup@gmail.com
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://oceanstateprotectiongroup.com/.well-known/security.txt
+Policy: https://oceanstateprotectiongroup.com/legal/disclaimer
+
+# Ocean State Protection Group security disclosure policy
+#
+# If you discover a security vulnerability in this site or in any
+# OSPG-operated tool (PRAESIDIUM, PILOT, dashboard, API), please email
+# the address above. We will acknowledge within 72 hours and treat the
+# disclosure under standard responsible-disclosure norms.
+#
+# Please do not access, modify, or destroy data that is not your own.
+# Please do not perform attacks that disrupt service for other users.
+#
+# OSPG handles client security data. We take this seriously. Researchers
+# acting in good faith will not be pursued legally.

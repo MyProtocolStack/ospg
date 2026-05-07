@@ -24,6 +24,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -38,6 +39,20 @@ const ALLOWED_ORG_TYPES = new Set([
 ]);
 
 export async function POST(request: NextRequest) {
+  // Anti-abuse: 5 org creations per IP per 10 minutes. Most users will
+  // only ever hit this once. The cap exists to stop bots from creating
+  // fake orgs in bulk.
+  const limit = rateLimit(request, "onboarding", { windowMs: 600_000, max: 5 });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: limit.error },
+      {
+        status: 429,
+        headers: { "Retry-After": String(limit.retryAfter) },
+      }
+    );
+  }
+
   const supabase = await createClient();
 
   // 1) Auth
