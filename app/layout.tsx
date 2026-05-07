@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Libre_Baskerville } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { BRAND } from "@/lib/brand";
+import { ExitIntentPopup } from "./components/ExitIntentPopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -57,7 +60,12 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${baskerville.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <ExitIntentPopup />
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

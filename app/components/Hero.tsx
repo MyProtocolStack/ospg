@@ -51,20 +51,65 @@ export function Hero() {
           and properties that can&apos;t afford to be wrong.
         </motion.p>
 
-        {/* CTAs */}
+        {/* Primary CTA - Try SHIELD AI Free (oversized, glowing, dominant) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.7, 0, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
+          className="flex flex-col items-center mb-6"
         >
-          <Link href="/walkthrough" className="btn-primary group">
-            Book Free Walkthrough
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-          <Link href="/signup" className="btn-secondary">
-            Try SHIELD AI
-            <Sparkles className="h-4 w-4" />
+          <div className="relative group">
+            {/* Animated gold halo behind the button */}
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-[var(--color-gold-400)] via-[var(--color-gold-300)] to-[var(--color-gold-400)] rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse" />
+            <Link
+              href="/shield-ai"
+              className="relative inline-flex items-center justify-center gap-3 px-10 md:px-14 py-5 md:py-6 rounded-2xl bg-gradient-to-r from-[var(--color-gold-400)] to-[var(--color-gold-300)] text-[var(--color-navy-700)] font-display text-xl md:text-2xl lg:text-3xl font-bold tracking-tight shadow-2xl shadow-[var(--color-gold-400)]/40 hover:shadow-[var(--color-gold-400)]/60 hover:scale-[1.02] transition-all duration-300"
+            >
+              <Sparkles
+                className="h-6 w-6 md:h-7 md:w-7"
+                strokeWidth={2}
+              />
+              Try SHIELD AI Free
+              <ArrowRight
+                className="h-6 w-6 md:h-7 md:w-7 transition-transform group-hover:translate-x-1.5"
+                strokeWidth={2}
+              />
+            </Link>
+          </div>
+
+          {/* Microcopy under the button */}
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1.5 mt-5 text-[12px] md:text-[13px] text-[var(--color-silver-100)]">
+            <span className="flex items-center gap-1.5">
+              <span className="text-[var(--color-gold-400)]">✓</span>
+              No signup required
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[var(--color-gold-400)]">✓</span>
+              See real findings in 90 seconds
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[var(--color-gold-400)]">✓</span>
+              Built for schools, parishes, estates
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Secondary CTA - book walkthrough (smaller, supporting) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.45, ease: [0.7, 0, 0.3, 1] }}
+          className="flex justify-center mb-20"
+        >
+          <Link
+            href="/walkthrough"
+            className="inline-flex items-center gap-2 text-[14px] text-[var(--color-silver-100)] hover:text-[var(--color-cream)] transition-colors group"
+          >
+            Or book a free in-person walkthrough
+            <ArrowRight
+              className="h-3.5 w-3.5 text-[var(--color-gold-400)] transition-transform group-hover:translate-x-1"
+              strokeWidth={1.7}
+            />
           </Link>
         </motion.div>
 
