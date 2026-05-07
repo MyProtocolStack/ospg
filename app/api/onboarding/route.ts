@@ -11,14 +11,76 @@
  * Flow:
  *   1. Verify caller is authenticated via the user-context client
  *   2. Verify caller does not already have a membership
- *   3. Switch to service-role client to insert the org + membership row
+ *   3. Validate that SUPABASE_SERVICE_ROLE_KEY is present, well-formed,
+ *      and actually carries the service_role role claim
+ *   4. Switch to service-role client to insert the org + membership row
  *      atomically (using user_id = caller's verified id, role = owner)
+ *   5. Translate Supabase's generic 'Invalid API key' error into a
+ *      diagnostic message so it's clear what to fix on Vercel
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createClient as createServiceClient } from "@supabase/supabase-js";
 
 export const runtime = "nodejs";
+
+type KeyValidation =
+  | { valid: true; role: "service_role" }
+  | { valid: false; reason: string };
+
+/**
+ * Decode the JWT payload and verify the role claim. Supabase service-role
+ * keys are JWTs with `"role":"service_role"` in the payload; anon keys
+ * have `"role":"anon"`. If someone pastes the wrong one into Vercel, we
+ * catch it here BEFORE we ever hit Supabase with it.
+ */
+function validateServiceRoleKey(key: string | undefined): KeyValidation {
+  if (!key) {
+    return { valid: false, reason: "SUPABASE_SERVICE_ROLE_KEY is not set" };
+  }
+  if (key.length < 40) {
+    return {
+      valid: false,
+      reason: "SUPABASE_SERVICE_ROLE_KEY is too short to be a real JWT",
+    };
+  }
+  const trimmed = key.trim();
+  if (trimmed !== key) {
+    return {
+      valid: false,
+      reason:
+        "SUPABASE_SERVICE_ROLE_KEY has leading or trailing whitespace - re-paste it without surrounding spaces",
+    };
+  }
+  const parts = trimmed.split(".");
+  if (parts.length !== 3) {
+    return {
+      valid: false,
+      reason:
+        "SUPABASE_SERVICE_ROLE_KEY is not in JWT format (expected 3 dot-separated segments)",
+    };
+  }
+  let payload: { role?: string; iss?: string };
+  try {
+    // base64url decode the middle segment
+    const base64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+    const json = Buffer.from(padded, "base64").toString("utf-8");
+    payload = JSON.parse(json);
+  } catch {
+    return {
+      valid: false,
+      reason: "SUPABASE_SERVICE_ROLE_KEY payload could not be decoded",
+    };
+  }
+  if (payload.role !== "service_role") {
+    return {
+      valid: false,
+      reason: `SUPABASE_SERVICE_ROLE_KEY has role '${payload.role ?? "<missing>"}' - this looks like the anon key, not the service role key. Copy the service_role key from Supabase Dashboard -> Project Settings -> API.`,
+    };
+  }
+  return { valid: true, role: "service_role" };
+}
 
 export async function POST(request: NextRequest) {
   // 1) Verify caller is authenticated
@@ -45,8 +107,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 2) Check if user already has an org (using user-context client - RLS
-  // restricts memberships read to own membership rows, so this is safe).
+  // 2) Check if user already has an org
   const { data: existing } = await userClient
     .from("memberships")
     .select("org_id")
@@ -61,19 +122,38 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // 3) Switch to service role for the inserts (bypasses RLS).
+  // 3) Validate service role key BEFORE constructing the admin client
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!supabaseUrl || !serviceKey) {
+
+  if (!supabaseUrl) {
+    console.error("onboarding: NEXT_PUBLIC_SUPABASE_URL is not set");
     return NextResponse.json(
       {
         error:
-          "Server is missing SUPABASE_SERVICE_ROLE_KEY. Onboarding cannot complete.",
+          "Server is missing NEXT_PUBLIC_SUPABASE_URL. The team has been notified.",
       },
       { status: 500 }
     );
   }
-  const admin = createServiceClient(supabaseUrl, serviceKey, {
+
+  const keyCheck = validateServiceRoleKey(serviceKey);
+  if (!keyCheck.valid) {
+    // Log the specific reason so it shows up in Vercel logs for the team.
+    console.error("onboarding: service-role key validation failed:", keyCheck.reason);
+    return NextResponse.json(
+      {
+        error:
+          "Onboarding is temporarily unavailable due to a server-side configuration issue. The team has been notified. Please email Oceanstateprotectiongroup@gmail.com and we will set up your organization manually.",
+        // Include the diagnostic in dev so we can see it in browser network tab
+        // in production this is still useful for triage
+        diagnostic: keyCheck.reason,
+      },
+      { status: 500 }
+    );
+  }
+
+  const admin = createServiceClient(supabaseUrl, serviceKey!, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 
@@ -107,9 +187,31 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (orgErr || !org) {
-    console.error("onboarding: org insert failed:", orgErr?.message);
+    const rawMsg = orgErr?.message || "Failed to create org";
+    console.error("onboarding: org insert failed:", rawMsg);
+
+    // Translate the most common Supabase failure modes into actionable
+    // messages instead of leaking internal error text to end users.
+    let userMessage = "We could not set up your organization right now.";
+    if (
+      rawMsg.toLowerCase().includes("invalid api key") ||
+      rawMsg.toLowerCase().includes("jwt")
+    ) {
+      userMessage =
+        "Onboarding is temporarily unavailable due to a server-side configuration issue. The team has been notified. Please email Oceanstateprotectiongroup@gmail.com and we will set up your organization manually.";
+    } else if (
+      rawMsg.toLowerCase().includes("duplicate key") ||
+      rawMsg.toLowerCase().includes("unique")
+    ) {
+      userMessage =
+        "An organization with that name already exists. Try a different name.";
+    } else if (rawMsg.toLowerCase().includes("violates")) {
+      userMessage =
+        "We could not validate one of the form fields. Double-check your inputs and try again.";
+    }
+
     return NextResponse.json(
-      { error: orgErr?.message || "Failed to create org" },
+      { error: userMessage, diagnostic: rawMsg },
       { status: 500 }
     );
   }
@@ -126,7 +228,10 @@ export async function POST(request: NextRequest) {
     // Roll back the org so the user can retry cleanly.
     await admin.from("orgs").delete().eq("id", org.id);
     return NextResponse.json(
-      { error: `Membership creation failed: ${memErr.message}` },
+      {
+        error: "We created your organization but could not finish linking your account. Please try again.",
+        diagnostic: memErr.message,
+      },
       { status: 500 }
     );
   }
