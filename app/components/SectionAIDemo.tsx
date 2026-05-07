@@ -35,7 +35,7 @@ export function SectionAIDemo() {
 
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-cream)] leading-tight tracking-tight mb-6">
               Meet{" "}
-              <span className="italic text-gradient-gold">VIGIL</span>.
+              <span className="italic text-gradient-gold">PRAESIDIUM</span>.
             </h2>
             <p className="text-lg text-[var(--color-silver-100)] leading-relaxed mb-8 max-w-lg">
               Upload a photo of any door, hallway, parking lot, or gathering
@@ -53,7 +53,7 @@ export function SectionAIDemo() {
                 {
                   icon: Layers3,
                   title: "Analyze",
-                  body: "VIGIL evaluates 40+ security markers: lockdown capability, sightlines, hardening, lighting, access control.",
+                  body: "PRAESIDIUM evaluates 40+ security markers: lockdown capability, sightlines, hardening, lighting, access control.",
                 },
                 {
                   icon: FileText,
@@ -91,7 +91,7 @@ export function SectionAIDemo() {
             </div>
 
             <Link href="/signup" className="btn-primary group">
-              Try VIGIL Free
+              Try PRAESIDIUM Free
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </motion.div>

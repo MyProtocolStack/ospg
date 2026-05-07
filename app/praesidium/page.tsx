@@ -1,6 +1,6 @@
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import { VigilDemoClient } from "./demo-client";
+import { PraesidiumDemoClient } from "./demo-client";
 import {
   Camera,
   Layers3,
@@ -13,12 +13,12 @@ import {
 import Link from "next/link";
 
 export const metadata = {
-  title: "VIGIL - Photo-Based Vulnerability Analysis",
+  title: "PRAESIDIUM - Photo-Based Vulnerability Analysis",
   description:
     "Upload a photo of any campus location. Get an expert-grade security vulnerability assessment in 90 seconds. Powered by Claude vision and built on 75+ years of active-duty law enforcement experience.",
 };
 
-export default function VigilPublicPage() {
+export default function PraesidiumPublicPage() {
   return (
     <>
       <Navbar />
@@ -35,12 +35,12 @@ export default function VigilPublicPage() {
             </div>
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-[var(--color-cream)] leading-[1.05] tracking-tight mb-6">
               Try{" "}
-              <span className="italic text-gradient-gold">VIGIL</span>{" "}
+              <span className="italic text-gradient-gold">PRAESIDIUM</span>{" "}
               right now.
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed mb-8">
               Three real example analyses below. Tap any photo to see the
-              full vulnerability report VIGIL produced - same output your
+              full vulnerability report PRAESIDIUM produced - same output your
               insurer and grant administrator receive.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -71,7 +71,7 @@ export default function VigilPublicPage() {
                   icon: Layers3,
                   step: "2",
                   title: "Analyze",
-                  body: "VIGIL evaluates 40+ security markers: lockdown capability, sightlines, hardening, lighting, access control.",
+                  body: "PRAESIDIUM evaluates 40+ security markers: lockdown capability, sightlines, hardening, lighting, access control.",
                 },
                 {
                   icon: FileText,
@@ -110,7 +110,7 @@ export default function VigilPublicPage() {
               </h2>
             </div>
 
-            <VigilDemoClient />
+            <PraesidiumDemoClient />
           </div>
         </section>
 
@@ -122,7 +122,7 @@ export default function VigilPublicPage() {
                 40+ Markers Per Photo
               </p>
               <h2 className="font-display text-3xl md:text-4xl text-[var(--color-cream)] leading-tight">
-                What VIGIL looks for.
+                What PRAESIDIUM looks for.
               </h2>
             </div>
 
@@ -164,13 +164,13 @@ export default function VigilPublicPage() {
                 The honest version
               </h3>
               <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed mb-3">
-                VIGIL is a preliminary analysis tool. It catches what is
+                PRAESIDIUM is a preliminary analysis tool. It catches what is
                 visible in a photo. It cannot replace an on-site walkthrough
                 where two officers physically test doors, observe operational
                 flow, and interview staff.
               </p>
               <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed">
-                Treat VIGIL output as the starting list. The full SHIELD
+                Treat PRAESIDIUM output as the starting list. The full SHIELD
                 Assessment validates findings, surfaces what photos miss
                 (procedure gaps, communication trees, drill cadence), and
                 produces the document insurers and FEMA actually require.
@@ -186,7 +186,7 @@ export default function VigilPublicPage() {
               Ready to try it on your campus?
             </h2>
             <p className="text-[var(--color-silver-200)] mb-10">
-              Free account includes your first VIGIL analysis. No credit
+              Free account includes your first PRAESIDIUM analysis. No credit
               card. No commitment. 90 seconds from signup to first finding.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

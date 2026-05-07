@@ -38,7 +38,7 @@ export default function BillingPage() {
                 Free
               </h2>
               <p className="text-[14px] text-[var(--color-silver-200)] mb-5">
-                You&apos;re on the free plan. Upgrade to unlock unlimited VIGIL
+                You&apos;re on the free plan. Upgrade to unlock unlimited PRAESIDIUM
                 analyses, full course library, quarterly walkthroughs, and PILOT.
               </p>
               <BillingActions />

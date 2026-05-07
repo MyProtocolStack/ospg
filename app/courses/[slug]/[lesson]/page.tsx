@@ -257,7 +257,7 @@ function LockedPreview({ courseSlug }: { courseSlug: string }) {
         This lesson is for subscribers.
       </h3>
       <p className="text-[var(--color-silver-200)] mb-6 max-w-md mx-auto leading-relaxed">
-        Get unlimited access to every OSPG course, VIGIL, PILOT, and
+        Get unlimited access to every OSPG course, PRAESIDIUM, PILOT, and
         quarterly walkthroughs for $199/month.
       </p>
       <div className="flex flex-col sm:flex-row gap-3 justify-center">

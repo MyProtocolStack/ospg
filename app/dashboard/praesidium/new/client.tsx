@@ -42,7 +42,7 @@ const SEVERITY_STYLES: Record<Severity, { color: string; bg: string; border: str
   critical: { color: "#B33A3A", bg: "rgba(179, 58, 58, 0.1)", border: "rgba(179, 58, 58, 0.4)", label: "CRITICAL" },
 };
 
-export function VigilNewClient({
+export function PraesidiumNewClient({
   remainingFree,
   totalFree,
 }: {
@@ -89,7 +89,7 @@ export function VigilNewClient({
       fd.append("area_label", areaLabel || "Unspecified location");
       fd.append("context", contextNote);
 
-      const res = await fetch("/api/vigil/analyze", { method: "POST", body: fd });
+      const res = await fetch("/api/praesidium/analyze", { method: "POST", body: fd });
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({}));
         throw new Error(errBody.error || `Analysis failed (${res.status})`);
@@ -118,11 +118,11 @@ export function VigilNewClient({
       <div className="max-w-5xl mx-auto">
         {/* Top bar */}
         <Link
-          href="/dashboard/vigil"
+          href="/dashboard/praesidium"
           className="inline-flex items-center gap-2 text-[13px] text-[var(--color-silver-300)] hover:text-[var(--color-cream)] mb-6 transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Back to VIGIL
+          Back to PRAESIDIUM
         </Link>
 
         {/* Header */}
@@ -142,7 +142,7 @@ export function VigilNewClient({
           </h1>
           <p className="text-[var(--color-silver-200)]">
             Photos work best taken in daylight, with the entire entry/area in
-            frame. VIGIL evaluates 40+ markers per image.
+            frame. PRAESIDIUM evaluates 40+ markers per image.
           </p>
         </div>
 
@@ -271,13 +271,13 @@ export function VigilNewClient({
                 ) : (
                   <>
                     <Sparkles className="h-4 w-4" />
-                    Analyze with VIGIL
+                    Analyze with PRAESIDIUM
                   </>
                 )}
               </button>
 
               <p className="text-[11px] text-[var(--color-silver-400)] leading-relaxed">
-                VIGIL provides preliminary observations only. A licensed
+                PRAESIDIUM provides preliminary observations only. A licensed
                 security professional should validate findings before
                 implementation. On-site walkthrough always recommended for
                 comprehensive assessment.
@@ -457,7 +457,7 @@ function ResultView({
       </div>
 
       <p className="mt-8 text-[11px] text-[var(--color-silver-400)] leading-relaxed max-w-2xl">
-        VIGIL provides preliminary observations based on visual evidence
+        PRAESIDIUM provides preliminary observations based on visual evidence
         only. A full SHIELD Assessment by active-duty officers is required for
         definitive recommendations and FEMA NSGP grant submissions. This report
         is not a substitute for licensed engineering, legal, or insurance review.

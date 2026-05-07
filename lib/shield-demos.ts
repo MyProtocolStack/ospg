@@ -1,8 +1,8 @@
 /**
- * Pre-built VIGIL sample analyses for the public demo page.
+ * Pre-built PRAESIDIUM sample analyses for the public demo page.
  *
  * These are real-world example findings authored by hand, presented as if
- * VIGIL generated them. Visitors see immediate value without burning
+ * PRAESIDIUM generated them. Visitors see immediate value without burning
  * Claude credits. Drives conversion to signup for actual photo analysis.
  */
 

@@ -37,7 +37,7 @@ export default function SignupPage() {
               <span className="italic text-gradient-gold">today.</span>
             </h1>
             <p className="text-sm text-[var(--color-silver-200)]">
-              Free VIGIL access with every account.
+              Free PRAESIDIUM access with every account.
             </p>
           </div>
 

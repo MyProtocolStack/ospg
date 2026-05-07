@@ -67,7 +67,7 @@ export default async function AssessmentDetailPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect(`/login?next=/dashboard/vigil/${id}`);
+  if (!user) redirect(`/login?next=/dashboard/praesidium/${id}`);
 
   // RLS will scope the row to assessments in the user's orgs.
   const { data: assessment } = await supabase
@@ -117,7 +117,7 @@ export default async function AssessmentDetailPage({
       <div className="max-w-5xl mx-auto">
         {/* Back link */}
         <Link
-          href="/dashboard/vigil"
+          href="/dashboard/praesidium"
           className="inline-flex items-center gap-2 text-[13px] text-[var(--color-silver-300)] hover:text-[var(--color-cream)] mb-6 transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
@@ -317,7 +317,7 @@ export default async function AssessmentDetailPage({
         {/* Footer actions */}
         <div className="flex flex-col sm:flex-row gap-3 mt-8 mb-12">
           <Link
-            href="/dashboard/vigil/new"
+            href="/dashboard/praesidium/new"
             className="btn-secondary justify-center"
           >
             <Camera className="h-4 w-4" />
@@ -332,7 +332,7 @@ export default async function AssessmentDetailPage({
         </div>
 
         <p className="text-[11px] text-[var(--color-silver-400)] leading-relaxed max-w-2xl">
-          VIGIL provides preliminary observations based on visual evidence
+          PRAESIDIUM provides preliminary observations based on visual evidence
           only. A full SHIELD Assessment by active-duty officers is required
           for definitive recommendations and FEMA NSGP grant submissions. This
           report is not a substitute for licensed engineering, legal, or

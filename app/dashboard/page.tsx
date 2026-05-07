@@ -11,9 +11,9 @@ import {
 
 const QUICK_ACTIONS = [
   {
-    href: "/dashboard/vigil/new",
+    href: "/dashboard/praesidium/new",
     icon: Camera,
-    title: "Run a VIGIL Analysis",
+    title: "Run a PRAESIDIUM Analysis",
     body: "Upload a photo of any campus location. Get an expert-grade vulnerability analysis in 90 seconds.",
     badge: "Most used",
   },
@@ -52,7 +52,7 @@ export default function DashboardHome() {
             <span className="italic text-gradient-gold">command center.</span>
           </h1>
           <p className="text-[var(--color-silver-200)] max-w-2xl">
-            Run a VIGIL analysis, talk to PILOT about your FEMA grant
+            Run a PRAESIDIUM analysis, talk to PILOT about your FEMA grant
             application, complete training courses, or book a security detail -
             everything in one place.
           </p>
@@ -140,7 +140,7 @@ export default function DashboardHome() {
                 </span>
               </div>
               <h3 className="font-display text-2xl md:text-3xl text-[var(--color-cream)] mb-3">
-                Run your first VIGIL analysis.
+                Run your first PRAESIDIUM analysis.
               </h3>
               <p className="text-[var(--color-silver-200)] leading-relaxed">
                 Pick the most concerning entrance on your property - side door,
@@ -150,7 +150,7 @@ export default function DashboardHome() {
               </p>
             </div>
             <div className="flex justify-end">
-              <Link href="/dashboard/vigil/new" className="btn-primary">
+              <Link href="/dashboard/praesidium/new" className="btn-primary">
                 Start Free Analysis
                 <TrendingUp className="h-4 w-4" />
               </Link>

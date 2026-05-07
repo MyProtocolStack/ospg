@@ -49,7 +49,7 @@ export const VERTICALS: Vertical[] = [
     icon: "Church",
     shortLabel: "Parishes",
     fullName: "Parishes & Houses of Worship",
-    hookHeadline: "Sanctuary is sacred. Vigilance protects it.",
+    hookHeadline: "Sanctuary is sacred. Praesidiumance protects it.",
     hookSub:
       "Faith-based institutions saw a 100% surge in targeting since 2023. The August 2025 Minneapolis attack made it personal. OSPG helps your parish move from reactive to ready.",
     threats: [

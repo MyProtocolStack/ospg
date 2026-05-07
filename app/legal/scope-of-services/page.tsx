@@ -20,7 +20,7 @@ export default function ScopeOfServicesPage() {
           <ul className="list-none space-y-2 mt-3">
             {[
               "Vulnerability assessments via on-site walkthrough (SHIELD Assessment)",
-              "AI-assisted preliminary photo analysis (VIGIL)",
+              "AI-assisted preliminary photo analysis (PRAESIDIUM)",
               "FEMA NSGP grant application support and document generation (PILOT)",
               "Security details staffed by vetted retired law enforcement and military veterans (active-duty officers are never assigned to private detail work)",
               "Threat assessment and incident-response training for staff and volunteers",

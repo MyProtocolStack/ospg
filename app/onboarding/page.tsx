@@ -53,7 +53,7 @@ export default async function OnboardingPage() {
               <span className="italic text-gradient-gold">organization.</span>
             </h1>
             <p className="text-sm text-[var(--color-silver-200)]">
-              We tailor VIGIL, PILOT, and course recommendations to your
+              We tailor PRAESIDIUM, PILOT, and course recommendations to your
               vertical. Takes 30 seconds.
             </p>
           </div>

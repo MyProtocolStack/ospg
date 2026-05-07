@@ -9,7 +9,7 @@ const FOOTER_GROUPS = [
       { href: "/services", label: "All Services" },
       { href: "/walkthrough", label: "SHIELD Assessment" },
       { href: "/services/security-detail", label: "Security Detail" },
-      { href: "/vigil", label: "VIGIL Photo Analysis" },
+      { href: "/praesidium", label: "PRAESIDIUM Photo Analysis" },
       { href: "/grants", label: "FEMA NSGP Grant Help" },
       { href: "/courses", label: "Training Courses" },
     ],

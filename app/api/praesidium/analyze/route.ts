@@ -1,7 +1,7 @@
 /**
- * VIGIL photo analysis endpoint.
+ * PRAESIDIUM photo analysis endpoint.
  *
- * POST /api/vigil/analyze
+ * POST /api/praesidium/analyze
  * Body: multipart/form-data
  *   - photo: image file
  *   - area_label: string
@@ -27,12 +27,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
-import { FREE_ANALYSIS_LIMIT } from "@/lib/vigil-quota";
+import { FREE_ANALYSIS_LIMIT } from "@/lib/praesidium-quota";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
 
-const SYSTEM_PROMPT = `You are VIGIL - an expert physical-security and threat-assessment advisor for Ocean State Protection Group, a private security consultancy founded by active-duty law enforcement officers serving Catholic schools, parishes, businesses, and high-net-worth properties across New England.
+const SYSTEM_PROMPT = `You are PRAESIDIUM - an expert physical-security and threat-assessment advisor for Ocean State Protection Group, a private security consultancy founded by active-duty law enforcement officers serving Catholic schools, parishes, businesses, and high-net-worth properties across New England.
 
 You analyze photographs of property locations and produce structured vulnerability findings. Your analysis must be:
 - HONEST: name real risks, don't soften
@@ -260,7 +260,7 @@ export async function POST(request: NextRequest) {
   let userText = `Analyze this photograph of: ${areaLabel}.`;
   if (context)
     userText += `\n\nAdditional context from the property owner:\n${context}`;
-  userText += `\n\nProvide a structured VIGIL analysis. Output JSON only.`;
+  userText += `\n\nProvide a structured PRAESIDIUM analysis. Output JSON only.`;
 
   let analysisRaw: string;
   let inputTokens = 0;

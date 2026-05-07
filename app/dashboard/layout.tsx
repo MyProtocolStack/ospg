@@ -23,7 +23,7 @@ const NAV_GROUPS = [
     label: "Operations",
     items: [
       { href: "/dashboard", icon: LayoutDashboard, label: "Overview" },
-      { href: "/dashboard/vigil", icon: Camera, label: "VIGIL" },
+      { href: "/dashboard/praesidium", icon: Camera, label: "PRAESIDIUM" },
       { href: "/dashboard/pilot", icon: Compass, label: "PILOT (Grants)" },
       { href: "/dashboard/courses", icon: GraduationCap, label: "Courses" },
       { href: "/dashboard/bookings", icon: Calendar, label: "Bookings" },

@@ -108,7 +108,7 @@ export default function AboutPage() {
               About OSPG
             </p>
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-[var(--color-cream)] leading-[1.05] tracking-tight mb-6">
-              Vigilance,{" "}
+              Praesidiumance,{" "}
               <span className="italic text-gradient-gold">without compromise.</span>
             </h1>
             <p className="text-lg text-[var(--color-silver-100)] max-w-2xl mx-auto leading-relaxed">

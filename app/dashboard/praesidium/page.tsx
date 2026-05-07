@@ -9,9 +9,9 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { FREE_ANALYSIS_LIMIT } from "@/lib/vigil-quota";
+import { FREE_ANALYSIS_LIMIT } from "@/lib/praesidium-quota";
 
-export const metadata = { title: "VIGIL" };
+export const metadata = { title: "PRAESIDIUM" };
 export const dynamic = "force-dynamic";
 
 type Severity = "low" | "medium" | "high" | "critical";
@@ -56,12 +56,12 @@ function formatDate(iso: string | null): string {
   });
 }
 
-export default async function VigilIndex() {
+export default async function PraesidiumIndex() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/login?next=/dashboard/vigil");
+  if (!user) redirect("/login?next=/dashboard/praesidium");
 
   // Pull all assessments visible to this user (RLS scopes by org membership).
   const { data: assessments } = await supabase
@@ -85,7 +85,7 @@ export default async function VigilIndex() {
           <div>
             <div className="flex items-center gap-3 mb-3 flex-wrap">
               <p className="text-[12px] uppercase tracking-[0.2em] text-[var(--color-gold-400)]">
-                VIGIL
+                PRAESIDIUM
               </p>
               <span
                 className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full border ${
@@ -121,7 +121,7 @@ export default async function VigilIndex() {
             </Link>
           ) : (
             <Link
-              href="/dashboard/vigil/new"
+              href="/dashboard/praesidium/new"
               className="btn-primary shrink-0"
             >
               <Camera className="h-4 w-4" />
@@ -146,7 +146,7 @@ export default async function VigilIndex() {
                   </span>
                 </div>
                 <h2 className="font-display text-xl md:text-2xl text-[var(--color-cream)] mb-2 leading-tight">
-                  You&apos;ve seen what VIGIL can do.
+                  You&apos;ve seen what PRAESIDIUM can do.
                 </h2>
                 <p className="text-[14px] text-[var(--color-silver-100)] leading-relaxed">
                   The next step is a real walkthrough by both founders -
@@ -184,7 +184,7 @@ export default async function VigilIndex() {
                 anywhere your gut says &quot;maybe.&quot;
               </p>
               <Link
-                href="/dashboard/vigil/new"
+                href="/dashboard/praesidium/new"
                 className="btn-primary"
               >
                 Start First Analysis
@@ -211,7 +211,7 @@ export default async function VigilIndex() {
                 return (
                   <Link
                     key={a.id}
-                    href={`/dashboard/vigil/${a.id}`}
+                    href={`/dashboard/praesidium/${a.id}`}
                     className="surface-card p-6 block hover:border-[var(--color-gold-400)]/30 transition-colors group"
                   >
                     <div className="flex items-start gap-5">
