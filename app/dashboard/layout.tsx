@@ -94,8 +94,18 @@ export default async function DashboardLayout({
     }
   }
 
+  // IMPORTANT: do NOT spread `i` here. Each NAV_GROUPS item contains an
+  // `icon` field that holds a Lucide component (a function). Functions
+  // cannot be serialized across the server-to-client boundary, so passing
+  // them as props to the <MobileMenu> client component triggers a Server
+  // Components render error. MobileMenu looks up icons from its own
+  // ICON_MAP keyed by href - it doesn't need the function ref.
   const navItems = NAV_GROUPS.flatMap((g) =>
-    g.items.map((i) => ({ ...i, group: g.label }))
+    g.items.map((i) => ({
+      href: i.href,
+      label: i.label,
+      group: g.label,
+    }))
   );
 
   return (

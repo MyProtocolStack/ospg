@@ -22,7 +22,9 @@ type NavItem = {
   href: string;
   label: string;
   group: string;
-  icon: React.ElementType;
+  // No icon field - icons are looked up by href in ICON_MAP below.
+  // Passing function refs from server components to client components
+  // is not allowed in Next.js (causes a Server Components render error).
 };
 
 const ICON_MAP: Record<string, React.ElementType> = {
