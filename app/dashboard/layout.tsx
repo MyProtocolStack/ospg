@@ -43,23 +43,55 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Defensively handle every Supabase failure mode so the dashboard never
+  // hard-500s a logged-in user. Any unexpected error short-circuits to the
+  // login redirect rather than letting it bubble to a generic Next error page.
+  let userEmail = "";
+  let userId: string | null = null;
 
-  if (!user) redirect("/login?next=/dashboard");
-
-  let displayName = user.email?.split("@")[0] ?? "Member";
   try {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("full_name")
-      .eq("id", user.id)
-      .maybeSingle();
-    if (profile?.full_name) displayName = profile.full_name;
-  } catch {
-    // table may not exist yet pre-migration
+    const supabase = await createClient();
+    const {
+      data: { user },
+      error: userErr,
+    } = await supabase.auth.getUser();
+
+    if (userErr || !user) {
+      redirect("/login?next=/dashboard");
+    }
+
+    userEmail = user.email ?? "";
+    userId = user.id;
+  } catch (e) {
+    // redirect() throws a special error - re-throw it so Next handles it.
+    if (
+      e &&
+      typeof e === "object" &&
+      "digest" in e &&
+      typeof (e as { digest: unknown }).digest === "string" &&
+      ((e as { digest: string }).digest.startsWith("NEXT_REDIRECT") ||
+        (e as { digest: string }).digest.startsWith("NEXT_NOT_FOUND"))
+    ) {
+      throw e;
+    }
+    console.error("dashboard layout auth error:", e);
+    redirect("/login?next=/dashboard");
+  }
+
+  let displayName = userEmail.split("@")[0] || "Member";
+  if (userId) {
+    try {
+      const supabase = await createClient();
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("full_name")
+        .eq("id", userId)
+        .maybeSingle();
+      if (profile?.full_name) displayName = profile.full_name;
+    } catch (e) {
+      // Profile fetch is best-effort. Fall back to email-derived name.
+      console.error("dashboard layout profile fetch error:", e);
+    }
   }
 
   const navItems = NAV_GROUPS.flatMap((g) =>
@@ -126,7 +158,7 @@ export default async function DashboardLayout({
             <div className="flex-1 min-w-0">
               <p className="text-[13px] text-[var(--color-cream)] truncate">{displayName}</p>
               <p className="text-[11px] text-[var(--color-silver-400)] truncate">
-                {user.email}
+                {userEmail}
               </p>
             </div>
           </div>
@@ -143,7 +175,7 @@ export default async function DashboardLayout({
       <MobileMenu
         navItems={navItems}
         displayName={displayName}
-        userEmail={user.email ?? ""}
+        userEmail={userEmail}
       />
 
       <main className="flex-1 lg:ml-0 mt-14 lg:mt-0">{children}</main>
