@@ -9,6 +9,8 @@ import {
   AlertTriangle,
   Shield,
   Zap,
+  MapPin,
+  CheckCircle2,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -52,6 +54,172 @@ export default function PraesidiumPublicPage() {
                 Try With Your Photo
                 <Camera className="h-4 w-4" />
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Hero showcase: sample analysis output. Uses the same bbox-on-
+            gradient style as the live demo below, but rendered as a static
+            marketing visual with a finding callout card. Breaks up the
+            text-heavy hero region and shows the actual product output
+            shape before the visitor reaches the interactive demo. */}
+        <section className="py-12 -mt-8 relative">
+          <div className="mx-auto max-w-6xl px-6 lg:px-10">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
+              {/* Left column: simulated annotated photo */}
+              <div className="lg:col-span-3">
+                <div className="relative">
+                  {/* Decorative gold halo */}
+                  <div className="absolute -inset-4 bg-gradient-to-br from-[var(--color-gold-400)]/15 via-transparent to-[var(--color-navy-300)]/10 blur-2xl pointer-events-none" />
+
+                  <div className="surface-card-elevated p-3 relative">
+                    <div
+                      className="aspect-[4/3] rounded-lg relative overflow-hidden"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #1a3a5c 0%, #0f2742 50%, #060e1b 100%)",
+                      }}
+                    >
+                      {/* Subtle texture */}
+                      <div className="absolute inset-0 opacity-30 grain pointer-events-none" />
+
+                      {/* Sample bbox annotations */}
+                      {[
+                        { x: 0.08, y: 0.12, w: 0.32, h: 0.55, n: 1, sev: "medium" },
+                        { x: 0.62, y: 0.22, w: 0.28, h: 0.38, n: 2, sev: "high" },
+                        { x: 0.36, y: 0.55, w: 0.2, h: 0.3, n: 3, sev: "medium" },
+                      ].map((b) => {
+                        const colors = {
+                          medium: "#C9A961",
+                          high: "#E59A3A",
+                        } as const;
+                        const c = colors[b.sev as keyof typeof colors];
+                        return (
+                          <div
+                            key={b.n}
+                            className="absolute border-2 rounded-md"
+                            style={{
+                              left: `${b.x * 100}%`,
+                              top: `${b.y * 100}%`,
+                              width: `${b.w * 100}%`,
+                              height: `${b.h * 100}%`,
+                              borderColor: c,
+                              boxShadow: `0 0 0 1px ${c}40, 0 0 30px -5px ${c}`,
+                            }}
+                          >
+                            <span
+                              className="absolute -top-3 -left-3 w-7 h-7 rounded-full font-bold text-[12px] flex items-center justify-center border-2"
+                              style={{
+                                color: c,
+                                backgroundColor: "var(--color-navy-700)",
+                                borderColor: c,
+                              }}
+                            >
+                              {b.n}
+                            </span>
+                          </div>
+                        );
+                      })}
+
+                      {/* Photo metadata bottom strip */}
+                      <div className="absolute bottom-3 left-3 flex items-center gap-2 text-[10px] uppercase tracking-wider text-[var(--color-silver-300)]">
+                        <MapPin className="h-3 w-3" />
+                        <span>sample_side_entrance.jpg</span>
+                      </div>
+
+                      {/* Severity badge */}
+                      <div className="absolute top-3 right-3">
+                        <span
+                          className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-1 rounded-full backdrop-blur-sm"
+                          style={{
+                            color: "#E59A3A",
+                            backgroundColor: "rgba(229, 154, 58, 0.12)",
+                            border: "1px solid rgba(229, 154, 58, 0.4)",
+                          }}
+                        >
+                          Overall: HIGH
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Caption */}
+                  <p className="mt-3 text-center text-[11px] uppercase tracking-[0.18em] text-[var(--color-silver-400)]">
+                    Sample analysis output - bounding boxes auto-placed by AI
+                  </p>
+                </div>
+              </div>
+
+              {/* Right column: finding callouts */}
+              <div className="lg:col-span-2 space-y-3">
+                <div className="surface-card p-5 relative">
+                  <div className="flex items-start gap-3">
+                    <div
+                      className="shrink-0 w-7 h-7 rounded-full font-bold text-[12px] flex items-center justify-center border-2"
+                      style={{
+                        color: "#E59A3A",
+                        backgroundColor: "rgba(229, 154, 58, 0.12)",
+                        borderColor: "#E59A3A",
+                      }}
+                    >
+                      2
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span
+                        className="text-[10px] uppercase tracking-wider font-bold inline-block mb-1"
+                        style={{ color: "#E59A3A" }}
+                      >
+                        HIGH
+                      </span>
+                      <h4 className="font-display text-[14px] text-[var(--color-cream)] leading-tight mb-1">
+                        No camera coverage on this approach
+                      </h4>
+                      <p className="text-[12px] text-[var(--color-silver-200)] leading-relaxed">
+                        Path from parking lot to side door has no surveillance.
+                        After-hours unauthorized-entry vector.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="surface-card p-5 relative">
+                  <div className="flex items-start gap-3">
+                    <div
+                      className="shrink-0 w-7 h-7 rounded-full font-bold text-[12px] flex items-center justify-center border-2"
+                      style={{
+                        color: "#C9A961",
+                        backgroundColor: "rgba(201, 169, 97, 0.12)",
+                        borderColor: "#C9A961",
+                      }}
+                    >
+                      1
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span
+                        className="text-[10px] uppercase tracking-wider font-bold inline-block mb-1"
+                        style={{ color: "#C9A961" }}
+                      >
+                        MEDIUM
+                      </span>
+                      <h4 className="font-display text-[14px] text-[var(--color-cream)] leading-tight mb-1">
+                        Glass door without shatter-resistant film
+                      </h4>
+                      <p className="text-[12px] text-[var(--color-silver-200)] leading-relaxed">
+                        Single-pane glass within reach of interior lock.
+                        Breach time under 8 seconds.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 px-1 pt-1 text-[12px] text-[var(--color-silver-300)]">
+                  <CheckCircle2
+                    className="h-3.5 w-3.5 text-[var(--color-gold-400)]"
+                    strokeWidth={2}
+                  />
+                  <span>+1 more finding (LOW) | Cost ranges | NSGP eligibility</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
