@@ -96,6 +96,33 @@ export function Footer() {
           ))}
         </div>
 
+        {/* St. Michael Prayer (Latin) - source of the PRAESIDIUM brand. */}
+        {/* "esto praesidium" = "be our protection" - the operating thesis */}
+        {/* of the firm in five Latin words. */}
+        <div className="mb-14 pt-10 border-t border-white/5">
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-[var(--color-gold-400)]/80 mb-5 font-medium">
+              Oratio ad Sanctum Michaelem Archangelum
+            </p>
+            <p className="font-display italic text-[14px] md:text-[15px] text-[var(--color-silver-100)] leading-[2]">
+              Sáncte Míchael Archángele, defénde nos in proélio,
+              <br />
+              cóntra nequítiam et insídias diáboli ésto præsídium.
+              <br />
+              Ímperet ílli Déus, súpplices deprecámur:
+              <br />
+              tuque, prínceps milítiæ cæléstis,
+              <br />
+              Sátanam aliósque spíritus malígnos,
+              <br />
+              qui ad perditiónem animárum pervagántur in múndo,
+              <br />
+              divína virtúte, in inférnum detrúde.{" "}
+              <span className="text-[var(--color-gold-400)]/70">Ámen.</span>
+            </p>
+          </div>
+        </div>
+
         {/* Disclaimer block */}
         <div className="surface-card p-6 mb-10 max-w-4xl">
           <h5 className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-gold-400)] mb-3">
