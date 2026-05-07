@@ -98,21 +98,28 @@ export async function POST(request: NextRequest) {
 
   // 4) Insert org via the user-context client. Migration 0005 adds the
   //    INSERT policy that lets authenticated users do this.
-  const { data: org, error: orgErr } = await supabase
-    .from("orgs")
-    .insert({
-      name: orgName,
-      type: orgType,
-      city,
-      state,
-      est_population: estPopulation,
-      primary_contact_email: user.email,
-    })
-    .select("id")
-    .single();
+  //
+  //    IMPORTANT: we generate the org id client-side instead of using
+  //    .select("id").single() to read it back. Reading back goes through
+  //    the SELECT policy on orgs ("Members can read their orgs", which
+  //    checks `id in current_user_org_ids()`), and at this moment the
+  //    user has no memberships yet, so the SELECT-after-INSERT would
+  //    return zero rows and PostgREST would throw a misleading "policy"
+  //    error. Pre-generating the UUID skips that round-trip.
+  const newOrgId = crypto.randomUUID();
 
-  if (orgErr || !org) {
-    const rawMsg = orgErr?.message || "Failed to create org";
+  const { error: orgErr } = await supabase.from("orgs").insert({
+    id: newOrgId,
+    name: orgName,
+    type: orgType,
+    city,
+    state,
+    est_population: estPopulation,
+    primary_contact_email: user.email,
+  });
+
+  if (orgErr) {
+    const rawMsg = orgErr.message || "Failed to create org";
     console.error("onboarding: org insert failed:", rawMsg);
 
     let userMessage = "We could not set up your organization right now.";
@@ -144,17 +151,18 @@ export async function POST(request: NextRequest) {
   //    existing memberships.
   const { error: memErr } = await supabase.from("memberships").insert({
     user_id: user.id,
-    org_id: org.id,
+    org_id: newOrgId,
     role: "owner",
   });
 
   if (memErr) {
     console.error("onboarding: membership insert failed:", memErr.message);
 
-    // Try to roll back the org so the user can retry. If the rollback
-    // fails (RLS deny on delete, etc.), the user is left with an org
-    // they cannot see - support can clean up via service role later.
-    await supabase.from("orgs").delete().eq("id", org.id);
+    // Try to roll back the org so the user can retry. The DELETE policy
+    // on orgs may reject this (no DELETE policy is set up for ordinary
+    // users), in which case the orphan org sits there until an admin
+    // cleans it up. Not great but not blocking.
+    await supabase.from("orgs").delete().eq("id", newOrgId);
 
     const lower = memErr.message.toLowerCase();
     let userMessage =
@@ -170,5 +178,5 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  return NextResponse.json({ org_id: org.id });
+  return NextResponse.json({ org_id: newOrgId });
 }

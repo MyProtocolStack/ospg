@@ -4,6 +4,9 @@ import { ArrowLeft, ArrowRight, Play, FileText, Target, Users, CheckCircle2, Loc
 import { Navbar } from "../../../components/Navbar";
 import { Footer } from "../../../components/Footer";
 import { getCourse, getLesson } from "@/lib/courses";
+import { getCurrentOrgPlan } from "@/lib/org-plan";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -48,7 +51,13 @@ export default async function LessonPage({
   const next = idx < course.lessons.length - 1 ? course.lessons[idx + 1] : null;
 
   const Icon = KIND_ICON[lesson.kind];
-  const locked = !lesson.preview;
+
+  // Lesson access rules:
+  //   - lesson.preview === true: always unlocked (free intro lessons)
+  //   - org plan === 'engaged': all lessons unlocked
+  //   - otherwise: locked (free user trying to access a non-preview lesson)
+  const plan = await getCurrentOrgPlan();
+  const locked = !lesson.preview && !plan?.isEngaged;
 
   return (
     <>

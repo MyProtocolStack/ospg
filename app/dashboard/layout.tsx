@@ -10,30 +10,37 @@ import {
   Calendar,
   Settings,
   LogOut,
+  Lock,
+  ArrowUpRight,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { BRAND } from "@/lib/brand";
+import { getCurrentOrgPlan } from "@/lib/org-plan";
 import { signOut } from "./actions";
 import { MobileMenu } from "./mobile-menu";
 
 export const metadata = { title: "Dashboard" };
 
+// Nav items with `engagedOnly: true` are gated for free-tier users:
+// they appear in the sidebar with a lock icon, but clicking lands on
+// the LockedFeature page in that route. Free-tier users still see them
+// so they understand what unlocks.
 const NAV_GROUPS = [
   {
     label: "Operations",
     items: [
-      { href: "/dashboard", icon: LayoutDashboard, label: "Overview" },
-      { href: "/dashboard/praesidium", icon: Camera, label: "PRAESIDIUM" },
-      { href: "/dashboard/pilot", icon: Compass, label: "PILOT (Grants)" },
-      { href: "/dashboard/courses", icon: GraduationCap, label: "Courses" },
-      { href: "/dashboard/bookings", icon: Calendar, label: "Bookings" },
+      { href: "/dashboard", icon: LayoutDashboard, label: "Overview", engagedOnly: false },
+      { href: "/dashboard/praesidium", icon: Camera, label: "PRAESIDIUM", engagedOnly: false },
+      { href: "/dashboard/pilot", icon: Compass, label: "PILOT (Grants)", engagedOnly: false },
+      { href: "/dashboard/courses", icon: GraduationCap, label: "Courses", engagedOnly: false },
+      { href: "/dashboard/bookings", icon: Calendar, label: "Bookings", engagedOnly: true },
     ],
   },
   {
     label: "Account",
     items: [
-      { href: "/dashboard/billing", icon: CreditCard, label: "Billing" },
-      { href: "/dashboard/settings", icon: Settings, label: "Settings" },
+      { href: "/dashboard/billing", icon: CreditCard, label: "Billing", engagedOnly: false },
+      { href: "/dashboard/settings", icon: Settings, label: "Settings", engagedOnly: false },
     ],
   },
 ];
@@ -128,6 +135,20 @@ export default async function DashboardLayout({
     }
   }
 
+  // Fetch the user's org plan so we can show the engagement-status pill
+  // and lock icons next to gated nav items. Defensive: never throws.
+  let isEngaged = false;
+  let planLabel = "Trial Account";
+  try {
+    const planStatus = await getCurrentOrgPlan();
+    if (planStatus) {
+      isEngaged = planStatus.isEngaged;
+      planLabel = planStatus.labels.badge;
+    }
+  } catch (e) {
+    console.error("dashboard layout plan fetch error:", e);
+  }
+
   // IMPORTANT: do NOT spread `i` here. Each NAV_GROUPS item contains an
   // `icon` field that holds a Lucide component (a function). Functions
   // cannot be serialized across the server-to-client boundary, so passing
@@ -139,6 +160,7 @@ export default async function DashboardLayout({
       href: i.href,
       label: i.label,
       group: g.label,
+      engagedOnly: i.engagedOnly,
     }))
   );
 
@@ -176,14 +198,22 @@ export default async function DashboardLayout({
               <ul className="space-y-0.5">
                 {group.items.map((item) => {
                   const Icon = item.icon;
+                  const showLock = item.engagedOnly && !isEngaged;
                   return (
                     <li key={item.href}>
                       <Link
                         href={item.href}
                         className="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-[14px] text-[var(--color-silver-100)] hover:bg-white/5 hover:text-[var(--color-cream)] transition-colors"
+                        title={showLock ? "Engaged client only" : undefined}
                       >
                         <Icon className="h-4 w-4 text-[var(--color-silver-300)] group-hover:text-[var(--color-gold-400)] transition-colors" strokeWidth={1.5} />
-                        {item.label}
+                        <span className="flex-1">{item.label}</span>
+                        {showLock && (
+                          <Lock
+                            className="h-3 w-3 text-[var(--color-silver-400)]"
+                            strokeWidth={1.7}
+                          />
+                        )}
                       </Link>
                     </li>
                   );
@@ -193,8 +223,44 @@ export default async function DashboardLayout({
           ))}
         </nav>
 
-        {/* User block + logout */}
+        {/* User block + plan status + logout */}
         <div className="px-3 py-4 border-t border-white/5">
+          {/* Engagement status pill */}
+          <div className="px-2 mb-3">
+            <div
+              className={`flex items-center justify-between gap-2 px-3 py-2 rounded-lg border ${
+                isEngaged
+                  ? "border-[var(--color-gold-400)]/30 bg-[var(--color-gold-400)]/5"
+                  : "border-white/10 bg-white/[0.02]"
+              }`}
+            >
+              <div className="min-w-0">
+                <p className="text-[9px] uppercase tracking-[0.18em] text-[var(--color-silver-400)] mb-0.5">
+                  Status
+                </p>
+                <p
+                  className={`text-[12px] font-medium truncate ${
+                    isEngaged
+                      ? "text-[var(--color-gold-400)]"
+                      : "text-[var(--color-silver-100)]"
+                  }`}
+                >
+                  {planLabel}
+                </p>
+              </div>
+              {!isEngaged && (
+                <Link
+                  href="/upgrade"
+                  className="text-[11px] text-[var(--color-gold-400)] hover:text-[var(--color-gold-300)] transition-colors flex items-center gap-0.5 shrink-0"
+                  title="Unlock full access"
+                >
+                  Upgrade
+                  <ArrowUpRight className="h-3 w-3" strokeWidth={1.7} />
+                </Link>
+              )}
+            </div>
+          </div>
+
           <div className="flex items-center gap-3 px-3 py-2 mb-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-gold-400)] to-[var(--color-gold-600)] flex items-center justify-center font-display text-sm text-[var(--color-navy-700)]">
               {displayName.slice(0, 1).toUpperCase()}
@@ -220,6 +286,8 @@ export default async function DashboardLayout({
         navItems={navItems}
         displayName={displayName}
         userEmail={userEmail}
+        isEngaged={isEngaged}
+        planLabel={planLabel}
       />
 
       <main className="flex-1 lg:ml-0 mt-14 lg:mt-0">{children}</main>

@@ -157,29 +157,50 @@ export async function POST(request: NextRequest) {
   }
   const orgId = membership.org_id as string;
 
+  // Look up org plan from the existing plan_tier enum. Engaged plans are
+  // shield / subscriber / enterprise (paid clients). Free / walkthrough
+  // are still evaluator tier and subject to the quota.
+  let isEngaged = false;
+  try {
+    const { data: org } = await supabase
+      .from("orgs")
+      .select("plan")
+      .eq("id", orgId)
+      .maybeSingle();
+    const plan = org && (org as { plan?: string }).plan;
+    if (plan === "shield" || plan === "subscriber" || plan === "enterprise") {
+      isEngaged = true;
+    }
+  } catch {
+    isEngaged = false;
+  }
+
   // Free-tier quota: count completed assessments for this org and reject
   // additional uploads once the limit is reached. UX gates before users
   // ever hit this, but we enforce server-side as defense in depth.
-  const { count: completedCount } = await supabase
-    .from("assessments")
-    .select("id", { count: "exact", head: true })
-    .eq("org_id", orgId)
-    .eq("status", "complete");
+  // Engaged orgs skip this check.
+  if (!isEngaged) {
+    const { count: completedCount } = await supabase
+      .from("assessments")
+      .select("id", { count: "exact", head: true })
+      .eq("org_id", orgId)
+      .eq("status", "complete");
 
-  if (
-    completedCount !== null &&
-    completedCount >= FREE_ANALYSIS_LIMIT
-  ) {
-    return NextResponse.json(
-      {
-        error:
-          "Free analysis limit reached. Book a SHIELD walkthrough to continue, or contact us to extend access.",
-        quota_exhausted: true,
-        used: completedCount,
-        limit: FREE_ANALYSIS_LIMIT,
-      },
-      { status: 402 }
-    );
+    if (
+      completedCount !== null &&
+      completedCount >= FREE_ANALYSIS_LIMIT
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Free analysis limit reached. Book a SHIELD walkthrough to continue, or contact us to extend access.",
+          quota_exhausted: true,
+          used: completedCount,
+          limit: FREE_ANALYSIS_LIMIT,
+        },
+        { status: 402 }
+      );
+    }
   }
 
   // Parse multipart form

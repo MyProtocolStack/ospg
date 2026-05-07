@@ -1,10 +1,32 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { NewBookingForm } from "./form";
+import { getCurrentOrgPlan } from "@/lib/org-plan";
+import { LockedFeature } from "@/app/components/LockedFeature";
 
 export const metadata = { title: "Request Security Detail" };
+export const dynamic = "force-dynamic";
 
-export default function NewBookingPage() {
+export default async function NewBookingPage() {
+  // Security details (uniformed presence by retired LE / military veterans)
+  // are an engaged-client feature. Free users cannot book details directly -
+  // they're routed to /walkthrough first, which is the conversion path.
+  const plan = await getCurrentOrgPlan();
+  if (!plan?.isEngaged) {
+    return (
+      <LockedFeature
+        feature="Security detail booking"
+        description="OSPG security details - retired law enforcement and military veterans for events, dispersal coverage, VIP visits - are coordinated for active engagement clients. New visitors start with a free walkthrough so we can match the right operators to your specific environment."
+        unlocks={[
+          "Vetted retired LE / military veteran operators",
+          "Mass dispersal, event coverage, VIP visits, after-hours patrol",
+          "Coordinated, insured, and accountable through OSPG",
+          "Direct dashboard booking with operator profiles and confirmations",
+        ]}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen p-6 lg:p-12">
       <div className="max-w-3xl mx-auto">
