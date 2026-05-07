@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { BRAND } from "@/lib/brand";
 import { COURSES } from "@/lib/courses";
 import { VERTICALS } from "@/lib/verticals";
+import { BLOG_POSTS } from "@/lib/blog-posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = BRAND.url;
@@ -13,8 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/founders",
     "/contact",
     "/walkthrough",
+    "/services",
+    "/services/security-detail",
+    "/pricing",
     "/courses",
     "/shield-ai",
+    "/blog",
     "/login",
     "/signup",
     "/legal/privacy",
@@ -26,6 +31,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "weekly" as const,
     priority: path === "" ? 1.0 : 0.8,
+  }));
+
+  const blog = BLOG_POSTS.map((p) => ({
+    url: `${base}/blog/${p.slug}`,
+    lastModified: new Date(p.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
   const verticals = VERTICALS.map((v) => ({
@@ -50,5 +62,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ]);
 
-  return [...staticRoutes, ...verticals, ...courses];
+  return [...staticRoutes, ...verticals, ...courses, ...blog];
 }

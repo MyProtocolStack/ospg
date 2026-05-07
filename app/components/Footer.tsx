@@ -6,7 +6,8 @@ const FOOTER_GROUPS = [
   {
     label: "Services",
     links: [
-      { href: "/services/shield-assessment", label: "SHIELD™ Assessment" },
+      { href: "/services", label: "All Services" },
+      { href: "/walkthrough", label: "SHIELD™ Assessment" },
       { href: "/services/security-detail", label: "Security Detail" },
       { href: "/shield-ai", label: "SHIELD AI Photo Analysis" },
       { href: "/grants", label: "FEMA NSGP Grant Help" },
@@ -25,7 +26,7 @@ const FOOTER_GROUPS = [
     links: [
       { href: "/about", label: "About" },
       { href: "/founders", label: "Founders" },
-      { href: "/case-studies", label: "Case Studies" },
+      { href: "/pricing", label: "Pricing" },
       { href: "/blog", label: "Threat Intelligence" },
       { href: "/contact", label: "Contact" },
     ],
