@@ -36,7 +36,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blog = BLOG_POSTS.map((p) => ({
     url: `${base}/blog/${p.slug}`,
-    lastModified: new Date(p.publishedAt),
+    // Prefer lastReviewedAt over publishedAt - that is the freshness
+    // signal Google actually uses to decide whether to re-crawl.
+    lastModified: new Date(p.lastReviewedAt || p.publishedAt),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
