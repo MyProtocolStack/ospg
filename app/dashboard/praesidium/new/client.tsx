@@ -33,6 +33,10 @@ type AnalysisResult = {
   findings: Finding[];
   overall_severity: Severity;
   area_label: string;
+  /** Set when persistence to Supabase succeeded. Used to enable PDF download. */
+  assessment_id?: string | null;
+  /** Signed photo URL returned by /api/praesidium/analyze (7d). */
+  photo_url?: string | null;
 };
 
 const SEVERITY_STYLES: Record<Severity, { color: string; bg: string; border: string; label: string }> = {
@@ -446,10 +450,28 @@ function ResultView({
           <ImageIcon className="h-4 w-4" />
           New Analysis
         </button>
-        <button className="btn-primary">
-          <Download className="h-4 w-4" />
-          Download PDF Report
-        </button>
+        {result.assessment_id ? (
+          <a
+            href={`/api/praesidium/${result.assessment_id}/pdf`}
+            className="btn-primary"
+            // download attribute hints at file save; the API also sets
+            // Content-Disposition: attachment so this is belt + suspenders
+            download
+          >
+            <Download className="h-4 w-4" />
+            Download PDF Report
+          </a>
+        ) : (
+          <button
+            className="btn-primary opacity-60 cursor-not-allowed"
+            type="button"
+            disabled
+            title="PDF download is available once the analysis is saved to your account"
+          >
+            <Download className="h-4 w-4" />
+            PDF Unavailable
+          </button>
+        )}
         <Link href="/dashboard/pilot" className="btn-secondary">
           <Camera className="h-4 w-4" />
           Use This for FEMA Grant

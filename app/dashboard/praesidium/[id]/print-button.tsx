@@ -1,30 +1,87 @@
 "use client";
 
-import { Printer } from "lucide-react";
+import { Download, Loader2 } from "lucide-react";
+import { useState } from "react";
 
 /**
- * Print-to-PDF button for assessment detail pages.
+ * Server-rendered PDF download for an assessment.
  *
- * Uses the browser's native print dialog. Combined with the print:
- * styles in globals.css, the rendered PDF hides the dashboard chrome
- * (sidebar, topbar, footer actions) and shows the assessment content
- * with a light-mode color scheme suitable for paper or sharing.
+ * Calls /api/praesidium/[id]/pdf which renders the report with
+ * @react-pdf/renderer and returns application/pdf. Result is a real,
+ * email-attachable PDF file - not a browser-print hack.
  *
- * Why not server-side PDF generation: avoids @react-pdf/renderer or
- * puppeteer, both of which add deployment complexity and bundle weight
- * for a feature most users will exercise rarely. Browser print is good
- * enough at this stage; we can swap to server PDF when we need
- * email-attachable reports.
+ * Falls back to window.print() if the server endpoint errors out, so
+ * users always have a way to capture the report.
  */
-export function PrintReportButton() {
+export function PrintReportButton({ assessmentId }: { assessmentId: string }) {
+  const [downloading, setDownloading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleDownload() {
+    setError(null);
+    setDownloading(true);
+    try {
+      const res = await fetch(`/api/praesidium/${assessmentId}/pdf`, {
+        method: "GET",
+      });
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({}));
+        throw new Error(errBody.error || `PDF generation failed (${res.status})`);
+      }
+
+      // Pull the filename from Content-Disposition if present, otherwise
+      // synthesize one from the assessment id.
+      const cd = res.headers.get("Content-Disposition") || "";
+      const match = cd.match(/filename="?([^";]+)"?/);
+      const filename = match
+        ? match[1]
+        : `praesidium-report-${assessmentId.slice(0, 8)}.pdf`;
+
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error("PDF download failed, falling back to print:", e);
+      setError(e instanceof Error ? e.message : "Download failed");
+      // Last-resort fallback: trigger the browser's native print dialog.
+      // The page has print: styles that strip dashboard chrome.
+      window.print();
+    } finally {
+      setDownloading(false);
+    }
+  }
+
   return (
-    <button
-      type="button"
-      onClick={() => window.print()}
-      className="btn-primary justify-center print:hidden"
-    >
-      <Printer className="h-4 w-4" />
-      Download as PDF
-    </button>
+    <div className="flex flex-col gap-1">
+      <button
+        type="button"
+        onClick={handleDownload}
+        disabled={downloading}
+        className="btn-primary justify-center print:hidden disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        {downloading ? (
+          <>
+            <Loader2 className="h-4 w-4 animate-spin" />
+            Generating PDF...
+          </>
+        ) : (
+          <>
+            <Download className="h-4 w-4" />
+            Download PDF Report
+          </>
+        )}
+      </button>
+      {error && (
+        <p className="text-[11px] text-[var(--color-silver-300)] mt-1">
+          {error}. Browser print dialog opened as fallback.
+        </p>
+      )}
+    </div>
   );
 }

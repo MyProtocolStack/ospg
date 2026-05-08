@@ -317,7 +317,7 @@ export default async function AssessmentDetailPage({
 
         {/* Footer actions */}
         <div className="flex flex-col sm:flex-row gap-3 mt-8 mb-12 print:hidden">
-          <PrintReportButton />
+          <PrintReportButton assessmentId={assessment.id} />
           <Link
             href="/dashboard/praesidium/new"
             className="btn-secondary justify-center"
