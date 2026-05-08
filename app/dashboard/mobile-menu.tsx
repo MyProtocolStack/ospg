@@ -17,6 +17,7 @@ import {
   Settings,
   Lock,
   ArrowUpRight,
+  Users,
 } from "lucide-react";
 import { signOut } from "./actions";
 
@@ -39,6 +40,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   "/dashboard/bookings": Calendar,
   "/dashboard/billing": CreditCard,
   "/dashboard/settings": Settings,
+  "/dashboard/admin": Users,
 };
 
 export function MobileMenu({

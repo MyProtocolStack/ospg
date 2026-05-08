@@ -12,10 +12,12 @@ import {
   LogOut,
   Lock,
   ArrowUpRight,
+  Users,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { BRAND } from "@/lib/brand";
 import { getCurrentOrgPlan } from "@/lib/org-plan";
+import { isAdmin } from "@/lib/admin";
 import { signOut } from "./actions";
 import { MobileMenu } from "./mobile-menu";
 
@@ -150,12 +152,33 @@ export default async function DashboardLayout({
   }
 
   // IMPORTANT: do NOT spread `i` here. Each NAV_GROUPS item contains an
-  // `icon` field that holds a Lucide component (a function). Functions
+  // Conditionally append the Admin group for OSPG founders / staff.
+  // isAdmin reads ADMIN_EMAILS env var with a hardcoded fallback for
+  // the founder mailbox.
+  const userIsAdmin = isAdmin(userEmail);
+  const effectiveNavGroups = userIsAdmin
+    ? [
+        ...NAV_GROUPS,
+        {
+          label: "Admin",
+          items: [
+            {
+              href: "/dashboard/admin",
+              icon: Users,
+              label: "Org Tiers",
+              engagedOnly: false,
+            },
+          ],
+        },
+      ]
+    : NAV_GROUPS;
+
+  // `icon` field holds a Lucide component (a function). Functions
   // cannot be serialized across the server-to-client boundary, so passing
   // them as props to the <MobileMenu> client component triggers a Server
   // Components render error. MobileMenu looks up icons from its own
   // ICON_MAP keyed by href - it doesn't need the function ref.
-  const navItems = NAV_GROUPS.flatMap((g) =>
+  const navItems = effectiveNavGroups.flatMap((g) =>
     g.items.map((i) => ({
       href: i.href,
       label: i.label,
@@ -190,7 +213,7 @@ export default async function DashboardLayout({
         </Link>
 
         <nav className="flex-1 px-3 py-6 space-y-6 overflow-y-auto">
-          {NAV_GROUPS.map((group) => (
+          {effectiveNavGroups.map((group) => (
             <div key={group.label}>
               <p className="px-3 mb-2 text-[10px] uppercase tracking-[0.2em] text-[var(--color-silver-400)]">
                 {group.label}
