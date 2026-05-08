@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/courses",
     "/praesidium",
     "/blog",
+    "/press",
     "/login",
     "/signup",
     "/legal/privacy",
