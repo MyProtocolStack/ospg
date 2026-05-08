@@ -7,6 +7,7 @@ const FOOTER_GROUPS = [
     label: "Services",
     links: [
       { href: "/services", label: "All Services" },
+      { href: "/readiness", label: "Readiness Diagnostic" },
       { href: "/walkthrough", label: "SHIELD Assessment" },
       { href: "/services/security-detail", label: "Security Detail" },
       { href: "/praesidium", label: "PRAESIDIUM Photo Analysis" },

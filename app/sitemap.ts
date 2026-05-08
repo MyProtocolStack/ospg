@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/upgrade",
     "/courses",
     "/praesidium",
+    "/readiness",
     "/blog",
     "/press",
     "/login",
