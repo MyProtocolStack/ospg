@@ -7,6 +7,8 @@ import {
   POST_CTA_CONFIG,
   type ContentBlock,
 } from "@/lib/blog-posts";
+import { BRAND } from "@/lib/brand";
+import { breadcrumbJsonLd, faqPageJsonLd } from "@/lib/schema";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -18,6 +20,35 @@ import {
   ShieldCheck,
   RefreshCw,
 } from "lucide-react";
+
+/**
+ * Walk the content blocks and pull out any h3 -> p pairs where the h3
+ * looks like a question (ends in "?"). Used to derive FAQPage schema
+ * automatically without duplicating data. Posts that intentionally
+ * have an FAQ section get rich-result eligibility for free.
+ */
+function extractFaqPairs(
+  content: ContentBlock[]
+): Array<{ question: string; answer: string }> {
+  const pairs: Array<{ question: string; answer: string }> = [];
+  for (let i = 0; i < content.length; i++) {
+    const block = content[i];
+    if (block.type !== "h3") continue;
+    const q = block.text.trim();
+    if (!q.endsWith("?")) continue;
+    // Find the next paragraph block as the answer.
+    for (let j = i + 1; j < content.length; j++) {
+      const next = content[j];
+      if (next.type === "p" && next.text.trim()) {
+        pairs.push({ question: q, answer: next.text.trim() });
+        break;
+      }
+      // Stop scanning if we hit another h2/h3 first
+      if (next.type === "h2" || next.type === "h3") break;
+    }
+  }
+  return pairs;
+}
 
 export function generateStaticParams() {
   return getAllPostSlugs().map((slug) => ({ slug }));
@@ -238,12 +269,37 @@ export default async function BlogPostPage({
   const reviewedRecently =
     post.lastReviewedAt && post.lastReviewedAt !== post.publishedAt;
 
+  // Breadcrumb structured data: Home -> Field Notes -> This post.
+  // Helps Google render breadcrumbs in SERP and improves entity context.
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: "Home", url: BRAND.url },
+    { name: "Field Notes", url: `${BRAND.url}/blog` },
+    { name: post.title, url: `${BRAND.url}/blog/${post.slug}` },
+  ]);
+
+  // FAQPage structured data: auto-derive from any h3-question + p-answer
+  // pairs in the post body. Posts with explicit FAQ sections (e.g. the
+  // NSGP grant guide) become eligible for FAQ rich results in SERP.
+  const faqPairs = extractFaqPairs(post.content);
+  const faqLd =
+    faqPairs.length > 0 ? faqPageJsonLd(faqPairs) : null;
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      {faqLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      )}
       <Navbar />
       <main>
         {/* Back link */}

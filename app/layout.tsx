@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { BRAND } from "@/lib/brand";
 import { ExitIntentPopup } from "./components/ExitIntentPopup";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -60,6 +61,24 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${baskerville.variable} h-full antialiased`}
     >
+      <head>
+        {/* Organization + LocalBusiness + WebSite structured data.
+            Tells Google we are a real RI-based business, what we
+            cover geographically, and what topics we have authority on.
+            Free, low-risk, compounds for entity recognition + AI search. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd()),
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         {children}
         <ExitIntentPopup />
